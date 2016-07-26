@@ -18,17 +18,8 @@ import {
 import style from './style';
 import Hot from '../page/hot/hot';
 import Sider from '../sider/sider';
+import Common from '../common/common';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-
-class k extends Component{
-    render(){
-        return(
-            <View>
-                <Text>23333333</Text>
-            </View>
-        );
-    }
-}
 
 class Tab extends Component{
     constructor(props){
@@ -130,15 +121,15 @@ class main extends Component{
             switch (value){
                 case 1:_navi = {
                     name: 'download',
-                    component: k
+                    component: Common
                 };break;
                 case 7:_navi = {
                     name: 'theme',
-                    component: k
+                    component: Common
                 };break;
                 case 8:_navi = {
                     name: 'setting',
-                    component: k
+                    component: Common
                 };break;
             }
             if (navigator) {
