@@ -18,7 +18,8 @@ module.exports = StyleSheet.create({
     },
     left:{
         marginVertical:15,
-        marginHorizontal:15
+        marginHorizontal:15,
+        position:"relative"
     },
     user:{
         flexDirection:"row",
@@ -37,22 +38,26 @@ module.exports = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         backgroundColor:"#A6D5FA",
-        width:44,
+        width:42,
         height:13,
         borderRadius:10,
         marginVertical:3
     },
     notification:{
-        position:"absolute",
-        top:0,
-        left:0
+        width:35,
+        height:35,
+        top:-150,
+        left:150
     },
     mode:{
-        position:"absolute"
-
+        width:35,
+        height:35,
+        top:-202,
+        left:205
     },
     wrapper:{
-        position:"absolute"
-
+        opacity:0.2,
+        top:-280,
+        left:80
     }
 });

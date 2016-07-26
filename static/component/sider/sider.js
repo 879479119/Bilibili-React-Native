@@ -1,9 +1,6 @@
 /**
  * Created by zi on 2016/7/25.
  */
-/**
- * Created by zi on 2016/7/23.
- */
 import React, { Component } from 'react';
 import {
     StyleSheet,
@@ -14,6 +11,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import style from './style';
+import List from './siderList'
 
 class sider extends Component{
     render(){
@@ -41,18 +39,24 @@ class sider extends Component{
                         </View>
                         <Text style={{color:"#A6D5FA",fontSize:14}}>硬币 : 297.1</Text>
                     </View>
-                    <TouchableWithoutFeedback style={style.notification}>
-                        <Image resizeMode={"contain"} style={{width:17}} source={require('./img/ic_navigation_header_notification.png')}/>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback style={style.mode}>
-                        <Image resizeMode={"contain"} style={{width:17}} source={require('./img/ic_switch_night.png')}/>
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback style={style.wrapper}>
-                        <Image resizeMode={"contain"} style={{width:130,height:150}} source={require('./img/bili_drawerbg_logined.png')}/>
-                    </TouchableWithoutFeedback>
+                    <View  style={style.notification}>
+                        <TouchableWithoutFeedback>
+                            <Image resizeMode={"contain"} style={{width:35,height:35}} source={require('./img/ic_navigation_header_notification.png')}/>
+                        </TouchableWithoutFeedback>
+                    </View>
+                    <View style={style.mode}>
+                        <TouchableWithoutFeedback>
+                            <Image resizeMode={"contain"} style={{width:35}} source={require('./img/ic_switch_night.png')}/>
+                        </TouchableWithoutFeedback>
+                    </View>
+                    <View style={style.wrapper}>
+                        <TouchableWithoutFeedback>
+                            <Image resizeMode={"contain"} style={{width:180}} source={require('./img/bili_drawerbg_logined.png')}/>
+                        </TouchableWithoutFeedback>
+                    </View>
                 </View>
                 <View style={style.body}>
-
+                    <List/>
                 </View>
             </ScrollView>
         );
