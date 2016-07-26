@@ -20,6 +20,16 @@ import Hot from '../page/hot/hot';
 import Sider from '../sider/sider';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
+class k extends Component{
+    render(){
+        return(
+            <View>
+                <Text>23333333</Text>
+            </View>
+        );
+    }
+}
+
 class Tab extends Component{
     constructor(props){
         super(props);
@@ -43,7 +53,6 @@ class Tab extends Component{
                 <Text
                     style={style.selectText}
                     onPress={()=>{
-                        console.log(this.props.index);
                         RCTDeviceEventEmitter.emit("clickTab",this.props.index);
                     }}
                 >{this.props.text}</Text>
@@ -113,7 +122,30 @@ class main extends Component{
             <Sider/>
         );
     }
-
+    componentDidMount(){
+        this.listener = RCTDeviceEventEmitter.addListener('to',(value)=> {
+            const {navigator} = this.props;
+            console.log(this, value);
+            let _navi = {};
+            switch (value){
+                case 1:_navi = {
+                    name: 'download',
+                    component: k
+                };break;
+                case 7:_navi = {
+                    name: 'theme',
+                    component: k
+                };break;
+                case 8:_navi = {
+                    name: 'setting',
+                    component: k
+                };break;
+            }
+            if (navigator) {
+                navigator.push(_navi);
+            }
+        });
+    }
     render(){
         return(
             <DrawerLayoutAndroid
@@ -155,8 +187,6 @@ class main extends Component{
                         <ViewPager/>
                     </View>
                 </View>
-
-
             </DrawerLayoutAndroid>
         );
     }

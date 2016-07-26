@@ -14,9 +14,12 @@ import style from './style';
 import List from './siderList'
 
 class sider extends Component{
+    constructor(props){
+        super(props);
+    }
     render(){
         return (
-            <ScrollView style={style.container}>
+            <ScrollView style={style.container} showsVerticalScrollIndicator={false}>
                 <View style={style.top}>
                     <View  style={style.left}>
                         <TouchableWithoutFeedback style={style.faceTouch}>
