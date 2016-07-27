@@ -12,17 +12,20 @@ import {
   BackAndroid,
   View,Text
 } from 'react-native';
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+// import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import main from './static/component/main/main';
+import splash from './static/component/splash/splash';
 
 var _navigator = null;
 
 class entrance extends Component{
-    
+    constructor(props){
+        super(props);
+    }
     render(){
         return(
             <Navigator
-                initialRoute={{name:"main",component:main}}
+                initialRoute={{name:"splash",component:splash}}
                 renderScene={
                     (route,navigator) =>{
                         _navigator = navigator;

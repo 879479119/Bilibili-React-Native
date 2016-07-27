@@ -32,6 +32,9 @@ class Tab extends Component{
             this.setState({value});
         });
     }
+    componentWillUnmount(){
+        //TODO:卸载事件绑定
+    }
     render(){
         return(
             <View style={(()=>{
@@ -110,16 +113,21 @@ var __navigator = null;
 class main extends Component{
     constructor(props){
         super(props);
-        this.state={value:1};
+        this.state={value:1,drawer:"close"};
         __navigator = this.props.navigator;
+    }
+    componentDidMount(){
+        this.listener = RCTDeviceEventEmitter.addListener('closeDrawer',()=>{
+            this._closeDrawer();
+        });
     }
     navigationView(){
         return(
             <Sider navi={__navigator}/>
         );
     }
-    componentDidMount(){
-
+    componentWillUnmount(){
+        //TODO:卸载事件绑定
     }
     _goDownload(){
         this.props.navigator.push({
@@ -127,9 +135,18 @@ class main extends Component{
             component:DownManager
         });
     }
+    _openDrawer(){
+        this._drawer.openDrawer();
+        this.state.drawer = "open";
+    }
+    _closeDrawer(){
+        this._drawer.closeDrawer();
+        this.state.drawer = "close";
+    }
     render(){
         return(
             <DrawerLayoutAndroid
+                ref={(drawer)=>this._drawer = drawer}
                 drawerWidth={260}
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
                 renderNavigationView={(()=>{return this.navigationView})()}
@@ -138,15 +155,15 @@ class main extends Component{
                     <View style={style.top}>
                         <View style={style.header}>
                             <View style={style.headerLeft}>
-                                <TouchableWithoutFeedback>
-                                    <Image source={require('./img/ic_navigation_drawer.png')} style={style.icon} resizeMode={"contain"}/>
-                                </TouchableWithoutFeedback>
-                                <TouchableWithoutFeedback>
-                                    <View style={{flexDirection:"row",width:200}}>
-                                        <View style={style.faceBorder}>
-                                            <Image source={require('./img/face.jpg')} style={style.face} resizeMode={"contain"}/>
+                                <TouchableWithoutFeedback onPress={this._openDrawer.bind(this)}>
+                                    <View style={{flexDirection:"row"}}>
+                                        <Image source={require('./img/ic_navigation_drawer.png')} style={style.icon} resizeMode={"contain"}/>
+                                        <View style={{flexDirection:"row",width:200}}>
+                                            <View style={style.faceBorder}>
+                                                <Image source={require('./img/face.jpg')} style={style.face} resizeMode={"contain"}/>
+                                            </View>
+                                            <Text style={style.username}>磊磊SAMA</Text>
                                         </View>
-                                        <Text style={style.username}>磊磊SAMA</Text>
                                     </View>
                                 </TouchableWithoutFeedback>
                             </View>

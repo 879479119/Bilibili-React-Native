@@ -9,6 +9,8 @@ import {
     Image,
     TouchableHighlight,
 } from 'react-native';
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+
 import style from './listStyle';
 
 import DownManager from '../downManager/downManager';
@@ -62,7 +64,7 @@ class Cell extends Component{
 
     }
     _press(){
-        console.log(this.props.navi);
+        RCTDeviceEventEmitter.emit("closeDrawer");
         let _navi = {};
         switch (this.index){
             case 1:_navi = {
