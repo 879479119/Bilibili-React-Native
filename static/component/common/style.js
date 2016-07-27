@@ -15,11 +15,12 @@ module.exports = StyleSheet.create({
         justifyContent:"space-between"
     },
     headerLeft:{
-        width:55,
-        height:55
+        // width:55,
+        height:55,
+        flexDirection:"row"
     },
     headerRight:{
-        flexDirection:"row",
+        flexDirection:"row"
     },
     touchable:{
         width:55,
@@ -27,5 +28,7 @@ module.exports = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center"
     },
-
+    text:{
+        marginHorizontal:10
+    }
 });

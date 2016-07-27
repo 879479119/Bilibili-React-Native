@@ -19,6 +19,7 @@ import style from './style';
 import Hot from '../page/hot/hot';
 import Sider from '../sider/sider';
 import Common from '../common/common';
+import DownManager from '../downManager/downManager';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 
 class Tab extends Component{
@@ -116,12 +117,12 @@ class main extends Component{
     componentDidMount(){
         this.listener = RCTDeviceEventEmitter.addListener('to',(value)=> {
             const {navigator} = this.props;
-            console.log(this, value);
+            
             let _navi = {};
             switch (value){
                 case 1:_navi = {
                     name: 'download',
-                    component: Common
+                    component: DownManager
                 };break;
                 case 7:_navi = {
                     name: 'theme',
