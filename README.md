@@ -32,4 +32,4 @@
 
 ### App实况截图
 ![主页面](http://7xsm7w.com1.z0.glb.clouddn.com/34.png)
-![侧面](http://7xsm7w.com1.z0.glb.clouddn.com/49.png)
+![侧 面](http://7xsm7w.com1.z0.glb.clouddn.com/49.png)
