@@ -10,7 +10,8 @@ import {
     TouchableHighlight,
 } from 'react-native';
 import style from './listStyle';
-import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+
+import DownManager from '../downManager/downManager';
 
 //之前用的闭包计数器，但是不一定准确，所以放弃使用
 var Counter=(function(){
@@ -57,12 +58,27 @@ class Cell extends Component{
         this.state = {selected:0};
     }
     componentDidMount(){
-
         this.index = this.props.index;
+
     }
     _press(){
-        RCTDeviceEventEmitter.emit("to",this.index);
-        
+        console.log(this.props.navi);
+        let _navi = {};
+        switch (this.index){
+            case 1:_navi = {
+                name: 'download',
+                component: DownManager
+            };break;
+            case 7:_navi = {
+                name: 'theme',
+                component: Common
+            };break;
+            case 8:_navi = {
+                name: 'setting',
+                component: Common
+            };break;
+        }
+        this.props.navi.push(_navi);
     }
     render(){
         let active = false;
@@ -90,18 +106,18 @@ class list extends Component{
             <View style={style.container}>
                 <View style={style.group}>
                     <Cell name={"首页"} index={0}/>
-                    <Cell name={"离线缓存"} index={1}/>
+                    <Cell name={"离线缓存"} index={1} navi={this.props.navi}/>
                 </View>
                 <View style={style.group}>
-                    <Cell name={"我的收藏"} index={2}/>
-                    <Cell name={"历史记录"} index={3}/>
-                    <Cell name={"关注的人"} index={4}/>
-                    <Cell name={"我的钱包"} index={5}/>
+                    <Cell name={"我的收藏"} index={2} navi={this.props.navi}/>
+                    <Cell name={"历史记录"} index={3} navi={this.props.navi}/>
+                    <Cell name={"关注的人"} index={4} navi={this.props.navi}/>
+                    <Cell name={"我的钱包"} index={5} navi={this.props.navi}/>
                 </View>
                 <View style={[{paddingVertical:10},style.group]}>
-                    <Cell name={"主题选择"} index={6}/>
-                    <Cell name={"应用推荐"} index={7}/>
-                    <Cell name={"设置与帮助"} index={8}/>
+                    <Cell name={"主题选择"} index={6} navi={this.props.navi}/>
+                    <Cell name={"应用推荐"} index={7} navi={this.props.navi}/>
+                    <Cell name={"设置与帮助"} index={8} navi={this.props.navi}/>
                 </View>
             </View>
         );

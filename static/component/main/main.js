@@ -104,38 +104,27 @@ class ViewPager extends Component{
     }
 }
 
+//这里实在是迫不得已，在navigationView里面的this指针都会转向Drawer
+var __navigator = null;
+
 class main extends Component{
     constructor(props){
         super(props);
         this.state={value:1};
+        __navigator = this.props.navigator;
     }
     navigationView(){
         return(
-            <Sider/>
+            <Sider navi={__navigator}/>
         );
     }
     componentDidMount(){
-        this.listener = RCTDeviceEventEmitter.addListener('to',(value)=> {
-            const {navigator} = this.props;
-            
-            let _navi = {};
-            switch (value){
-                case 1:_navi = {
-                    name: 'download',
-                    component: DownManager
-                };break;
-                case 7:_navi = {
-                    name: 'theme',
-                    component: Common
-                };break;
-                case 8:_navi = {
-                    name: 'setting',
-                    component: Common
-                };break;
-            }
-            if (navigator) {
-                navigator.push(_navi);
-            }
+
+    }
+    _goDownload(){
+        this.props.navigator.push({
+            name:"download",
+            component:DownManager
         });
     }
     render(){
@@ -143,7 +132,7 @@ class main extends Component{
             <DrawerLayoutAndroid
                 drawerWidth={260}
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
-                renderNavigationView={this.navigationView}
+                renderNavigationView={(()=>{return this.navigationView})()}
                 >
                 <View style={{flex:1}}>
                     <View style={style.top}>
@@ -162,15 +151,15 @@ class main extends Component{
                                 </TouchableWithoutFeedback>
                             </View>
                             <View style={style.headerRight}>
-                                <TouchableOpacity style={style.touchable}>
+                                <TouchableHighlight style={style.touchable} underlayColor="#4CA3E9" onPress={this._goDownload.bind(this)}>
                                     <Image source={require('./img/ic_menu_top_game_center.png')} style={{height:20,width:20}} resizeMode={"contain"}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={style.touchable}>
+                                </TouchableHighlight>
+                                <TouchableHighlight style={style.touchable} underlayColor="#4CA3E9" onPress={this._goDownload.bind(this)}>
                                     <Image source={require('./img/ic_toolbar_menu_download.png')} style={{height:16,width:16}} resizeMode={"contain"}/>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={style.touchable}>
-                                    <Image source={require('./img/ic_toolbar_menu_search.png')} style={{height:16,width:16,marginRight:5}} resizeMode={"contain"}/>
-                                </TouchableOpacity>
+                                </TouchableHighlight>
+                                <TouchableHighlight style={style.touchable} underlayColor="#4CA3E9" onPress={this._goDownload.bind(this)}>
+                                    <Image source={require('./img/ic_toolbar_menu_search.png')} style={{height:16,width:16}} resizeMode={"contain"}/>
+                                </TouchableHighlight>
                             </View>
                         </View>
                         <Selector/>

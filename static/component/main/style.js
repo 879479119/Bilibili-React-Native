@@ -18,16 +18,16 @@ module.exports = StyleSheet.create({
         height:55,
         flexDirection:"row",
         justifyContent:"space-between",
-        paddingTop:6,
+        // paddingTop:6,
         paddingBottom:6
     },
     headerLeft:{
-        flexDirection:"row"
-
+        flexDirection:"row",
+        paddingTop:11
     },
     headerRight:{
-        flexDirection:"row",
-        marginTop:8
+        flexDirection:"row"
+        // marginTop:8
     },
     icon:{
         height:12.5,
@@ -55,8 +55,12 @@ module.exports = StyleSheet.create({
         marginTop:6
     },
     touchable:{
-        height:20,
-        marginHorizontal:12
+        height:45,
+        width:45,
+        marginVertical:5,
+        marginHorizontal:2,
+        justifyContent:"center",
+        alignItems:"center"
     },
     iconRight:{
         width:24,
@@ -80,7 +84,6 @@ module.exports = StyleSheet.create({
         // justifyContent:"center",
         alignItems:"center",
         marginHorizontal:15
-
     },
     selectText:{
         textAlign:"center",

@@ -21,7 +21,7 @@ class common extends Component{
 
     }
     _backBtn(){
-        //TODO:返回功能
+        this.props.navi.pop();
     }
     render(){
         //TODO:这里面还有一个选择排序的框框，把他做成传入参数拓展吧
@@ -29,7 +29,7 @@ class common extends Component{
             <View style={{flex:1}}>
                 <View style={style.header}>
                     <View style={style.headerLeft}>
-                        <TouchableHighlight style={style.touchable} underlayColor={"#4197DB"} onPress={()=>{a = 0}}>
+                        <TouchableHighlight style={style.touchable} underlayColor={"#4197DB"} onPress={this._backBtn.bind(this)}>
                             <Image source={require('./img/abc_ic_ab_back_mtrl_am_alpha.png')} style={{width:24,height:24}} />
                         </TouchableHighlight>
                         {this.props.topAddition}

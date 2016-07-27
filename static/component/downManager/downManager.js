@@ -47,9 +47,9 @@ class Control extends Component{
                 <View style={{height:40,alignItems:"center",flexDirection:"row",justifyContent:"space-between"}}>
                     <View style={{alignItems:"center",flexDirection:"row"}}>
                         <View style={{borderRightColor:"#aaaaaa",borderRightWidth:1}}>
-                            <Text style={style.text}>全部开始</Text>
+                            <Text style={{marginHorizontal:10}}>全部开始</Text>
                         </View>
-                        <Text style={style.text}>编辑</Text>
+                        <Text style={{marginHorizontal:10}}>编辑</Text>
                     </View>
                     <View style={{right:10}}>
                         <Image source={require('./ic_action_download_refresh.png')} style={{width:18,height:18}}/>
@@ -75,6 +75,7 @@ class downManager extends Component{
     render(){
         return (
             <Common
+                navi={this.props.navigator}
                 topAddition={<DownPicker/>}
                 body={<Empty/>}
                 control={<Control/>}

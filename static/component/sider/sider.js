@@ -59,7 +59,7 @@ class sider extends Component{
                     </View>
                 </View>
                 <View style={style.body}>
-                    <List/>
+                    <List navi={this.props.navi}/>
                 </View>
             </ScrollView>
         );
