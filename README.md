@@ -1,6 +1,6 @@
 ## Bilibili客户端的ReactNative版本
 ---
-目前进度：实现控件跳转功能，activity之间的切换使用了事件监听器，**非常缓慢**，要改回传props。
+目前进度：添加了打开APP的欢迎页面；改成了使用props传递navigator进行跳转；做了下载页的页面和跳转；现在碰到一个问题就是没有用Android原生的抽屉组件，模拟进行滑动动作采集频率太低了，不能形成连贯的动作，**希望有想法的同学联系我！Q:2427322447**。
 
 ### 开发环境
 
@@ -31,5 +31,6 @@
 	+ 将应用移植到ios上
 
 ### App实况截图
-![主页面](http://7xsm7w.com1.z0.glb.clouddn.com/34.png)
-![侧 面](http://7xsm7w.com1.z0.glb.clouddn.com/49.png)
+![主页面](http://7xsm7w.com1.z0.glb.clouddn.com/0728175950.png)
+![侧 面](http://7xsm7w.com1.z0.glb.clouddn.com/8180010.png)
+![下载页](http://7xsm7w.com1.z0.glb.clouddn.com/28180022.png)

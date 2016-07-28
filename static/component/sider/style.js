@@ -43,21 +43,22 @@ module.exports = StyleSheet.create({
         borderRadius:10,
         marginVertical:3
     },
+    wrapper:{
+        opacity:0.2,
+        marginTop:-215,
+        marginLeft:80
+    },
     notification:{
         width:35,
         height:35,
-        top:-150,
-        left:150
+        marginTop:-217,
+        marginLeft:150
     },
     mode:{
         width:35,
         height:35,
-        top:-202,
-        left:205
-    },
-    wrapper:{
-        opacity:0.2,
-        top:-280,
-        left:80
+        marginTop:-53,
+        marginLeft:205
     }
+
 });

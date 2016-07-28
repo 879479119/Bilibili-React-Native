@@ -2,18 +2,44 @@
  * Created by zi on 2016/7/23.
  */
 import React, { Component } from 'react';
+//noinspection JSUnresolvedVariable
 import {
     StyleSheet,
     Text,
     View,
     Image,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    PanResponder,
 } from 'react-native';
 import style from './style';
 import Swiper from 'react-native-swiper';
 
+import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+
+
 class hot extends Component{
+    constructor(props){
+        super(props);
+        this.prevY = 0;
+    }
+    _scroll(evt){
+        let curY = evt.nativeEvent.pageY;
+        if(curY > this.prevY){
+            console.log("down");
+        }
+        this.prevY = curY;
+    }
+    componentWillMount() {
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onPanResponderMove: this._handlePanResponderMove
+        });
+    }
+    _handlePanResponderMove(e,gesture){
+        RCTDeviceEventEmitter.emit("scroll",gesture.dy);
+    }
     render(){
         return(
             <ScrollView
@@ -25,7 +51,12 @@ class hot extends Component{
                     colors={['#2196F3']}
                     progressBackgroundColor="#ffffff"
                     />
-                }>
+                }
+                onLayout={this._scroll.bind(this)}
+                onStartShouldSetResponder={()=>true}
+                onMoveShouldSetResponder={()=>true}
+                {...this._panResponder.panHandlers}
+            >
                 <View style={{height:1000,flex:1}}>
                     <Swiper style={style.wrapper}
                             showsPagination={true}
@@ -33,26 +64,8 @@ class hot extends Component{
                             loop={true}
                             height={113}
                             paginationStyle={{position:"absolute",marginRight:-300,bottom:10}}
-                            dot={<View style={{
-                                backgroundColor: '#ffffff',
-                                width: 5,
-                                height: 5,
-                                borderRadius: 10,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3
-                            }}/>}
-                            activeDot={<View style={{
-                                backgroundColor: '#007aff',
-                                width: 5,
-                                height: 5,
-                                borderRadius: 10,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3
-                            }}/>}
+                            dot={<View style={style.dot}/>}
+                            activeDot={<View style={style.activeDot}/>}
                     >
                         <View style={style.slide}>
                             <Image source={require('./img/19-59-16.jpg')} style={style.bannerImage} resizeMode={"contain"}/>

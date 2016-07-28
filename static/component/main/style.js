@@ -93,7 +93,6 @@ module.exports = StyleSheet.create({
     container:{
         backgroundColor:"#00bfff",
         flex:1,
-        // zIndex:9,
         position:"relative",
         top:95
     }

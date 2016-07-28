@@ -21,5 +21,25 @@ module.exports = StyleSheet.create({
         borderWidth:0
         // position: 'relative',
         // zIndex:101
+    },
+    dot:{
+        backgroundColor: '#ffffff',
+        width: 5,
+        height: 5,
+        borderRadius: 10,
+        marginLeft: 3,
+        marginRight: 3,
+        marginTop: 3,
+        marginBottom: 3
+    },
+    activeDot:{
+        backgroundColor: '#007aff',
+        width: 5,
+        height: 5,
+        borderRadius: 10,
+        marginLeft: 3,
+        marginRight: 3,
+        marginTop: 3,
+        marginBottom: 3
     }
 });

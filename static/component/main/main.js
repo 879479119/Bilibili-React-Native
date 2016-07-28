@@ -113,12 +113,16 @@ var __navigator = null;
 class main extends Component{
     constructor(props){
         super(props);
-        this.state={value:1,drawer:"close"};
+        this.state={value:1,drawer:"close",dy:0};
         __navigator = this.props.navigator;
     }
     componentDidMount(){
         this.listener = RCTDeviceEventEmitter.addListener('closeDrawer',()=>{
             this._closeDrawer();
+        });
+        this.listener2 = RCTDeviceEventEmitter.addListener('scroll',(dy)=>{
+            console.log(dy);
+            this.setState({offsetY:dy});
         });
     }
     navigationView(){
@@ -144,6 +148,7 @@ class main extends Component{
         this.state.drawer = "close";
     }
     render(){
+        //TODO:需要改成向上拉就能折叠的抽提效果，但是调用频率实在太低了不能做成连贯的动画
         return(
             <DrawerLayoutAndroid
                 ref={(drawer)=>this._drawer = drawer}
@@ -152,7 +157,7 @@ class main extends Component{
                 renderNavigationView={(()=>{return this.navigationView})()}
                 >
                 <View style={{flex:1}}>
-                    <View style={style.top}>
+                    <View style={{position:"absolute",flex:1,width:360,top:0}}>
                         <View style={style.header}>
                             <View style={style.headerLeft}>
                                 <TouchableWithoutFeedback onPress={this._openDrawer.bind(this)}>
@@ -181,7 +186,7 @@ class main extends Component{
                         </View>
                         <Selector/>
                     </View>
-                    <View style={style.container}>
+                    <View style={{backgroundColor:"#00bfff",flex:1,position:"relative",top:95}}>
                         <ViewPager/>
                     </View>
                 </View>
