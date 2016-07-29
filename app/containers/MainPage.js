@@ -7,7 +7,8 @@ import {
 	TextInput,
 	TouchableOpacity,
 	Text,
-	ToastAndroid
+	ToastAndroid,
+  Platform
 } from 'react-native'
 import LivePage from './LivePage'
 import RecommendPage from './RecommendPage'
@@ -26,8 +27,14 @@ class MainPage extends Component {
 
   render() {
     const {navigator} = this.props
-    return (
+
+    if(Platform.os === 'ios'){
       <View style={styles.container}>
+
+      </View>
+    } else {
+      return (
+        <View style={styles.container}>
         <ScrollableTabView
           tabBarActiveTextColor={'#fff'}
           tabBarInactiveTextColor={'#eee'}
@@ -42,7 +49,8 @@ class MainPage extends Component {
           <DiscoveryPage navigator={navigator} tabLabel="发现"/>
         </ScrollableTabView>
       </View>
-    )
+      )
+    }
   }
 }
 
