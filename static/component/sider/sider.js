@@ -43,7 +43,7 @@ class sider extends Component{
                     <View  style={style.left}>
                         <TouchableWithoutFeedback style={style.faceTouch}>
                             <View style={style.faceBorder}>
-                                <Image resizeMode={Image.resizeMode.contain} source={require('./img/face.jpg')} style={{borderRadius:35,width:70,height:70}}/>
+                                <Image resizeMode={Image.resizeMode.contain} source={require('./img/face.jpg')} style={{borderRadius:70,width:70,height:70}}/>
                             </View>
                         </TouchableWithoutFeedback>
                         <View style={style.user}>

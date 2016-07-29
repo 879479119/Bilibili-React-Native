@@ -28,7 +28,7 @@ module.exports = StyleSheet.create({
     faceTouch:{
     },
     faceBorder:{
-        borderRadius:36,
+        borderRadius:72,
         justifyContent:"center",
         width:72,
         height:72,

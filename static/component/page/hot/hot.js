@@ -24,11 +24,13 @@ class hot extends Component{
         this.prevY = 0;
     }
     _scroll(evt){
-        let curY = evt.nativeEvent.pageY;
-        if(curY > this.prevY){
-            console.log("down");
-        }
+        let curY = evt.nativeEvent.contentOffset.y;
+        // this.props.refresh._refresh(curY - this.prevY);
+        let main = this.props.refresh;
+        console.log(this.props.refresh);
+        main.setState({offsetY:(curY - this.prevY) * main.multi});
         this.prevY = curY;
+        main.prevY = main.state.offsetY;
     }
     componentWillMount() {
         this._panResponder = PanResponder.create({
@@ -52,10 +54,8 @@ class hot extends Component{
                     progressBackgroundColor="#ffffff"
                     />
                 }
-                onLayout={this._scroll.bind(this)}
-                onStartShouldSetResponder={()=>true}
-                onMoveShouldSetResponder={()=>true}
-                {...this._panResponder.panHandlers}
+                onScroll={this._scroll.bind(this)}
+
             >
                 <View style={{height:1000,flex:1}}>
                     <Swiper style={style.wrapper}

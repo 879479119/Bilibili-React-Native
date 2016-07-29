@@ -2,6 +2,7 @@
  * Created by zi on 2016/7/23.
  */
 import React, { Component } from 'react';
+//noinspection JSUnresolvedVariable
 import {
     StyleSheet,
     Text,
@@ -9,6 +10,8 @@ import {
     Image,
     ViewPagerAndroid,
     DrawerLayoutAndroid,
+    Dimensions,
+    PixelRatio,
     ScrollView,
     RefreshControl,
     TouchableWithoutFeedback,
@@ -88,7 +91,7 @@ class ViewPager extends Component{
                     <Text>2121</Text>
                 </View>
                 <View style={{flex:1}}>
-                    <Hot/>
+                    <Hot refresh={this.props.refresh}/>
                 </View>
                 <View>
                     <Text>2121</Text>
@@ -113,16 +116,13 @@ var __navigator = null;
 class main extends Component{
     constructor(props){
         super(props);
-        this.state={value:1,drawer:"close",dy:0};
+        this.multi = PixelRatio.get();
+        this.state = {value:1,drawer:"close",offsetY:0};
         __navigator = this.props.navigator;
     }
     componentDidMount(){
         this.listener = RCTDeviceEventEmitter.addListener('closeDrawer',()=>{
             this._closeDrawer();
-        });
-        this.listener2 = RCTDeviceEventEmitter.addListener('scroll',(dy)=>{
-            console.log(dy);
-            this.setState({offsetY:dy});
         });
     }
     navigationView(){
@@ -132,6 +132,11 @@ class main extends Component{
     }
     componentWillUnmount(){
         //TODO:卸载事件绑定
+    }
+    _refresh(dy){
+        console.log(this._refresh);
+        // this.prevY = this.state.offsetY;
+        // this.setState({offsetY:dy * this.multi});
     }
     _goDownload(){
         this.props.navigator.push({
@@ -149,6 +154,7 @@ class main extends Component{
     }
     render(){
         //TODO:需要改成向上拉就能折叠的抽提效果，但是调用频率实在太低了不能做成连贯的动画
+        let w = Dimensions.get("window").width * PixelRatio.get();
         return(
             <DrawerLayoutAndroid
                 ref={(drawer)=>this._drawer = drawer}
@@ -157,7 +163,7 @@ class main extends Component{
                 renderNavigationView={(()=>{return this.navigationView})()}
                 >
                 <View style={{flex:1}}>
-                    <View style={{position:"absolute",flex:1,width:360,top:0}}>
+                    <View style={{position:"absolute",flex:1,width:w,top: -this.prevY - this.state.offsetY}}>
                         <View style={style.header}>
                             <View style={style.headerLeft}>
                                 <TouchableWithoutFeedback onPress={this._openDrawer.bind(this)}>
@@ -187,7 +193,7 @@ class main extends Component{
                         <Selector/>
                     </View>
                     <View style={{backgroundColor:"#00bfff",flex:1,position:"relative",top:95}}>
-                        <ViewPager/>
+                        <ViewPager refresh={this}/>
                     </View>
                 </View>
             </DrawerLayoutAndroid>

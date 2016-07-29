@@ -15,8 +15,10 @@ import {
 // import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
 import main from './static/component/main/main';
 import splash from './static/component/splash/splash';
-
+//temp模块做调试的时候用
+import temp from './static/component/temp';
 var _navigator = null;
+
 
 class entrance extends Component{
     constructor(props){
@@ -25,7 +27,7 @@ class entrance extends Component{
     render(){
         return(
             <Navigator
-                initialRoute={{name:"splash",component:splash}}
+                initialRoute={{name:"splash",component:main}}
                 renderScene={
                     (route,navigator) =>{
                         _navigator = navigator;

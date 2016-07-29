@@ -1,9 +1,10 @@
 /**
  * Created by zi on 2016/7/23.
  */
-import {StyleSheet,Dimensions} from 'react-native';
+//noinspection JSUnresolvedVariable
+import {StyleSheet,Dimensions,PixelRatio} from 'react-native';
 
-let w = Dimensions.get("window").width;
+let w = Dimensions.get("window").width * PixelRatio.get();
 
 module.exports = StyleSheet.create({
     top:{
@@ -46,7 +47,7 @@ module.exports = StyleSheet.create({
     face:{
         height:31,
         width:31,
-        borderRadius:31
+        borderRadius:100 //非常的诡异，设置成31的时候，在高分辨率屏幕下不是圆角，所以大一点
     },
     username:{
         fontSize:16,
