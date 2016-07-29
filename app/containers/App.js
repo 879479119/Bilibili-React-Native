@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 import SplashScreen from './SplashScreen'
+import MainPage from './MainPage'
 
 
 export default class App extends Component {

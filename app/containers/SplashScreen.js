@@ -21,7 +21,7 @@ class SplashScreen extends Component{
     componentDidMount(){
         setTimeout(()=>{
             this.props.navigator.replace({
-                name:"home",
+                name:"MainPage",
             })
         },1000)
     }
