@@ -20,6 +20,8 @@ import DiscoveryPage from './DiscoveryPage'
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
+import {setting} from '../config'
+
 class MainPage extends Component {
   constructor (props){
     super(props)
@@ -38,7 +40,7 @@ class MainPage extends Component {
         <ScrollableTabView
           tabBarActiveTextColor={'#fff'}
           tabBarInactiveTextColor={'#eee'}
-          tabBarBackgroundColor={'#2196F3'}
+          tabBarBackgroundColor={setting.defaultThemeColor}
           tabBarUnderlineColor={'#fff'}
           scrollWithoutAnimation={true}>
           <LivePage navigator={navigator} tabLabel="直播"/>
