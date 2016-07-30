@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actions/common'
 
-const common = (state={}, action) => {
+const common = (state={ Theme: 'blue' }, action) => {
   const {type} = action
   switch (type) {
     case ActionTypes.HandleInputChange:

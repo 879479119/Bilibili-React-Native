@@ -1,3 +1,3 @@
 export default {
-  defaultThemeColor: '#2196F3'
+  blue: '#2196F3'
 }
