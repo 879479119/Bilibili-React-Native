@@ -1,3 +1,7 @@
+/*
+ * 抽屉视图
+ */
+
 import React, { Component, PropTypes} from 'react'
 import {
   StyleSheet,
@@ -39,6 +43,7 @@ class SliderScreen extends Component {
   }
 
   render() {
+    const {navigator} = this.props
     return (
       <View style={style.container}>
         <View style={[style.top,{backgroundColor: this.context.Theme}]}>
@@ -91,7 +96,7 @@ class SliderScreen extends Component {
           </View>
         </View>
         <View style={style.body}>
-          <List navi={this.props.navi}/>
+          <List navi={this.props.navigator} />
         </View>
       </View>
     )
