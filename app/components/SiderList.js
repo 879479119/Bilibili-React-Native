@@ -11,6 +11,17 @@ import {
 } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
+const Icon =[
+  require("../resource/ic_home_black_24dp.png"),
+  require("../resource/ic_file_download_black_24dp.png"),
+  require("../resource/ic_star_black_24dp.png"),
+  require("../resource/ic_history_black_24dp.png"),
+  require("../resource/ic_people_black_24dp.png"),
+  require("../resource/ic_account_balance_wallet_black_24dp.png"),
+  require("../resource/ic_color_lens_black_24dp.png"),
+  require("../resource/ic_shop_black_24dp.png"),
+  require("../resource/ic_settings_black_24dp.png")
+]
 
 //之前用的闭包计数器，但是不一定准确，所以放弃使用
 var Counter=(function(){
@@ -20,74 +31,45 @@ var Counter=(function(){
     }
 })()
 
-class icon {
-    constructor(){
-        this.sources = [
-            <Image source={require("../resource/ic_home_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_file_download_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_star_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_history_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_people_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_account_balance_wallet_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_color_lens_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_shop_black_24dp.png")}  style={style.icon}/>,
-            <Image source={require("../resource/ic_settings_black_24dp.png")}  style={style.icon}/>
-        ]
-        this.actSources = [
-            <Image source={require("../resource/ic_home_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_file_download_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_star_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_history_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_people_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_account_balance_wallet_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_color_lens_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_shop_black_24dp.png")}  style={style.actIcon}/>,
-            <Image source={require("../resource/ic_settings_black_24dp.png")}  style={style.actIcon}/>
-        ]
-    }
-    getImage(index,active){
-        return active? this.actSources[index]:this.sources[index]
-    }
-}
-
 class Cell extends Component{
+  static contextTypes = {
+    Theme: React.PropTypes.string.isRequired
+  }
+  constructor(props){
+      super(props)
+  }
 
-    constructor(props){
-        super(props)
-    }
+  _press = (index) => {
+    const {navi, handleSelected} = this.props
+    handleSelected(index)
+      switch (this.props.index){
+          case 1:navi.push({
+              name: 'DownloadPage',
+          })
+          break
+          case 6:navi.push({
+            name: 'ThemePage',
+          })
+          break
+          case 8:navi.push({
+            name: 'SettingPage',
+          })
+          break
+      }
+  }
 
-    _press = (index) => {
-      const {navi, handleSelected} = this.props
-      handleSelected(index)
-        switch (this.props.index){
-            case 1:navi.push({
-                name: 'DownloadPage',
-            })
-            break
-            case 6:navi.push({
-              name: 'ThemePage',
-            })
-            break
-            case 8:navi.push({
-              name: 'SettingPage',
-            })
-            break
-        }
-    }
-
-    render(){
-      const {index, active } = this.props
-        let temp = new icon
-        return(
-            <TouchableHighlight underlayColor={"#e0e0e0"} style={active === index ? style.activeTouch : style.touch}
-            onPress={() => this._press(index)}>
-                <View style={style.cell}>
-                  {temp.getImage(index, active === index)}
-                    <Text style={active === index ?style.activeText:{color:"#343434",marginLeft:30,marginTop:2}}>{this.props.name}</Text>
-                </View>
-            </TouchableHighlight>
-        )
-    }
+  render(){
+    const {index, active } = this.props
+      return(
+          <TouchableHighlight underlayColor={"#e0e0e0"} style={active === index ? style.activeTouch : style.touch}
+          onPress={() => this._press(index)}>
+              <View style={style.cell}>
+              <Image source={Icon[index]} style={index === active ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
+              <Text style={active === index ?style.activeText:{color:"#343434",marginLeft:30,marginTop:2}}>{this.props.name}</Text>
+              </View>
+          </TouchableHighlight>
+      )
+  }
 }
 
 class list extends Component{
@@ -207,7 +189,6 @@ let style = StyleSheet.create({
     actIcon:{
         width:25,
         height:25,
-        tintColor:"#4197DB"
     }
 })
 
