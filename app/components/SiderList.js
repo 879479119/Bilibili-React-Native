@@ -71,7 +71,7 @@ class Cell extends Component{
               source={Icon[index]}
               style={isSelect ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
             <Text
-              style={isSelect ?style.activeText:{color:"#343434",marginLeft:30,marginTop:2}}>
+              style={isSelect ? [style.activeText ,{color: this.context.Theme}]: style.defaultText}>
               {this.props.name}
             </Text>
           </View>
@@ -188,6 +188,11 @@ let style = StyleSheet.create({
         paddingHorizontal:15,
         justifyContent:"center",
         backgroundColor:"#d4d4d4"
+    },
+    defaultText:{
+      color:"#343434",
+      marginLeft:30,
+      marginTop:2
     },
     activeText:{
         marginLeft:30,

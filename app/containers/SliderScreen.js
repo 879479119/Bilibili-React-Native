@@ -64,9 +64,9 @@ class SliderScreen extends Component {
                       source={require('../resource/ic_user_male_border.png')}/>
               </View>
               <View style={style.status}>
-                  <Text style={{color:"#2196F3",fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
+                  <Text style={{color:this.context.Theme ,fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
               </View>
-              <Text style={{color:"#A6D5FA",fontSize:14}}>硬币 : 297.1</Text>
+              <Text style={{color:'rgba(255,255,255,0.6)',fontSize:14}}>硬币 : 297.1</Text>
           </View>
           <View style={style.wrapper}>
               <TouchableWithoutFeedback
@@ -135,7 +135,7 @@ const style = StyleSheet.create({
   status:{
       alignItems:"center",
       justifyContent:"center",
-      backgroundColor:"#A6D5FA",
+      backgroundColor:"rgba(255,255,255,0.7)",
       width:42,
       height:13,
       borderRadius:10,
