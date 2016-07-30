@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#EFF1F0',
   },
-  test: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
 })
 
 export default DownloadPage
