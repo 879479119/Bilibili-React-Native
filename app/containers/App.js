@@ -5,29 +5,24 @@ import {
   View,
   BackAndroid,
   StatusBar,
-  Platform
+  Platform,
+  ToastAndroid
 } from 'react-native'
 
 import SplashScreen from './SplashScreen'
 import MainPage from './MainPage'
-
+import DownloadPage from './DownloadPage'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
   }
 
-  conponentWillMount() {
-    if (Platform.OS === 'android') {
-	      BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid)
+  componentWillMount() {
+	  if (Platform.OS === 'android') {
+	    BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid)
 	  }
-  }
-
-  componentWillUnmount() {
-    if (Platform.OS === 'android') {
-      BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid)
-    }
-  }
+	}
 
   onBackAndroid = () => {
     const navigator = this.navigator
@@ -56,6 +51,10 @@ export default class App extends Component {
         break
         case 'MainPage':
           return <MainPage navigator={navigator}/>
+        break
+        case 'DownloadPage':
+          return <DownloadPage navigator={navigator} />
+        break
         default:
           return <View></View>
       }
