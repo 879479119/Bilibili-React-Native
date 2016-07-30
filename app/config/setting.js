@@ -1,4 +1,4 @@
 export default {
   blue: '#2196F3',
-  night: '#aaaaaa'
+  night: '#3b3b3b'
 }
