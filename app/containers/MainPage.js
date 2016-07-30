@@ -1,3 +1,7 @@
+/*
+ * 根页面
+ */
+
 import React, { Component } from 'react'
 import {
 	View,

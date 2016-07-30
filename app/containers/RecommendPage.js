@@ -1,3 +1,7 @@
+/*
+ * 推荐页
+ */
+
 import React, { Component, PropTypes} from 'react'
 import {
   StyleSheet,

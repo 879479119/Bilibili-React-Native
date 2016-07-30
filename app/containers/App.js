@@ -1,3 +1,7 @@
+/*
+ * 路由页
+ */
+
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -12,6 +16,8 @@ import {
 import SplashScreen from './SplashScreen'
 import MainPage from './MainPage'
 import DownloadPage from './DownloadPage'
+import SettingPage from './SettingPage'
+import ThemePage from './ThemePage'
 
 export default class App extends Component {
   constructor(props) {
@@ -54,6 +60,12 @@ export default class App extends Component {
         break
         case 'DownloadPage':
           return <DownloadPage navigator={navigator} />
+        break
+        case 'ThemePage':
+          return <ThemePage navigator={navigator} />
+        break
+        case 'SettingPage':
+          return <SettingPage navigator={navigator}/>
         break
         default:
           return <View></View>

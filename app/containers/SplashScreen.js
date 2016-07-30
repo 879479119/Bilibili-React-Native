@@ -1,5 +1,5 @@
 /**
- * Created by zi on 2016/7/27.
+ * App启动视图
  */
 
 import React, { Component } from 'react'
