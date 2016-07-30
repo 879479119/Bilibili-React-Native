@@ -19,17 +19,42 @@ import BangumiPage from './BangumiPage'
 import SectionPage from './SectionPage'
 import AttentionPage from './AttentionPage'
 import DiscoveryPage from './DiscoveryPage'
-
 import SliderScreen from './SliderScreen'
 
 import ToolBar from '../components/ToolBar'
 
-
 import {setting} from '../config'
+import {HandleInputChange} from '../actions/common'
+
+
 
 class MainPage extends Component {
   constructor (props){
     super(props)
+  }
+
+
+	/*
+	 * 定义全局Context， 子组件可通过context调用
+		clss Child extends Component{
+		static contextTypes = {
+			Theme: React.PropTypes.string.isRequired
+		},
+		render() {
+			return <View>{this.context.Theme}</View>;
+		}
+		}
+	 *
+	**/
+
+	static childContextTypes = {
+    Theme: React.PropTypes.string.isRequired
+  }
+
+	getChildContext = () => {
+    return {
+			Theme: setting[this.props.Theme]
+		}
   }
 
 	renderNavigatorView = () =>{
@@ -49,7 +74,7 @@ class MainPage extends Component {
 	}
 
   render() {
-    const {navigator} = this.props
+    const {navigator,Theme} = this.props
 
     if(Platform.os === 'ios'){
       <View style={styles.container}>
@@ -65,12 +90,13 @@ class MainPage extends Component {
 					>
 	        <View style={styles.container}>
 						<ToolBar
+
 							goDownload={this.goDownload}
 							openDrawer={this.openDrawer}/>
 		        <ScrollableTabView
 		          tabBarActiveTextColor={'#fff'}
 		          tabBarInactiveTextColor={'#eee'}
-		          tabBarBackgroundColor={setting.defaultThemeColor}
+		          tabBarBackgroundColor={setting[Theme]}
 		          tabBarUnderlineColor={'#fff'}
 		          scrollWithoutAnimation={true}>
 		          <LivePage navigator={navigator} tabLabel="直播"/>
@@ -100,4 +126,15 @@ let styles = StyleSheet.create({
 	}
 })
 
-export default MainPage
+function mapStateToProps(state) {
+	const {
+		common:	{Theme},
+	} = state
+	return {
+		Theme
+	}
+}
+
+export default connect(mapStateToProps,{
+	HandleInputChange
+})(MainPage)

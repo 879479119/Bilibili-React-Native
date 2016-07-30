@@ -17,6 +17,9 @@ import {
 const w = Dimensions.get("window").width
 
 class Toolbar extends Component {
+  static contextTypes = {
+    Theme: React.PropTypes.string.isRequired
+  }
 
   static PropTypes = {
     openDrawer: PropTypes.func,
@@ -32,7 +35,7 @@ class Toolbar extends Component {
       const { openDrawer, goDownload } = this.props
       return (
         <View style={styles.container}>
-            <View style={styles.header}>
+            <View style={[styles.header,{backgroundColor:this.context.Theme}]}>
                 <View style={styles.headerLeft}>
                     <TouchableWithoutFeedback onPress={() => this.props.openDrawer()}>
                         <View style={{flexDirection:"row"}}>
@@ -75,7 +78,6 @@ let styles = StyleSheet.create({
         width:w,
     },
     header:{
-        backgroundColor:"#2196F3",
         // flex:1,
         height:55,
         flexDirection:"row",
