@@ -60,14 +60,22 @@ class Cell extends Component{
 
   render(){
     const {index, active } = this.props
+    const isSelect = index === active ? true: false
       return(
-          <TouchableHighlight underlayColor={"#e0e0e0"} style={active === index ? style.activeTouch : style.touch}
+        <TouchableHighlight
+          underlayColor={"#e0e0e0"}
+          style={isSelect ? style.activeTouch : style.touch}
           onPress={() => this._press(index)}>
-              <View style={style.cell}>
-              <Image source={Icon[index]} style={index === active ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
-              <Text style={active === index ?style.activeText:{color:"#343434",marginLeft:30,marginTop:2}}>{this.props.name}</Text>
-              </View>
-          </TouchableHighlight>
+            <View style={style.cell}>
+            <Image
+              source={Icon[index]}
+              style={isSelect ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
+            <Text
+              style={isSelect ?style.activeText:{color:"#343434",marginLeft:30,marginTop:2}}>
+              {this.props.name}
+            </Text>
+          </View>
+        </TouchableHighlight>
       )
   }
 }
