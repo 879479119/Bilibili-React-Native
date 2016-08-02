@@ -1,5 +1,9 @@
 /**
+<<<<<<< HEAD
  * Created by zi on 2016/7/27.
+=======
+ * App启动视图
+>>>>>>> optimize
  */
 
 import React, { Component } from 'react'
@@ -21,13 +25,13 @@ class SplashScreen extends Component{
     componentDidMount(){
         setTimeout(()=>{
             this.props.navigator.replace({
-                name:"MainPage"
+                name:"MainPage",
             })
-        },3000)
+        },1000)
     }
 
     render(){
-        let {width,height} = Dimensions.get("window");
+        let {width,height} = Dimensions.get("window")
         return (
             <View style={{flex:1}}>
                 <StatusBar hidden={true}/>

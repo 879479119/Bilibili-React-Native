@@ -1,3 +1,6 @@
+/*
+ * 路由页
+ */
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -12,6 +15,8 @@ import {
 import SplashScreen from './SplashScreen'
 import MainPage from './MainPage'
 import DownloadPage from './DownloadPage'
+import SettingPage from './SettingPage'
+import ThemePage from './ThemePage'
 
 export default class App extends Component {
   constructor(props) {
@@ -71,8 +76,7 @@ export default class App extends Component {
   configureScene = (route, navigator) => {
     return Navigator.SceneConfigs.FadeAndroid
   };
-
-  render() {
+    render(){
     return (
       <View style={styles.container}>
         <Navigator

@@ -24,6 +24,7 @@ import Sider from '../sider/sider';
 import Common from '../common/common';
 import DownManager from '../downManager/downManager';
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
+import ScrollTabView from 'react-native-scrollable-tab-view'
 
 class Tab extends Component{
     constructor(props){

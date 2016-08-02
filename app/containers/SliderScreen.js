@@ -1,3 +1,7 @@
+/*
+ * 抽屉视图
+ */
+
 import React, { Component, PropTypes} from 'react'
 import {
   StyleSheet,
@@ -39,6 +43,7 @@ class SliderScreen extends Component {
   }
 
   render() {
+    const {navigator} = this.props;
     return (
       <View style={style.container}>
         <View style={[style.top,{backgroundColor: this.context.Theme}]}>
@@ -59,9 +64,9 @@ class SliderScreen extends Component {
                       source={require('../resource/ic_user_male_border.png')}/>
               </View>
               <View style={style.status}>
-                  <Text style={{color:"#2196F3",fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
+                  <Text style={{color:this.context.Theme ,fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
               </View>
-              <Text style={{color:"#A6D5FA",fontSize:14}}>硬币 : 297.1</Text>
+              <Text style={{color:'rgba(255,255,255,0.6)',fontSize:14}}>硬币 : 297.1</Text>
           </View>
           <View style={style.wrapper}>
               <TouchableWithoutFeedback
@@ -91,7 +96,7 @@ class SliderScreen extends Component {
           </View>
         </View>
         <View style={style.body}>
-          <List navi={this.props.navi}/>
+          <List navi={this.props.navigator} />
         </View>
       </View>
     )
@@ -99,9 +104,6 @@ class SliderScreen extends Component {
 }
 
 const style = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   container:{
         flex:1
   },

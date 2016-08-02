@@ -1,11 +1,12 @@
 ## Bilibili客户端的ReactNative版本
 ---
-目前进度：添加了打开APP的欢迎页面；改成了使用props传递navigator进行跳转；做了下载页的页面和跳转；现在碰到一个问题就是没有用Android原生的抽屉组件，模拟进行滑动动作采集频率太低了，不能形成连贯的动作，**希望有想法的同学联系我！Q:2427322447**。
+目前进度：合并分支，现在使用到了Redux框架（全靠Vai先森），利于管理整体主题；将上方的导航选项卡换为使用react-native-scrollable-tab-view插件，更加友好流畅；
 
 ### 开发环境
 
 + PLATFORM:    Windows
 + RN:   React-Native 0.29
++ FRAME:   Redux
 + IDE:   Webstorm
 + VM:   Genymotion
 

@@ -28,9 +28,11 @@ class Toolbar extends Component {
 
   render(){
     if(Platform.os === 'ios'){
-      <View style={styles.container}>
-
-      </View>
+        return(
+            <View style={styles.container}>
+            </View>
+        );
+      
     } else {
       const { openDrawer, goDownload } = this.props
       return (

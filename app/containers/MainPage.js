@@ -1,3 +1,7 @@
+/*
+ * 根页面
+ */
+
 import React, { Component } from 'react'
 import {
 	View,
@@ -58,8 +62,6 @@ class MainPage extends Component {
 		}
   	};
 
-
-
 	renderNavigatorView = () =>{
 		return (
 			<SliderScreen navigator={this.props.navigator}/>
@@ -84,7 +86,7 @@ class MainPage extends Component {
 			<View style={styles.container}>
 			</View>
 		);
-
+		
     } else {
       return (
 				<DrawerLayoutAndroid
@@ -101,7 +103,9 @@ class MainPage extends Component {
 		        <ScrollableTabView
 		          tabBarActiveTextColor={'#fff'}
 		          tabBarInactiveTextColor={'#eee'}
-		          tabBarBackgroundColor={'#2196F3' || setting[Theme]}
+				  
+		          tabBarBackgroundColor={setting[Theme]}
+
 		          tabBarUnderlineColor={'#fff'}
 		          scrollWithoutAnimation={true}>
 		          <LivePage navigator={navigator} tabLabel="直播"/>
