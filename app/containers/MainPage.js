@@ -8,7 +8,7 @@ import {
 	TouchableOpacity,
 	Text,
 	ToastAndroid,
-  Platform
+  	Platform
 } from 'react-native'
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'

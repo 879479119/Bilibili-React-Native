@@ -81,7 +81,7 @@ export default class App extends Component {
           configureScene={this.configureScene}
           renderScene={this.renderScene}
           initialRoute={{
-            name: 'MainPage'
+            name: 'SplashScreen'
           }}
           />
       </View>

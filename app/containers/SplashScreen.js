@@ -15,19 +15,19 @@ import {
 
 class SplashScreen extends Component{
     constructor(props){
-        super(props)
+        super(props);
         this.state = {splash:true}
     }
     componentDidMount(){
         setTimeout(()=>{
             this.props.navigator.replace({
-                name:"MainPage",
+                name:"MainPage"
             })
-        },1000)
+        },3000)
     }
 
     render(){
-        let {width,height} = Dimensions.get("window")
+        let {width,height} = Dimensions.get("window");
         return (
             <View style={{flex:1}}>
                 <StatusBar hidden={true}/>
