@@ -3,10 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "proxy": "node ./dev/proxyServer"
   },
   "dependencies": {
+    "humps": "^1.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.14.1",
+    "normalizr": "^2.2.1",
     "react": "15.2.0",
     "react-native": "0.29.0",
     "react-native-scrollable-tab-view": "^0.5.3",
