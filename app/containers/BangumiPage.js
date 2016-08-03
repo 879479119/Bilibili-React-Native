@@ -11,7 +11,7 @@ import {
 
 class BangumiPage extends Component {
 
-  render() {
+  render = () => {
     return (
       <View style={styles.container}>
         <Text style={styles.test}>
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#EFF1F0',
+    backgroundColor: '#EFF1F0'
   },
   test: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
-  },
-})
+    margin: 10
+  }
+});
 
 export default BangumiPage

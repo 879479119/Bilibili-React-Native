@@ -43,3 +43,4 @@ android/keystores/debug.keystore
 node_modules/*
 .idea/*
 .git/*
+.static/*

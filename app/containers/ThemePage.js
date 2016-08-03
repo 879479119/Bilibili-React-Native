@@ -2,34 +2,32 @@
  * 主题页
  */
 
- import React, { Component, PropTypes} from 'react'
- import {
-   StyleSheet,
-   View,
-   Text,
- } from 'react-native'
+import React, {Component, PropTypes} from 'react'
+import {
+	StyleSheet,
+	View,
+	Text,
+} from 'react-native'
 
+class ThemePage extends Component {
+	render = () => {
+		return (
+			<View style={styles.container}>
+				<Text style={styles.test}>
+					主题页
+				</Text>
+			</View>
+		)
+	}
+}
 
- class ThemePage extends Component {
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: '#EFF1F0'
+	}
+});
 
-   render() {
-     return (
-       <View style={styles.container}>
-         <Text style={styles.test}>
-           主题页
-         </Text>
-       </View>
-     )
-   }
- }
-
- const styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     justifyContent: 'center',
-     alignItems: 'center',
-     backgroundColor: '#EFF1F0',
-   },
- })
-
- export default ThemePage
+export default ThemePage

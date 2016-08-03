@@ -1,53 +1,7 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * @author RockSAMA,Vai
+ * @repo https://github.com/879479119/Bilibili-React-Native
  */
-//
-// import React, { Component } from 'react';
-// import {
-//   AppRegistry,
-//   StyleSheet,
-//   Navigator,
-//   BackAndroid,
-//   View,Text
-// } from 'react-native';
-// import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter';
-// import main from './static/component/main/main';
-// import splash from './static/component/splash/splash';
-//
-// var _navigator = null;
-//
-// class entrance extends Component{
-//     constructor(props){
-//         super(props);
-//     }
-//     render(){
-//         return(
-//             <Navigator
-//                 initialRoute={{name:"splash",component:splash}}
-//                 renderScene={
-//                     (route,navigator) =>{
-//                         _navigator = navigator;
-//                         let Component = route.component;
-//                         return <Component {...route.params} navigator={navigator} />
-//                     }
-//                 }
-//                 configureScene={() => Navigator.SceneConfigs.FadeAndroid}
-//             />
-//         );
-//     }
-// }
-//
-// BackAndroid.addEventListener("hardwareBackPress",()=>{
-//     if(_navigator && _navigator.getCurrentRoutes().length > 1){
-//         _navigator.pop();
-//         return true;
-//     }
-//     return false;
-// });
-//
-// AppRegistry.registerComponent('reactNative', () => entrance);
 
 import { AppRegistry } from 'react-native'
 import app from './app/main.js'
