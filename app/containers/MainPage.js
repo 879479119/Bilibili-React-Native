@@ -23,6 +23,7 @@ import BangumiPage from './BangumiPage'
 import SectionPage from './SectionPage'
 import AttentionPage from './AttentionPage'
 import DiscoveryPage from './DiscoveryPage'
+import DownloadPage from './DownloadPage'
 import SliderScreen from './SliderScreen'
 
 import ToolBar from '../components/ToolBar';
@@ -69,7 +70,8 @@ class MainPage extends Component {
 
 	goDownload = () => {
 		this.props.navigator.push({
-			name: 'DownloadPage'
+			component: DownloadPage,
+			Theme: setting[this.props.Theme]
 		})
 	};
 

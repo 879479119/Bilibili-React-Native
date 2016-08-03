@@ -12,15 +12,15 @@ import {
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
 
 const Icon = [
-	require("../resource/ic_home_black_24dp.png"),
-	require("../resource/ic_file_download_black_24dp.png"),
-	require("../resource/ic_star_black_24dp.png"),
-	require("../resource/ic_history_black_24dp.png"),
-	require("../resource/ic_people_black_24dp.png"),
-	require("../resource/ic_account_balance_wallet_black_24dp.png"),
-	require("../resource/ic_color_lens_black_24dp.png"),
-	require("../resource/ic_shop_black_24dp.png"),
-	require("../resource/ic_settings_black_24dp.png")
+	require("../resource/icons/ic_home_black_24dp.png"),
+	require("../resource/icons/ic_file_download_black_24dp.png"),
+	require("../resource/icons/ic_star_black_24dp.png"),
+	require("../resource/icons/ic_history_black_24dp.png"),
+	require("../resource/icons/ic_people_black_24dp.png"),
+	require("../resource/icons/ic_account_balance_wallet_black_24dp.png"),
+	require("../resource/icons/ic_color_lens_black_24dp.png"),
+	require("../resource/icons/ic_shop_black_24dp.png"),
+	require("../resource/icons/ic_settings_black_24dp.png")
 ];
 
 class Cell extends Component {

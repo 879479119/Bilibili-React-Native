@@ -42,11 +42,11 @@ class Toolbar extends Component {
 						<View style={styles.headerLeft}>
 							<TouchableWithoutFeedback onPress={() => this.props.openDrawer()}>
 								<View style={{flexDirection:"row"}}>
-									<Image source={require('../resource/ic_navigation_drawer.png')} style={styles.icon}
+									<Image source={require('../resource/icons/ic_navigation_drawer.png')} style={styles.icon}
 									       resizeMode={"contain"}/>
 									<View style={{flexDirection:"row",width:200}}>
 										<View style={styles.faceBorder}>
-											<Image source={require('../resource/face.jpg')} style={styles.face}
+											<Image source={require('../resource/pages/face.jpg')} style={styles.face}
 											       resizeMode={"contain"}/>
 										</View>
 										<Text style={styles.username}>磊磊SAMA</Text>
@@ -57,17 +57,17 @@ class Toolbar extends Component {
 						<View style={styles.headerRight}>
 							<TouchableHighlight style={styles.touchable} underlayColor="#4CA3E9"
 							                    onPress={() => this.props.goDownload()}>
-								<Image source={require('../resource/ic_menu_top_game_center.png')}
+								<Image source={require('../resource/icons/ic_menu_top_game_center.png')}
 								       style={{height:20,width:20}} resizeMode={"contain"}/>
 							</TouchableHighlight>
 							<TouchableHighlight style={styles.touchable} underlayColor="#4CA3E9"
 							                    onPress={() => this.props.goDownload()}>
-								<Image source={require('../resource/ic_toolbar_menu_download.png')}
+								<Image source={require('../resource/icons/ic_toolbar_menu_download.png')}
 								       style={{height:16,width:16}} resizeMode={"contain"}/>
 							</TouchableHighlight>
 							<TouchableHighlight style={styles.touchable} underlayColor="#4CA3E9"
 							                    onPress={() => this.props.goDownload()}>
-								<Image source={require('../resource/ic_toolbar_menu_search.png')}
+								<Image source={require('../resource/icons/ic_toolbar_menu_search.png')}
 								       style={{height:16,width:16}} resizeMode={"contain"}/>
 							</TouchableHighlight>
 						</View>
@@ -80,7 +80,7 @@ class Toolbar extends Component {
 
 let styles = StyleSheet.create({
 	container: {
-		width: w,
+		width: width,
 		height: 55
 	},
 	top: {

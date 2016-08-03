@@ -50,7 +50,7 @@ class SliderScreen extends Component {
 					<View style={style.left}>
 						<TouchableWithoutFeedback style={style.faceTouch}>
 							<View style={style.faceBorder}>
-								<Image resizeMode={Image.resizeMode.contain} source={require('../resource/face.jpg')}
+								<Image resizeMode={Image.resizeMode.contain} source={require('../resource/pages/face.jpg')}
 								       style={{borderRadius:35,width:70,height:70}}/>
 							</View>
 						</TouchableWithoutFeedback>
@@ -63,7 +63,7 @@ class SliderScreen extends Component {
 							<Image
 								resizeMode="contain"
 								style={{width:14,height:14,marginLeft:4,marginTop:3}}
-								source={require('../resource/ic_user_male_border.png')}/>
+								source={require('../resource/icons/ic_user_male_border.png')}/>
 						</View>
 						<View style={style.status}>
 							<Text
@@ -77,23 +77,23 @@ class SliderScreen extends Component {
 							onPressOut={()=> this._changeBili()}>
 							<View>
 								<Image resizeMode={"contain"} style={{width:180,opacity:this.state.bilibili?1:0}}
-								       source={require('../resource/bili_drawerbg_logined.png')}/>
+								       source={require('../resource/pages/bili_drawerbg_logined.png')}/>
 								<Image resizeMode={"contain"}
 								       style={{width:180,marginTop:-278,opacity:this.state.bilibili?0:1}}
-								       source={require('../resource/bili_drawerbg_not_logined.png')}/>
+								       source={require('../resource/pages/bili_drawerbg_not_logined.png')}/>
 							</View>
 						</TouchableWithoutFeedback>
 					</View>
 					<View style={style.notification}>
 						<TouchableOpacity onPress={()=> this._switchTheme()}>
 							<Image resizeMode={"contain"} style={{width:35,height:35}}
-							       source={require('../resource/ic_navigation_header_notification.png')}/>
+							       source={require('../resource/icons/ic_navigation_header_notification.png')}/>
 						</TouchableOpacity>
 					</View>
 					<View style={style.mode}>
 						<TouchableOpacity onPress={()=> this._switchTheme()}>
 							<Image resizeMode={"contain"} style={{width:35}}
-							       source={require('../resource/ic_switch_night.png')}/>
+							       source={require('../resource/icons/ic_switch_night.png')}/>
 						</TouchableOpacity>
 					</View>
 				</View>

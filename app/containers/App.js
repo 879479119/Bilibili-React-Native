@@ -29,7 +29,7 @@ export default class App extends Component {
 		}
 	}
 
-	onBackAndroid() {
+	onBackAndroid = () => {
 		const navigator = this.navigator;
 		const routes = navigator.getCurrentRoutes();
 
@@ -43,12 +43,11 @@ export default class App extends Component {
 		else {
 			ToastAndroid.show('再按一次退出', ToastAndroid.SHORT);
 			this.lastBackPressed = Date.now();
-
 			return true
 		}
-	}
+	};
 
-	renderScene(route, navigator) {
+	renderScene = (route, navigator) => {
 		if (route.name) {
 			switch (route.name) {
 				case 'SplashScreen':
@@ -71,10 +70,9 @@ export default class App extends Component {
 				<Component navigator={navigator} {...route.passProps}/>
 			);
 		}
-	}
-
+	};
 	configureScene = (route, navigator) => {
-		return Navigator.SceneConfigs.FadeAndroid
+		return Navigator.SceneConfigs.FadeAndroid;
 	};
 
 	render() {

@@ -31,7 +31,7 @@ class SplashScreen extends Component {
 		return (
 			<View style={{flex:1}}>
 				<StatusBar hidden={true}/>
-				<Image source={require('../resource/19-58-28.jpg')} style={{width:width,height:height}}/>
+				<Image source={require('../resource/posters/19-58-28.jpg')} style={{width:width,height:height}}/>
 			</View>
 		)
 	}
