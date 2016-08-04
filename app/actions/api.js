@@ -6,11 +6,10 @@ const API = {
 }
 
 function getHeader(){
-  return (
+  return {
        'Accept': 'application/json',
-       'Content-Type': 'application/json',
-     }
-   )
+       'Content-Type': 'application/json'
+   }
 }
 
 
@@ -23,7 +22,7 @@ function fetchBangumi() {
     [CALL_API]: {
       types: [ BANGUMI_REQUEST, BANGUMI_SUCCESS, BANGUMI_FAILURE ],
       endpoint: API.bangumi,
-      schema: Schemas.BANGUMI,
+      schema: Schemas.BANGUMI_LIST,
       request: {
         method: 'GET',
         headers: getHeader()
@@ -32,7 +31,7 @@ function fetchBangumi() {
   }
 }
 
-export const loadBangumi = () => {
+export function loadBangumi(){
   return (dispatch, getState) => {
 
     return dispatch(fetchBangumi())
@@ -54,7 +53,7 @@ function fetchUser(name) {
 }
 
 
-export function loadUser(name) {
+export const loadUser = (name) => {
   return (dispatch, getState) => {
 
     return dispatch(fetchUser(name))

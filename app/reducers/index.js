@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux'
 import common from './common'
 import paginate from './paginate'
-import ActionTypes from '../actions/data'
+import * as ActionTypes from '../actions/api'
+import merge from 'lodash/merge'
 
-function entities(state = { users: {}, videos: {} }, action) {
+function entities(state = { users: {}, bangumi: {} }, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
@@ -25,7 +26,9 @@ function entities(state = { users: {}, videos: {} }, action) {
 //   })
 // })
 
-export default combineReducers ({
+const rootReducer = combineReducers ({
   entities,
   common,
 })
+
+export default rootReducer
