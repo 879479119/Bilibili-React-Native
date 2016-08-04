@@ -8,10 +8,10 @@ import {
   Text,
 } from 'react-native'
 import {connect} from 'react-redux'
-import { loadBangumi } from '../actions/api'
+import { loadApiWithPath } from '../actions/api'
 
 function loadData(props){
-  props.loadBangumi()
+  props.loadApiWithPath('bangumi')
 }
 
 class BangumiPage extends Component {
@@ -51,6 +51,7 @@ function mapStateToProps(state) {
 	const {
 		entities:	{ bangumi },
 	} = state;
+
 	return {
 		Theme:state.common.Theme,
     bangumi: bangumi.bangumi
@@ -58,5 +59,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,{
-  loadBangumi
+  loadApiWithPath
 })(BangumiPage)

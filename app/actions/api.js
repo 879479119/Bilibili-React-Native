@@ -5,6 +5,10 @@ const API = {
   bangumi: 'http://bilibili-service.daoapp.io/bangumi'
 }
 
+const SCHEMAS = {
+  bangumi: 'BANGUMI'
+}
+
 function getHeader(){
   return {
        'Accept': 'application/json',
@@ -17,16 +21,12 @@ export const BANGUMI_REQUEST = 'BANGUMI_REQUEST'
 export const BANGUMI_SUCCESS = 'BANGUMI_SUCCESS'
 export const BANGUMI_FAILURE = 'BANGUMI_FAILURE'
 
-function fetchBangumi() {
+function fetchApiWithPath(path) {
   return {
     [CALL_API]: {
       types: [ BANGUMI_REQUEST, BANGUMI_SUCCESS, BANGUMI_FAILURE ],
-<<<<<<< d27ba69106237cf2bb5617141c43396aeca32b2a
-      schema: Schemas.BANGUMI,
-=======
-      endpoint: API.bangumi,
-      schema: Schemas.BANGUMI_LIST,
->>>>>>> 初步尝试拿数据
+      endpoint: API[path],
+      schema: Schemas[SCHEMAS[path]],
       request: {
         method: 'GET',
         headers: getHeader()
@@ -35,10 +35,10 @@ function fetchBangumi() {
   }
 }
 
-export function loadBangumi(){
+export function loadApiWithPath(path){
   return (dispatch, getState) => {
 
-    return dispatch(fetchBangumi())
+    return dispatch(fetchApiWithPath(path))
   }
 }
 
