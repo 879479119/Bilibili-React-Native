@@ -7,11 +7,22 @@ import {
   View,
   Text,
 } from 'react-native'
+import {connect} from 'react-redux'
+import { loadApiWithPath } from '../actions/api'
 
+function loadData(props){
+  props.loadApiWithPath('bangumi')
+}
 
 class BangumiPage extends Component {
 
-  render = () => {
+
+  componentDidMount(){
+    loadData(this.props)
+  }
+
+  render() {
+    const {bangumi} = this.props
     return (
       <View style={styles.container}>
         <Text style={styles.test}>
@@ -36,4 +47,17 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BangumiPage
+function mapStateToProps(state) {
+	const {
+		entities:	{ bangumi },
+	} = state;
+
+	return {
+		Theme:state.common.Theme,
+    bangumi: bangumi.bangumi
+	}
+}
+
+export default connect(mapStateToProps,{
+  loadApiWithPath
+})(BangumiPage)
