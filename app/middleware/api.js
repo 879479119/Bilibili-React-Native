@@ -1,4 +1,4 @@
-import { Schema, arrayOf, valuesOf, normalize } from 'normalizr'
+import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import Symbol from 'es6-symbol'
 
@@ -53,24 +53,6 @@ function callApi(endpoint, schema) {
 // leading to a frozen UI as it wouldn't find "someuser" in the entities.
 // That's why we're forcing lower cases down there.
 
-const userSchema = new Schema('users', {
-  idAttribute: 'author'
-})
-
-const bangumiSchema = new Schema('bangumi', {
-  idAttribute: bangumi => 'bangumi'
-})
-
-// bangumiSchema.define({
-//   owner: userSchema
-// })
-
-// Schemas for Github API responses.
-export const Schemas = {
-  USER: userSchema,
-  USER_ARRAY: arrayOf(userSchema),
-  BANGUMI: bangumiSchema
-}
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_API = Symbol('Call API')

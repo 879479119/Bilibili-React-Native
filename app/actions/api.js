@@ -1,5 +1,6 @@
-import { CALL_API, Schemas } from '../middleware/api'
-import { API, SCHEMAS } from '../config/constants'
+import { CALL_API } from '../middleware/api'
+import { Schemas, SCHEMAS } from '../config/Schemas'
+import { API } from '../config/constants'
 
 
 function getHeader(){
@@ -10,14 +11,14 @@ function getHeader(){
 }
 
 
-export const BANGUMI_REQUEST = 'BANGUMI_REQUEST'
-export const BANGUMI_SUCCESS = 'BANGUMI_SUCCESS'
-export const BANGUMI_FAILURE = 'BANGUMI_FAILURE'
+export const API_PATH_REQUEST_ = 'API_PATH_REQUEST_'
+export const API_PATH_SUCCESS_ = 'API_PATH_SUCCESS_'
+export const API_PATH_FAILURE_ = 'API_PATH_FAILURE_'
 
 function fetchApiWithPath(path) {
   return {
     [CALL_API]: {
-      types: [ BANGUMI_REQUEST, BANGUMI_SUCCESS, BANGUMI_FAILURE ],
+      types: [ API_PATH_REQUEST_, API_PATH_SUCCESS_, API_PATH_FAILURE_ ],
       endpoint: API[path],
       schema: Schemas[SCHEMAS[path]],
       request: {
