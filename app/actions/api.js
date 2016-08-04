@@ -1,8 +1,8 @@
 import { CALL_API, Schemas } from '../middleware/api'
 
 const API = {
-  base: 'http://api.bilibili.com',
-  bangumi: 'http://app.bilibili.com/bangumi/timeline_v2'
+  base: 'http://bilibili-service.daoapp.io',
+  bangumi: 'http://bilibili-service.daoapp.io/bangumi'
 }
 
 function getHeader(){
@@ -22,7 +22,7 @@ function fetchBangumi() {
   return {
     [CALL_API]: {
       types: [ BANGUMI_REQUEST, BANGUMI_SUCCESS, BANGUMI_FAILURE ],
-      endpoint: API['bangumi'],
+      endpoint: API.bangumi,
       schema: Schemas.BANGUMI,
       request: {
         method: 'GET',
