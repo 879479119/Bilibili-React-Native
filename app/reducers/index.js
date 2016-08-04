@@ -4,7 +4,7 @@ import paginate from './paginate'
 import * as ActionTypes from '../actions/api'
 import merge from 'lodash/merge'
 
-function entities(state = { users: {}, bangumi: {} }, action) {
+function entities(state = { users: {}, bangumi: {}, appindex:{} }, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
