@@ -1,6 +1,6 @@
-import { Schema, arrayOf, normalize } from 'normalizr'
+import { Schema, arrayOf, valuesOf, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
-import 'isomorphic-fetch'
+import Symbol from 'es6-symbol'
 
 // Extracts the next page URL from Github API response.
 function getNextPageUrl(response) {
@@ -57,8 +57,8 @@ const userSchema = new Schema('users', {
   idAttribute: 'author'
 })
 
-const bangumiSchema = new Schema('video', {
-  idAttribute: 'bangumi_id'
+const bangumiSchema = new Schema('bangumi', {
+  idAttribute: bangumi => 'bangumi'
 })
 
 // bangumiSchema.define({
@@ -69,17 +69,16 @@ const bangumiSchema = new Schema('video', {
 export const Schemas = {
   USER: userSchema,
   USER_ARRAY: arrayOf(userSchema),
-  BANGUMI: bangumiSchema,
-  BANGUMI_ARRAY: arrayOf(bangumiSchema)
+  BANGUMI: bangumiSchema
 }
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_API = Symbol('Call API')
-
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => action => {
   const callAPI = action[CALL_API]
+
   if (typeof callAPI === 'undefined') {
     return next(action)
   }

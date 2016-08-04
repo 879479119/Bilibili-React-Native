@@ -16,6 +16,11 @@ function loadData(props){
 
 class BangumiPage extends Component {
 
+
+  componentDidMount(){
+    loadData(this.props)
+  }
+
   render() {
     const {bangumi} = this.props
     return (
@@ -48,7 +53,7 @@ function mapStateToProps(state) {
 	} = state;
 	return {
 		Theme:state.common.Theme,
-    bangumi
+    bangumi: bangumi.bangumi
 	}
 }
 
