@@ -1,13 +1,6 @@
 import { CALL_API, Schemas } from '../middleware/api'
+import { API, SCHEMAS } from '../config/constants'
 
-const API = {
-  base: 'http://bilibili-service.daoapp.io',
-  bangumi: 'http://bilibili-service.daoapp.io/bangumi'
-}
-
-const SCHEMAS = {
-  bangumi: 'BANGUMI'
-}
 
 function getHeader(){
   return {
