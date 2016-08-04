@@ -3,6 +3,7 @@
  */
 import React, {Component, PropTypes} from 'react'
 import setting from '../config/setting';
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	Text,

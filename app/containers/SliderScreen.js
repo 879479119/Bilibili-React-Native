@@ -3,13 +3,15 @@
  */
 
 import React, {Component, PropTypes} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	View,
 	Text,
 	TouchableWithoutFeedback,
 	TouchableOpacity,
-	Image
+	Image,
+	AsyncStorage
 } from 'react-native'
 import {connect} from 'react-redux'
 
@@ -36,6 +38,8 @@ class SliderScreen extends Component {
 		} else {
 			handleInputChange('Theme', 'night', 'common')
 		}
+		// AsyncStorage.setItem("kk","pppp");
+		AsyncStorage.getItem("kk",(err,res) => {console.log(res+1)});
 	};
 
 	_changeBili = () => {
