@@ -1,8 +1,6 @@
-export const API = {
-  base: 'http://bilibili-service.daoapp.io',
-  bangumi: 'http://bilibili-service.daoapp.io/bangumi'
-}
+const baseAPI = 'http://bilibili-service.daoapp.io'
 
-export const SCHEMAS = {
-  bangumi: 'BANGUMI'
+export const API = {
+  bangumi: `${baseAPI}/bangumi`,
+  appindex: `${baseAPI}/appindex`
 }
