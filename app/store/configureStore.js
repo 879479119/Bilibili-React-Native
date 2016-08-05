@@ -8,6 +8,7 @@ const loggerMiddleware = createLogger({
 	predicate: (getState, action) => __DEV__
 });
 
+//性能调试和打包时删掉 loggerMiddleware
 export default function configureStore(initialState) {
 	return createStore(
 		rootReducer,

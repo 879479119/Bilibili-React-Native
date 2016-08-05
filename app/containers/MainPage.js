@@ -55,12 +55,7 @@ class MainPage extends Component {
 		 }
 	 }
 	 **/
-	componentWillReceiveProps(nextProps){
-		if(nextProps.activeTheme !== this.props.activeTheme){
-			this.status._updatePropsStack({background: this.props.activeTheme})
-			console.log(this.status)
-		}
-	}
+
 
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired
@@ -104,7 +99,6 @@ class MainPage extends Component {
 					renderNavigationView={this.renderNavigatorView}
 				>
 					<StatusBar
-						ref={status=> {this.status = status}}
 						backgroundColor={setting[activeTheme]} />
 					<View style={styles.container}>
 						<ToolBar
