@@ -29,11 +29,18 @@ import SliderScreen from './SliderScreen'
 import ToolBar from '../components/ToolBar';
 
 import setting from '../config/setting';
-import {HandleInputChange} from '../actions/common';
+import {HandleInputChange, loadStorageSetting} from '../actions/common';
 
 class MainPage extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentWillMount(){
+		this.props.loadStorageSetting(
+			'settingTheme',
+			'activeTheme'
+		)
 	}
 
 	/*
@@ -54,7 +61,7 @@ class MainPage extends Component {
 
 	getChildContext = () => {
 		return {
-			Theme: setting[this.props.Theme]
+			Theme: setting[this.props.activeTheme]
 		};
 	};
 
@@ -71,12 +78,11 @@ class MainPage extends Component {
 	goDownload = () => {
 		this.props.navigator.push({
 			component: DownloadPage,
-			Theme: setting[this.props.Theme]
 		})
 	};
 
 	render() {
-		let {navigator, Theme} = this.props;
+		let {navigator, activeTheme} = this.props;
 		Theme = 'blue';
 		if (Platform.os === 'ios') {
 			return (
@@ -98,7 +104,7 @@ class MainPage extends Component {
 						<ScrollableTabView
 							tabBarActiveTextColor={'#fff'}
 							tabBarInactiveTextColor={'#eee'}
-							tabBarBackgroundColor={setting[Theme]}
+							tabBarBackgroundColor={setting[activeTheme]}
 							tabBarUnderlineColor={'#fff'}
 							scrollWithoutAnimation={true}>
 							<LivePage navigator={navigator} tabLabel="直播"/>
@@ -130,13 +136,14 @@ let styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	const {
-		common:	{Theme},
+		common:	{activeTheme},
 	} = state;
 	return {
-		Theme
+		activeTheme
 	}
 }
 
 export default connect(mapStateToProps, {
-	HandleInputChange
+	HandleInputChange,
+	loadStorageSetting
 })(MainPage)

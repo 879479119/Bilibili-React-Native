@@ -21,7 +21,7 @@ export default class common extends Component{
 	static contextTypes = {
 		Theme: React.PropTypes.string.isRequired
 	};
-	
+
 	componentDidMount(){
 
 	}
