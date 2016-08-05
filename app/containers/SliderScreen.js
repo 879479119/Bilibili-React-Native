@@ -52,7 +52,7 @@ class SliderScreen extends Component {
 	render() {
 		const {navigator, activeTheme} = this.props;
 		return (
-			<View style={style.container}>
+			<View style={[style.container,{backgroundColor: activeTheme === 'night' ? '#3b3b3b' : '#fafafa'}]}>
 				<View style={[style.top,{backgroundColor: setting[activeTheme]}]}>
 					<View style={style.left}>
 						<TouchableWithoutFeedback style={style.faceTouch}>
