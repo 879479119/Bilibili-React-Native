@@ -12,7 +12,8 @@ import {
 	TouchableOpacity,
 	Text,
 	ToastAndroid,
-	Platform
+	Platform,
+	StatusBar
 } from 'react-native'
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -54,6 +55,12 @@ class MainPage extends Component {
 		 }
 	 }
 	 **/
+	componentWillReceiveProps(nextProps){
+		if(nextProps.activeTheme !== this.props.activeTheme){
+			this.status._updatePropsStack({background: this.props.activeTheme})
+			console.log(this.status)
+		}
+	}
 
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired
@@ -83,7 +90,6 @@ class MainPage extends Component {
 
 	render() {
 		let {navigator, activeTheme} = this.props;
-		Theme = 'blue';
 		if (Platform.os === 'ios') {
 			return (
 				<View style={styles.container}>
@@ -97,6 +103,9 @@ class MainPage extends Component {
 					drawerPosition={DrawerLayoutAndroid.positions.left}
 					renderNavigationView={this.renderNavigatorView}
 				>
+					<StatusBar
+						ref={status=> {this.status = status}}
+						backgroundColor={setting[activeTheme]} />
 					<View style={styles.container}>
 						<ToolBar
 							goDownload={this.goDownload}
