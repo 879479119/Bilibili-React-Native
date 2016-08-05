@@ -23,7 +23,7 @@ class SplashScreen extends Component {
 			this.props.navigator.replace({
 				name: "MainPage"
 			})
-		}, 1000)
+		}, 0)
 	}
 
 	render = () => {

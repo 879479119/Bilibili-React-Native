@@ -11,14 +11,14 @@ function getHeader(){
 }
 
 
-export const API_PATH_REQUEST_ = 'API_PATH_REQUEST_'
-export const API_PATH_SUCCESS_ = 'API_PATH_SUCCESS_'
-export const API_PATH_FAILURE_ = 'API_PATH_FAILURE_'
+export const API_PATH_REQUEST = 'API_PATH_REQUEST'
+export const API_PATH_SUCCESS = 'API_PATH_SUCCESS'
+export const API_PATH_FAILURE = 'API_PATH_FAILURE'
 
 function fetchApiWithPath(path) {
   return {
     [CALL_API]: {
-      types: [ API_PATH_REQUEST_, API_PATH_SUCCESS_, API_PATH_FAILURE_ ],
+      types: [ API_PATH_REQUEST, API_PATH_SUCCESS, API_PATH_FAILURE ],
       endpoint: API[path],
       schema: Schemas[SCHEMAS[path]],
       request: {
