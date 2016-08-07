@@ -17,12 +17,10 @@ import {connect} from 'react-redux'
 
 import List from '../components/SiderList'
 
-import {handleInputChange} from '../actions/common'
+import {handleThemeChange} from '../actions/common'
+import setting from '../config/setting'
 
 class SliderScreen extends Component {
-	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired
-	};
 
 	constructor(props) {
 		super(props);
@@ -31,12 +29,21 @@ class SliderScreen extends Component {
 		}
 	}
 
+	static childContextTypes = {
+		Theme: React.PropTypes.string.isRequired
+	};
+
+	getChildContext = () => {
+		return {
+			Theme: setting[this.props.activeTheme]
+		}
+	}
 	_switchTheme = () => {
-		const {handleInputChange, Theme} = this.props;
-		if (Theme === 'night') {
-			handleInputChange('Theme', 'blue', 'common')
+		const {handleThemeChange, activeTheme, settingTheme} = this.props;
+		if (activeTheme === 'night') {
+			handleThemeChange('activeTheme',settingTheme,)
 		} else {
-			handleInputChange('Theme', 'night', 'common')
+			handleThemeChange('activeTheme','night')
 		}
 		// AsyncStorage.setItem("kk","pppp");
 		AsyncStorage.getItem("kk",(err,res) => {console.log(res+1)});
@@ -47,10 +54,10 @@ class SliderScreen extends Component {
 	};
 
 	render() {
-		const {navigator} = this.props;
+		const {navigator, activeTheme} = this.props;
 		return (
-			<View style={style.container}>
-				<View style={[style.top,{backgroundColor: this.context.Theme}]}>
+			<View style={[style.container,{backgroundColor: activeTheme === 'night' ? '#3b3b3b' : '#fafafa'}]}>
+				<View style={[style.top,{backgroundColor: setting[activeTheme]}]}>
 					<View style={style.left}>
 						<TouchableWithoutFeedback style={style.faceTouch}>
 							<View style={style.faceBorder}>
@@ -71,7 +78,7 @@ class SliderScreen extends Component {
 						</View>
 						<View style={style.status}>
 							<Text
-								style={{color:this.context.Theme ,fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
+								style={{color:setting[activeTheme] ,fontSize:8,alignItems:"center",justifyContent:"center"}}>正式会员</Text>
 						</View>
 						<Text style={{color:'rgba(255,255,255,0.6)',fontSize:14}}>硬币 : 297.1</Text>
 					</View>
@@ -137,7 +144,7 @@ const style = StyleSheet.create({
 	status: {
 		alignItems: "center",
 		justifyContent: "center",
-		backgroundColor: "#A6D5FA",
+		backgroundColor: "rgba(255,255,255,.6)",
 		width: 42,
 		height: 13,
 		borderRadius: 10,
@@ -164,13 +171,14 @@ const style = StyleSheet.create({
 
 function mapStateToProps(state) {
 	const {
-		common:{Theme},
+		common:{activeTheme ,settingTheme},
 	} = state;
 	return {
-		Theme
+		activeTheme,
+		settingTheme
 	}
 }
 
 export default connect(mapStateToProps, {
-	handleInputChange
+	handleThemeChange
 })(SliderScreen)

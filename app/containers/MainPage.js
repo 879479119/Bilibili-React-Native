@@ -12,7 +12,8 @@ import {
 	TouchableOpacity,
 	Text,
 	ToastAndroid,
-	Platform
+	Platform,
+	StatusBar
 } from 'react-native'
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -29,11 +30,18 @@ import SliderScreen from './SliderScreen'
 import ToolBar from '../components/ToolBar';
 
 import setting from '../config/setting';
-import {HandleInputChange} from '../actions/common';
+import {HandleInputChange, loadStorageSetting} from '../actions/common';
 
 class MainPage extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentWillMount(){
+		this.props.loadStorageSetting(
+			'settingTheme',
+			'activeTheme'
+		)
 	}
 
 	/*
@@ -48,13 +56,14 @@ class MainPage extends Component {
 	 }
 	 **/
 
+
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired
 	};
 
 	getChildContext = () => {
 		return {
-			Theme: setting[this.props.Theme]
+			Theme: setting[this.props.activeTheme]
 		};
 	};
 
@@ -71,13 +80,11 @@ class MainPage extends Component {
 	goDownload = () => {
 		this.props.navigator.push({
 			component: DownloadPage,
-			Theme: setting[this.props.Theme]
 		})
 	};
 
 	render() {
-		let {navigator, Theme} = this.props;
-		Theme = 'blue';
+		let {navigator, activeTheme} = this.props;
 		if (Platform.os === 'ios') {
 			return (
 				<View style={styles.container}>
@@ -91,6 +98,8 @@ class MainPage extends Component {
 					drawerPosition={DrawerLayoutAndroid.positions.left}
 					renderNavigationView={this.renderNavigatorView}
 				>
+					<StatusBar
+						backgroundColor={setting[activeTheme]} />
 					<View style={styles.container}>
 						<ToolBar
 							goDownload={this.goDownload}
@@ -98,7 +107,7 @@ class MainPage extends Component {
 						<ScrollableTabView
 							tabBarActiveTextColor={'#fff'}
 							tabBarInactiveTextColor={'#eee'}
-							tabBarBackgroundColor={setting[Theme]}
+							tabBarBackgroundColor={setting[activeTheme]}
 							tabBarUnderlineColor={'#fff'}
 							scrollWithoutAnimation={true}>
 							<LivePage navigator={navigator} tabLabel="直播"/>
@@ -130,13 +139,14 @@ let styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	const {
-		common:	{Theme},
+		common:	{activeTheme},
 	} = state;
 	return {
-		Theme
+		activeTheme
 	}
 }
 
 export default connect(mapStateToProps, {
-	HandleInputChange
+	HandleInputChange,
+	loadStorageSetting
 })(MainPage)

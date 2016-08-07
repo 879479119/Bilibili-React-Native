@@ -83,7 +83,7 @@ export default class DownloadPage extends Component{
 
 	getChildContext = () => {
 		return {
-			Theme: setting[this.props.Theme]
+			Theme: setting[this.props.activeTheme]
 		};
 	};
 
@@ -102,10 +102,10 @@ export default class DownloadPage extends Component{
 
 function mapStateToProps(state) {
 	const {
-		common:	{Theme},
+		common:	{activeTheme},
 	} = state;
 	return {
-		Theme
+		activeTheme
 	}
 }
 
