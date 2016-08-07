@@ -57,17 +57,22 @@ class Cell extends Component {
 	render() {
 		const {index, active} = this.props;
 		const isSelect = index === active;
+		const isNightTheme = this.context.Theme === '#3b3b3b' ? true : false
+
 		return (
 			<TouchableHighlight
-				underlayColor={"#e0e0e0"}
-				style={isSelect ? style.activeTouch : style.touch}
+				underlayColor={"rgba(255,255,255,.4)"}
+				style={
+					isSelect ? [style.activeTouch,{backgroundColor: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.1)'
+				}] : style.touch}
 				onPress={() => this._press(index)}>
 				<View style={style.cell}>
 					<Image
 						source={Icon[index]}
 						style={isSelect ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
 					<Text
-						style={isSelect ? [style.activeText ,{color: this.context.Theme}]: style.defaultText}>
+						style={isSelect ? [style.activeText ,{color: this.context.Theme}]: [style.defaultText,{color: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.6)'
+				}]}>
 						{this.props.name}
 					</Text>
 				</View>
@@ -84,6 +89,10 @@ class list extends Component {
 		}
 	}
 
+	static contextTypes = {
+		Theme: React.PropTypes.string.isRequired
+	};
+
 	handleSelected = (index) => {
 		this.setState({
 			active: index
@@ -93,10 +102,11 @@ class list extends Component {
 	render() {
 		const {navi} = this.props;
 		const {active} = this.state;
+		const isNightTheme = this.context.Theme === '#3b3b3b' ? true : false
 		//TODO: 以后这里还是改成用Listview吧，现在只是觉得这几个项目没必要费工夫
 		return (
-			<View style={style.container}>
-				<View style={style.group}>
+			<View style={{backgroundColor: isNightTheme? '#3b3b3b' : '#fafafa'}}>
+				<View style={[style.group,{borderBottomColor: isNightTheme? 'rgba(0,0,0,.4)': '#d9d9d9'}]}>
 					<Cell
 						name={"首页"}
 						index={0}
@@ -109,7 +119,7 @@ class list extends Component {
 						index={1}
 						handleSelected={this.handleSelected}/>
 				</View>
-				<View style={style.group}>
+				<View style={[style.group,{borderBottomColor: isNightTheme? 'rgba(0,0,0,.4)': '#d9d9d9'}]}>
 					<Cell name={"我的收藏"}
 					      active={active}
 					      index={2}
@@ -131,7 +141,7 @@ class list extends Component {
 					      navi={navi}
 					      handleSelected={this.handleSelected}/>
 				</View>
-				<View style={[{paddingVertical:10},style.group]}>
+				<View style={[{paddingVertical:10, borderBottomColor: isNightTheme? 'rgba(0,0,0,.4)': '#d9d9d9'},style.group]}>
 					<Cell name={"主题选择"}
 					      active={active}
 					      index={6}
@@ -175,25 +185,22 @@ let style = StyleSheet.create({
 	},
 	group: {
 		paddingVertical: 10,
-		borderBottomWidth: 1,
-		borderBottomColor: "#d9d9d9"
+		borderBottomWidth: .5,
 	},
 	activeTouch: {
 		flex: 1,
 		height: 45,
 		paddingHorizontal: 15,
 		justifyContent: "center",
-		backgroundColor: "#d4d4d4"
 	},
 	defaultText: {
-		color: "#343434",
 		marginLeft: 30,
 		marginTop: 2
 	},
 	activeText: {
 		marginLeft: 30,
 		marginTop: 2,
-		color: "#4197DB"
+		color: "rgba(255,255,255,.6)"
 	},
 	actIcon: {
 		width: 25,
