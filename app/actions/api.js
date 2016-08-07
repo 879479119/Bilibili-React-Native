@@ -56,4 +56,4 @@ export const loadUser = (name) => {
 
     return dispatch(fetchUser(name))
   }
-}
+};

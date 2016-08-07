@@ -96,9 +96,6 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-    signingConfigs {
-        release
-    }
     splits {
         abi {
             reset()
@@ -111,7 +108,6 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -127,30 +123,6 @@ android {
             }
         }
     }
-}
-
-def Properties props = new Properties()
-
-def propFile = new File('sign.properties')
-if (propFile.canRead()){
-    props.load(new FileInputStream(propFile))
-
-    if (props!=null &&
-      props.containsKey('MYAPP_RELEASE_STORE_FILE') && props.containsKey('MYAPP_RELEASE_STORE_PASSWORD') &&
-      props.containsKey('MYAPP_RELEASE_KEY_ALIAS') &&   props.containsKey('MYAPP_RELEASE_KEY_PASSWORD')
-    ) {
-
-        android.signingConfigs.release.storeFile = file(props['MYAPP_RELEASE_STORE_FILE'])
-        android.signingConfigs.release.storePassword = props['MYAPP_RELEASE_STORE_PASSWORD']
-        android.signingConfigs.release.keyAlias = props['MYAPP_RELEASE_KEY_ALIAS']
-        android.signingConfigs.release.keyPassword = props['MYAPP_RELEASE_KEY_PASSWORD']
-    } else {
-        println 'signing.properties found but some entries are missing'
-        android.buildTypes.release.signingConfig = null
-    }
-} else {
-    println 'signing.properties not found'
-    android.buildTypes.release.signingConfig = null
 }
 
 dependencies {
