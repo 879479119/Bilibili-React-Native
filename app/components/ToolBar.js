@@ -24,7 +24,8 @@ class Toolbar extends Component {
 
 	static PropTypes = {
 		openDrawer: PropTypes.func,
-		goDownload: PropTypes.func
+		goDownload: PropTypes.func,
+		goSearch: PropTypes.func
 	};
 
 	render = () => {
@@ -66,7 +67,7 @@ class Toolbar extends Component {
 								       style={{height:16,width:16}} resizeMode={"contain"}/>
 							</TouchableHighlight>
 							<TouchableHighlight style={styles.touchable} underlayColor="#4CA3E9"
-							                    onPress={() => this.props.goDownload()}>
+							                    onPress={this.props.goSearch}>
 								<Image source={require('../resource/icons/ic_toolbar_menu_search.png')}
 								       style={{height:16,width:16}} resizeMode={"contain"}/>
 							</TouchableHighlight>

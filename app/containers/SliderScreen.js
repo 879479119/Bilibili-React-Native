@@ -45,8 +45,6 @@ class SliderScreen extends Component {
 		} else {
 			handleThemeChange('activeTheme','night')
 		}
-		// AsyncStorage.setItem("kk","pppp");
-		AsyncStorage.getItem("kk",(err,res) => {console.log(res+1)});
 	};
 
 	_changeBili = () => {

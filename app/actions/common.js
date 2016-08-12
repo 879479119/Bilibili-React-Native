@@ -14,7 +14,7 @@ export const handleInputChange = (key, value, parent) => {
 };
 
 
-/*
+/**
  *处理主题切换／设置
  *@key: activeTheme, settingTheme
  *@value: blue, night, etc...
@@ -37,7 +37,7 @@ const receiveThemeChange = (key, value) => {
 	}
 }
 
-/*
+/**
  * 启动app初始化，从storage中拿数据
  *@items: <array>
  */
@@ -67,5 +67,21 @@ const fetchStorageSetting = (items) => {
 	return {
 		type: FETCH_STORAGE_SETTING,
 		items
+	}
+}
+
+export const setSearchHistory = (key,value) => {
+	return (dispatch, getState) => {
+		console.log(233333);
+		return dispatch(storeHistory(value))
+	}
+}
+
+export const STORE_SEARCH_HISTORY = "STORE_SEARCH_HISTORY"
+
+const storeHistory = (history) => {
+	return{
+		type:STORE_SEARCH_HISTORY,
+		history
 	}
 }

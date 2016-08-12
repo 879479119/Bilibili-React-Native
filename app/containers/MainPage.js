@@ -3,6 +3,7 @@
  */
 
 import React, {Component} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	View,
 	StyleSheet,
@@ -26,6 +27,7 @@ import AttentionPage from './AttentionPage'
 import DiscoveryPage from './DiscoveryPage'
 import DownloadPage from './DownloadPage'
 import SliderScreen from './SliderScreen'
+import SearchScreen from './SearchScreen'
 
 import ToolBar from '../components/ToolBar';
 
@@ -79,9 +81,15 @@ class MainPage extends Component {
 
 	goDownload = () => {
 		this.props.navigator.push({
-			component: DownloadPage,
+			component: DownloadPage
 		})
 	};
+
+	goSearch = () => {
+		this.props.navigator.push({
+			component: SearchScreen
+		})
+	}
 
 	render() {
 		let {navigator, activeTheme} = this.props;
@@ -100,10 +108,11 @@ class MainPage extends Component {
 				>
 					<StatusBar
 						backgroundColor={setting[activeTheme]} />
-					<View style={styles.container}>
+					<View style={[styles.container]}>
 						<ToolBar
 							goDownload={this.goDownload}
-							openDrawer={this.openDrawer}/>
+							openDrawer={this.openDrawer}
+							goSearch={this.goSearch}/>
 						<ScrollableTabView
 							tabBarActiveTextColor={'#fff'}
 							tabBarInactiveTextColor={'#eee'}
@@ -118,6 +127,7 @@ class MainPage extends Component {
 							<DiscoveryPage navigator={navigator} tabLabel="发现"/>
 						</ScrollableTabView>
 					</View>
+					<SearchScreen/>
 				</DrawerLayoutAndroid>
 			)
 		}
