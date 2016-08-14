@@ -8,6 +8,8 @@ const loggerMiddleware = createLogger({
 	predicate: (getState, action) => __DEV__
 });
 
+//TODO: 之后把获取初始主题的事情放到这里
+
 //性能调试和打包时删掉 loggerMiddleware
 export default function configureStore(initialState) {
 	return createStore(

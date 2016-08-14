@@ -12,6 +12,11 @@ export const multiGetItem = async (key) => {
   return item
 }
 
+/**
+ * 获取JSON格式的Storage
+ * @param key
+ */
+
 export const getItem = async (key) => {
   let result = await AsyncStorage.getItem(key)
   return JSON.parse(result)
@@ -20,3 +25,10 @@ export const getItem = async (key) => {
 export const removeItem = (key) => {
   return AsyncStorage.removeItem(key)
 }
+
+/**
+ * 获取字符串格式的Storage
+ * @param key
+ */
+
+export const getRawItem = async key => await AsyncStorage.getItem(key)

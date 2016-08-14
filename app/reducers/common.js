@@ -1,13 +1,11 @@
 import * as ActionTypes from '../actions/common'
 
-const common = (state = { activeTheme:'blue', settingTheme:{}, searchHistory:{} }, action) => {
+const common = (state = { activeTheme:'blue', settingTheme:{}, searchHistory:[] }, action) => {
 	switch (action.type) {
 		case ActionTypes.FETCH_STORAGE_SETTING:
 			return Object.assign({}, state, action.items)
 		case ActionTypes.RECEIVE_THEME_CHANGE:
 			return Object.assign({}, state, action.data)
-		case ActionTypes.STORE_SEARCH_HISTORY:
-			return Object.assign({}, state, {history:action.history})
 		case ActionTypes.HANDLE_INPUT_CHANGE:
 			if (action.parent == 'common') {
 				return Object.assign({}, state, action.data)

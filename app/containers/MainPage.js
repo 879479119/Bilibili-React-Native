@@ -33,6 +33,7 @@ import ToolBar from '../components/ToolBar';
 
 import setting from '../config/setting';
 import {HandleInputChange, loadStorageSetting} from '../actions/common';
+import {toggleSearch} from '../actions/search'
 
 class MainPage extends Component {
 	constructor(props) {
@@ -85,14 +86,12 @@ class MainPage extends Component {
 		})
 	};
 
-	goSearch = () => {
-		this.props.navigator.push({
-			component: SearchScreen
-		})
+	openSearch = () => {
+		this.props.toggleSearch()
 	}
 
 	render() {
-		let {navigator, activeTheme} = this.props;
+		let {navigator, activeTheme, isSearching} = this.props;
 		if (Platform.os === 'ios') {
 			return (
 				<View style={styles.container}>
@@ -112,7 +111,7 @@ class MainPage extends Component {
 						<ToolBar
 							goDownload={this.goDownload}
 							openDrawer={this.openDrawer}
-							goSearch={this.goSearch}/>
+							goSearch={this.openSearch}/>
 						<ScrollableTabView
 							tabBarActiveTextColor={'#fff'}
 							tabBarInactiveTextColor={'#eee'}
@@ -127,7 +126,7 @@ class MainPage extends Component {
 							<DiscoveryPage navigator={navigator} tabLabel="发现"/>
 						</ScrollableTabView>
 					</View>
-					<SearchScreen/>
+					{isSearching ? <SearchScreen/> : undefined}
 				</DrawerLayoutAndroid>
 			)
 		}
@@ -147,16 +146,13 @@ let styles = StyleSheet.create({
 	}
 });
 
-function mapStateToProps(state) {
-	const {
-		common:	{activeTheme},
-	} = state;
-	return {
-		activeTheme
-	}
-}
+const mapStateToProps = (state) => ({
+	activeTheme:state.common.activeTheme,
+	isSearching:state.search.isSearching
+})
 
 export default connect(mapStateToProps, {
 	HandleInputChange,
-	loadStorageSetting
+	loadStorageSetting,
+	toggleSearch
 })(MainPage)
