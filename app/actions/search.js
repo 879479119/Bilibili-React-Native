@@ -1,3 +1,4 @@
+import {LayoutAnimation} from 'react-native'
 /**
  * @author RockSAMA
  * @description 主页面搜索相关
@@ -34,7 +35,7 @@ const storeHistory = (item) => ({
 export const getSearchHistory = () => {
 	return async (dispatch) => {
 		let history = await getRawItem("history")
-		let hisArr = history.split(",")
+		let hisArr = history ? history.split(",") : ''
 		if(hisArr[0] === "") hisArr.splice(0,1)
 		dispatch(gotHistory({searchHistory:hisArr}))
 	}
@@ -73,9 +74,10 @@ export const TOGGLE_SEARCH = "TOGGLE_SEARCH"
 
 export const toggleSearch = () => {
 	return (dispatch) => {
+		//动画
+		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
 		dispatch({
 			type:TOGGLE_SEARCH
 		})
 	}
 }
-

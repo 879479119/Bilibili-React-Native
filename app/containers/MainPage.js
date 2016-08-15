@@ -92,6 +92,7 @@ class MainPage extends Component {
 
 	render() {
 		let {navigator, activeTheme, isSearching} = this.props;
+		console.log(isSearching)
 		if (Platform.OS === 'ios') {
 			return (
 				<View style={styles.container}>
@@ -126,7 +127,7 @@ class MainPage extends Component {
 							<DiscoveryPage navigator={navigator} tabLabel="发现"/>
 						</ScrollableTabView>
 					</View>
-					{isSearching ? <SearchScreen/> : undefined}
+					<SearchScreen isShow={isSearching}/>
 				</DrawerLayoutAndroid>
 			)
 		}

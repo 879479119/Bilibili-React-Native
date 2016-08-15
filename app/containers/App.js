@@ -9,7 +9,8 @@ import {
 	BackAndroid,
 	StatusBar,
 	Platform,
-	ToastAndroid
+	ToastAndroid,
+	UIManager
 } from 'react-native'
 
 import SplashScreen from './SplashScreen'
@@ -17,6 +18,9 @@ import MainPage from './MainPage'
 import DownloadPage from './DownloadPage'
 import SettingPage from './SettingPage'
 import ThemePage from './ThemePage'
+import { connect } from 'react-redux'
+import {toggleSearch} from '../actions/search'
+
 
 export default class App extends Component {
 	constructor(props) {
@@ -24,14 +28,31 @@ export default class App extends Component {
 	}
 
 	componentWillMount() {
+		//android动画支持
+		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 		if (Platform.OS === 'android') {
 			BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
 		}
 	}
 
+	HandleBackPressIfNeed = () => {
+		const {toggleSearch, isSearching} = this.props
+		if(isSearching){
+			toggleSearch()
+			return true
+		}
+		return false
+	}
+
 	onBackAndroid = () => {
 		const navigator = this.navigator;
-		const routes = navigator.getCurrentRoutes();
+		let routes = navigator.getCurrentRoutes();
+		let lastRoute = routes[routes.length - 1]
+		//处理路由以外的返回按键
+		let flag = this.HandleBackPressIfNeed()
+		if(flag === true){
+			return true
+		}
 
 		if (navigator && routes.length > 1) {
 			navigator.pop();
@@ -100,3 +121,14 @@ let styles = StyleSheet.create({
 		flex: 1
 	}
 });
+
+function mapStateToProps(state){
+	const {search:{isSearching}} = state
+	return {
+		isSearching
+	}
+}
+
+export default connect(mapStateToProps,{
+	toggleSearch
+})(App)

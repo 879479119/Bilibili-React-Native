@@ -3,9 +3,9 @@ import { setItem, multiGetItem} from '../util/Storage'
 //全局通用方法，测试用
 export const HANDLE_ACTIONS_CHANGE = 'HANDLE_ACTIONS_CHANGE';
 
-export const handleActionsChange = (key, data) => ({
+export const handleActionsChange = (parent, data) => ({
 	type: HANDLE_ACTIONS_CHANGE,
-	parent: parent,
+	parent,
 	data
 });
 

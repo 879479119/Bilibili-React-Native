@@ -17,7 +17,8 @@ import {
 	ToastAndroid,
 	Platform,
 	StatusBar,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
+	LayoutAnimation
 } from 'react-native'
 import {connect} from 'react-redux'
 import {setSearchHistory,getSearchHistory,cleanSearchHistory,toggleSearch} from '../actions/search';
@@ -28,34 +29,49 @@ const {width,height} = Dimensions.get("window");
 //TODO:这里有一个BUG，在高分屏中input框不会居中
 
 class SearchScreen extends Component{
+	constructor(props) {
+	  super(props)
+
+	}
+
+	static defaultProps = {
+		isShow: false
+	}
+
 	componentDidMount(){
+
 		//初始化，获取历史记录
 		this._getHistory()
 	}
-	
+
 	_cleanHistory = () => {
 		const {cleanSearchHistory} = this.props
 		cleanSearchHistory()
 	}
-	
+
 	_getHistory = () => {
 		const {getSearchHistory} = this.props
 		getSearchHistory();
 	}
-	
+
 	_setHistory = () => {
-		const {setSearchHistory,searchHistory} = this.props;
+		const {setSearchHistory,searchHistory,toggleSearch} = this.props;
 		setSearchHistory(searchHistory,this.textValue);
 	}
 
 	_hide = () => {
 		this.props.toggleSearch();
 	}
-	
+
 	render(){
-		let arr = this.props.searchHistory;
+		const {isShow, searchHistory, toggleSearch} = this.props
+
+		if(isShow === false) {
+			return null
+		}
+
 		return(
-			<View style={style.mask}>
+			<TouchableOpacity style={style.mask} onPressIn={() => toggleSearch()}>
 				<View style={style.searchBox}>
 					<TouchableHighlight onPress={this._hide}>
 						<Image source={require("../resource/icons/ic_arrow_back_black.png")} style={style.headIcon}/>
@@ -63,13 +79,13 @@ class SearchScreen extends Component{
 					<TouchableHighlight>
 						<Image source={require("../resource/icons/ic_scan.png")} style={style.headIcon}/>
 					</TouchableHighlight>
-					<TextInput onChangeText={value => this.textValue = value} style={style.input} placeholder="搜索视频、番剧、up主或av号"/>
+					<TextInput autoFocus={true} onChangeText={value => this.textValue = value} style={style.input} placeholder="搜索视频、番剧、up主或av号"/>
 					<TouchableHighlight onPress={this._setHistory}>
 						<Image source={require("../resource/icons/ic_search_query.png")} style={style.searchIcon}/>
 					</TouchableHighlight>
 				</View>
 				<View style={style.searchHistory}>
-					{arr.map((item)=>(
+					{searchHistory.length > 0 && searchHistory.map((item)=>(
 						<TouchableHighlight>
 							<View style={style.historyRow}>
 								<Image source={require("../resource/icons/ic_search_history.png")} style={style.historyIcon}/>
@@ -77,7 +93,7 @@ class SearchScreen extends Component{
 							</View>
 						</TouchableHighlight>
 					))}
-					{arr.length ? (
+					{searchHistory.length ? (
 						<TouchableWithoutFeedback onPress={this._cleanHistory}>
 							<View style={style.cleanHistory}>
 								<Text style={{justifyContent:"center"}}>清除搜索记录</Text>
@@ -85,7 +101,7 @@ class SearchScreen extends Component{
 						</TouchableWithoutFeedback>
 						):undefined}
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 }
