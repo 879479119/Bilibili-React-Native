@@ -53,8 +53,8 @@ function mapStateToProps(state) {
 	} = state;
 
 	return {
-		Theme:state.common.Theme,
-    bangumi: bangumi.bangumi
+		Theme:state.common.Theme, 
+        bangumi: bangumi.bangumi
 	}
 }
 

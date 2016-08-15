@@ -10,7 +10,6 @@ function getHeader(){
    }
 }
 
-
 export const API_PATH_REQUEST = 'API_PATH_REQUEST'
 export const API_PATH_SUCCESS = 'API_PATH_SUCCESS'
 export const API_PATH_FAILURE = 'API_PATH_FAILURE'

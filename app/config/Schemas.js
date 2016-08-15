@@ -4,8 +4,6 @@ const userSchema = new Schema('users', {
   idAttribute: 'author'
 })
 
-
-
 const bangumiSchema = new Schema('bangumi', {
   idAttribute: bangumi => 'bangumi'
 })

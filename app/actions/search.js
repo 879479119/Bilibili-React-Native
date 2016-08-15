@@ -35,8 +35,13 @@ const storeHistory = (item) => ({
 export const getSearchHistory = () => {
 	return async (dispatch) => {
 		let history = await getRawItem("history")
-		let hisArr = history.split(",")
-		if(hisArr[0] === "") hisArr.splice(0,1)
+		let hisArr = null
+		if(history == null){
+			hisArr = []
+		}else{
+			hisArr = history.split(",")
+			if(hisArr[0] === "") hisArr.splice(0,1)
+		}
 		dispatch(gotHistory({searchHistory:hisArr}))
 	}
 }
