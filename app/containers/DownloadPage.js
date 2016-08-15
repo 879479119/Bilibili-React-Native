@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import Common from '../components/commonPage';
 import {connect} from 'react-redux'
-import {HandleInputChange} from '../actions/common';
 
 class DownPicker extends Component{
 	constructor(props){
@@ -109,6 +108,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps, {
-	HandleInputChange
-})(DownloadPage)
+export default connect(mapStateToProps)(DownloadPage)

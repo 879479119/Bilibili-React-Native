@@ -32,7 +32,7 @@ import SearchScreen from './SearchScreen'
 import ToolBar from '../components/ToolBar';
 
 import setting from '../config/setting';
-import {HandleInputChange, loadStorageSetting} from '../actions/common';
+import {loadStorageSetting} from '../actions/common';
 import {toggleSearch} from '../actions/search'
 
 class MainPage extends Component {
@@ -92,7 +92,7 @@ class MainPage extends Component {
 
 	render() {
 		let {navigator, activeTheme, isSearching} = this.props;
-		if (Platform.os === 'ios') {
+		if (Platform.OS === 'ios') {
 			return (
 				<View style={styles.container}>
 				</View>
@@ -152,7 +152,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-	HandleInputChange,
 	loadStorageSetting,
 	toggleSearch
 })(MainPage)
