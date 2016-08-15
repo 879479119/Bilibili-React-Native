@@ -69,6 +69,7 @@ class SearchScreen extends Component{
 		if(isShow === false) {
 			return null
 		}
+		console.log(searchHistory)
 
 		return(
 			<TouchableOpacity style={style.mask} onPressIn={() => toggleSearch()}>
@@ -85,7 +86,7 @@ class SearchScreen extends Component{
 					</TouchableHighlight>
 				</View>
 				<View style={style.searchHistory}>
-					{searchHistory.length > 0 && searchHistory.map((item)=>(
+					{searchHistory.map((item)=>(
 						<TouchableHighlight>
 							<View style={style.historyRow}>
 								<Image source={require("../resource/icons/ic_search_history.png")} style={style.historyIcon}/>
