@@ -34,6 +34,9 @@ class SearchScreen extends Component{
 
 	}
 
+	//最大显示条目数
+	static showCountMax = parseInt((height - 120) / 38)
+
 	static defaultProps = {
 		isShow: false
 	}
@@ -55,8 +58,8 @@ class SearchScreen extends Component{
 	}
 
 	_setHistory = () => {
-		const {setSearchHistory,searchHistory,toggleSearch} = this.props;
-		setSearchHistory(searchHistory,this.textValue);
+		const {setSearchHistory,searchHistory,toggleSearch} = this.props
+		this.textValue && setSearchHistory(searchHistory,this.textValue)
 	}
 
 	_hide = () => {
@@ -69,8 +72,12 @@ class SearchScreen extends Component{
 		if(isShow === false) {
 			return null
 		}
-		console.log(searchHistory)
+		let showHistory = [];
 
+		for(let i = 0;i < searchHistory.length; i ++){
+			showHistory[i] = searchHistory[searchHistory.length - 1 - i]
+		}
+		console.log(showHistory);
 		return(
 			<TouchableOpacity style={style.mask} onPressIn={() => toggleSearch()}>
 				<View style={style.searchBox}>
@@ -86,14 +93,19 @@ class SearchScreen extends Component{
 					</TouchableHighlight>
 				</View>
 				<View style={style.searchHistory}>
-					{searchHistory.map((item)=>(
-						<TouchableHighlight>
-							<View style={style.historyRow}>
-								<Image source={require("../resource/icons/ic_search_history.png")} style={style.historyIcon}/>
-								<Text style={style.historyText}>{item}</Text>
-							</View>
-						</TouchableHighlight>
-					))}
+					{showHistory.map((item,index)=> {
+						if (index < SearchScreen.showCountMax) {
+							return (
+								<TouchableHighlight>
+									<View style={style.historyRow}>
+										<Image source={require("../resource/icons/ic_search_history.png")}
+										       style={style.historyIcon}/>
+										<Text style={style.historyText}>{item}</Text>
+									</View>
+								</TouchableHighlight>
+							);
+						}
+					})}
 					{searchHistory.length ? (
 						<TouchableWithoutFeedback onPress={this._cleanHistory}>
 							<View style={style.cleanHistory}>
@@ -115,7 +127,6 @@ const style = StyleSheet.create({
 		top:0,
 		left:0,
 		backgroundColor:"rgba(0,0,0,0.2)",
-
 	},
 	searchBox:{
 		width:width - 8,
