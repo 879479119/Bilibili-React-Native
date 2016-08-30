@@ -10,22 +10,16 @@ import {
 
 class AttentionPage extends Component {
 	componentDidMount(){
-		// let o = {}
 		this.getMoviesFromApiAsync()
-		// console.log(o,123);
 	}
-	getMoviesFromApiAsync() {
-		return fetch('http://bilibili-service.daoapp.io/bangumi')
-			.then((response) => response.json())
-			.then((responseJson) => {
-				// o = responseJson;
-				console.log(responseJson,566464);
-				return responseJson
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+  
+	async getMoviesFromApiAsync() {
+		const Url = "http://bilibili-service.daoapp.io/bangumi"
+		let promise = await fetch(Url)
+		let rsp = await promise.json()
+		console.info(rsp);
 	}
+
 	render = () => {
 		return (
 			<View style={styles.container}>

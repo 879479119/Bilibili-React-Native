@@ -81,8 +81,11 @@ class MainPage extends Component {
 	};
 
 	goDownload = () => {
+		// this.props.navigator.push({
+		// 	component: DownloadPage
+		// })
 		this.props.navigator.push({
-			component: DownloadPage
+			name:"SearchPage"
 		})
 	};
 
@@ -117,7 +120,8 @@ class MainPage extends Component {
 							tabBarInactiveTextColor={'#eee'}
 							tabBarBackgroundColor={setting[activeTheme]}
 							tabBarUnderlineColor={'#fff'}
-							scrollWithoutAnimation={true}>
+							scrollWithoutAnimation={true}
+							prerenderingSiblingsNumber={Number.POSITIVE_INFINITY}>
 							<LivePage navigator={navigator} tabLabel="直播"/>
 							<RecommendPage navigator={navigator} tabLabel="推荐"/>
 							<BangumiPage navigator={navigator} tabLabel="番剧"/>

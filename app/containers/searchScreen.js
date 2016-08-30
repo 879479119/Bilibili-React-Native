@@ -42,7 +42,6 @@ class SearchScreen extends Component{
 	}
 
 	componentDidMount(){
-
 		//初始化，获取历史记录
 		this._getHistory()
 	}

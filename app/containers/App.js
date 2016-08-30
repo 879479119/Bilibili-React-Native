@@ -18,6 +18,7 @@ import MainPage from './MainPage'
 import DownloadPage from './DownloadPage'
 import SettingPage from './SettingPage'
 import ThemePage from './ThemePage'
+import SearchPage from './SearchPage'
 import { connect } from 'react-redux'
 import {toggleSearch} from '../actions/search'
 
@@ -79,6 +80,9 @@ export default class App extends Component {
 					break;
 				case 'DownloadPage':
 					return <DownloadPage navigator={navigator}/>;
+					break;
+				case 'SearchPage':
+					return <SearchPage navigator={navigator}/>;
 					break;
 				default:
 					return <View>

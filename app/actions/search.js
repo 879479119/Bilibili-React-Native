@@ -86,3 +86,20 @@ export const toggleSearch = () => {
 		})
 	}
 }
+
+/**
+ * 得到搜索结果后开始渲染
+ * @type {object}
+ */
+
+
+export const RSP_SUCCESS_RENDER = "RSP_SUCCESS_RENDER"
+
+export const rspSuccess = (result) => {
+	return (dispatch) => {
+		dispatch({
+			type:RSP_SUCCESS_RENDER,
+			result:result
+		})
+	}
+}
