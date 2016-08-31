@@ -21,15 +21,13 @@ import {
 	StatusBar
 } from 'react-native'
 import {connect} from 'react-redux'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 import SearchScreen from './SearchScreen'
 import VideoDetailPage from './VideoDetailPage'
-import MainPage from './MainPage'
 
 import setting from '../config/setting';
 import {loadStorageSetting} from '../actions/common';
-import {toggleSearch,rspSuccess} from '../actions/search'
+import {toggleSearch,rspSuccess,goDetail} from '../actions/search'
 
 const {width,height} = Dimensions.get('window')
 
@@ -80,14 +78,18 @@ class VideoCell extends Component {
 		super(props)
 	}
 
+	static contextTypes = {
+		Theme: React.PropTypes.string.isRequired,
+		result: React.PropTypes.object.isRequired,
+		goDetail: React.PropTypes.func.isRequired,
+	}
+
 	_goDetail = () => {
 		const {navigator} = this.props
-		console.info(this.touch.props.aid)
+		const {goDetail} = this.context
+		goDetail(this.touch.props.aid)
 		navigator.push({
-			component:VideoDetailPage,
-			params:{
-				aid:this.touch.props.aid
-			}
+			component:VideoDetailPage
 		})
 	}
 
@@ -122,12 +124,26 @@ class TabScrollView extends Component {
 
 	constructor(props,context){
 		super(props)
+		console.info(context,55555555)
 	}
 
 	static contextTypes = {
 		Theme: React.PropTypes.string.isRequired,
-		result: React.PropTypes.object.isRequired
+		result: React.PropTypes.object.isRequired,
+		goDetail: React.PropTypes.func.isRequired,
 	}
+
+	// static childContextTypes = {
+	// 	goDetail: React.PropTypes.func.isRequired
+	// };
+	//
+	// getChildContext = () => {
+	// 	const {result,goDetail} = this.context
+	// 	console.info(goDetail,9999999)
+	// 	return {
+	// 		goDetail: goDetail
+	// 	};
+	// };
 
 	checkRender = (video) => {
 		const {navigator} = this.props
@@ -231,14 +247,17 @@ class SearchPage extends Component {
 
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired,
-		result: React.PropTypes.object.isRequired
+		result: React.PropTypes.object.isRequired,
+		goDetail: React.PropTypes.func.isRequired
 	};
 
 	getChildContext = () => {
-		const {result} = this.props
+		const {result,goDetail} = this.props
+		console.info(goDetail,33333333)
 		return {
 			Theme: setting[this.props.activeTheme],
-			result: result
+			result: result,
+			goDetail: goDetail
 		};
 	};
 
@@ -370,5 +389,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
 	loadStorageSetting,
 	toggleSearch,
-	rspSuccess
+	rspSuccess,
+	goDetail
 })(SearchPage)

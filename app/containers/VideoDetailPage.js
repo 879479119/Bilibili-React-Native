@@ -26,16 +26,16 @@ class VideoDetailPage extends Component {
 		super(props)
 	}
 	componentDidMount(){
-		console.info(this.props)
-		console.info(this.props.params)
+		console.info(this.props.aid)
 	}
 	componentWillReceiveProps = (nextProp) => {
 		console.info(nextProp)
 	}
 	render = () => {
+		const {aid} = this.props
 		return(
 			<View style={style.container}>
-				<Text>123332131</Text>
+				<Text>这个视频的AV号是{aid}</Text>
 			</View>
 		)
 	}
@@ -43,6 +43,7 @@ class VideoDetailPage extends Component {
 
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
+	aid:state.search.aid
 })
 
 export default connect(mapStateToProps,{

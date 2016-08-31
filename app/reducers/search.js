@@ -5,7 +5,7 @@
 
 import * as ActionTypes from '../actions/search'
 
-export default (state = { searchHistory:[] ,isSearching:false, result:{}}, action) => {
+export default (state = { searchHistory:[] ,isSearching:false, result:{}, aid:undefined}, action) => {
 	switch (action.type) {
 		case ActionTypes.STORE_SEARCH_HISTORY:
 			return Object.assign({}, state, action.item)
@@ -20,6 +20,8 @@ export default (state = { searchHistory:[] ,isSearching:false, result:{}}, actio
 			
 		case ActionTypes.RSP_SUCCESS_RENDER:
 			return Object.assign({}, state, {result: action.result})
+		case ActionTypes.GO_TO_VIDEO_DETAIL:
+			return Object.assign({}, state, {aid: action.aid})
 			
 		default:
 			return state;

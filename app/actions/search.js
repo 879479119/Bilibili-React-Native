@@ -103,3 +103,18 @@ export const rspSuccess = (result) => {
 		})
 	}
 }
+
+/**
+ * 没有办法通过navigator传值，只好用state
+ * @type {string}
+ */
+
+
+export const GO_TO_VIDEO_DETAIL = "GO_TO_VIDEO_DETAIL"
+
+export const goDetail = aid => disptch => {
+	disptch({
+		type:GO_TO_VIDEO_DETAIL,
+		aid:aid
+	})
+}
