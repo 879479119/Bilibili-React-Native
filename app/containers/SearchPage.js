@@ -24,6 +24,8 @@ import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 import SearchScreen from './SearchScreen'
+import VideoDetailPage from './VideoDetailPage'
+import MainPage from './MainPage'
 
 import setting from '../config/setting';
 import {loadStorageSetting} from '../actions/common';
@@ -46,7 +48,7 @@ class SearchTop extends Component {
 					<TouchableHighlight onPress={this._hide} style={[style.leftArea,{marginLeft:5}]} underlayColor="#000">
 						<Image source={require("../resource/icons/ic_arrow_back_black.png")} style={style.headIcon}/>
 					</TouchableHighlight>
-					<TextInput autoFocus={true} onChangeText={value => this.textValue = value} style={style.input} placeholder="搜索视频、番剧、up主或av号"/>
+					<TextInput autoFocus={false} onChangeText={value => this.textValue = value} style={style.input} placeholder="搜索视频、番剧、up主或av号"/>
 					<TouchableHighlight style={[style.rightArea,{marginRight:5}]}>
 						<Image source={require("../resource/icons/ic_scan.png")} style={style.headIcon}/>
 					</TouchableHighlight>
@@ -73,11 +75,53 @@ class TabCell extends Component {
 	}
 }
 
+class VideoCell extends Component {
+	constructor(props){
+		super(props)
+	}
+
+	_goDetail = () => {
+		const {navigator} = this.props
+		console.info(this.touch.props.aid)
+		navigator.push({
+			component:VideoDetailPage,
+			params:{
+				aid:this.touch.props.aid
+			}
+		})
+	}
+
+	render(){
+		const {item} = this.props
+		return (
+			<TouchableHighlight onPress={this._goDetail} key={item.aid} aid={item.aid} ref={k => this.touch = k}>
+				<View style={style.videoCell}>
+					<View style={style.videoPic}>
+						<Image source={{uri:item.pic}} style={{width:150,height:100}} resizeMode="contain"/>
+					</View>
+					<View style={style.rightContent}>
+						<View style={style.title}><Text style={{fontWeight:"bold"}}>{item.title}</Text></View>
+						<View style={style.author}>
+							<Image source={require("../resource/icons/ic_category_up.png")} style={{width:20}} resizeMode="contain"/>
+							<Text>{item.author}</Text>
+						</View>
+						<View style={style.playTime}>
+							<Image source={require("../resource/icons/ic_info_views.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
+							<Text>{item.play}</Text>
+							<Image source={require("../resource/icons/ic_info_danmakus.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
+							<Text>{item.video_review}</Text>
+						</View>
+					</View>
+				</View>
+			</TouchableHighlight>
+		)
+	}
+}
+
 class TabScrollView extends Component {
 
 	constructor(props,context){
 		super(props)
-		console.log(context)
 	}
 
 	static contextTypes = {
@@ -86,32 +130,14 @@ class TabScrollView extends Component {
 	}
 
 	checkRender = (video) => {
+		const {navigator} = this.props
 		if(video == undefined){
 			return (
-				<View><Text>2333333</Text></View>
+				<View><Text>数据拉取中</Text></View>
 			)
 		}
 		return (
-			video.map(item => (
-				<View key={item.mid} style={style.videoCell}>
-					<View style={style.videoPic}>
-						<Image source={{uri:item.pic}} style={{width:150,height:100}} resizeMode="contain"/>
-					</View>
-					<View style={style.rightContent}>
-						<View style={style.title}><Text>{item.title}</Text></View>
-						<View style={style.author}>
-							<Image/>
-							<Text>{item.author}</Text>
-						</View>
-						<View style={style.playTime}>
-							<Image/>
-							<Text>{item.play}</Text>
-							<Image/>
-							<Text>{item.video_review}</Text>
-						</View>
-					</View>
-				</View>
-			))
+			video.map(item => <VideoCell navigator={navigator} item={item}/>)
 		)
 	}
 
@@ -146,7 +172,7 @@ class TabScrollView extends Component {
 					<View style={style.page}>
 						<ScrollView style={{width:width}}>
 							<View style={{flex:1,height:1000,backgroundColor:"#00ccaa"}}>
-								<Text>555</Text>
+								<Text>666</Text>
 							</View>
 						</ScrollView>
 					</View>
@@ -173,7 +199,6 @@ class TabScrollView extends Component {
 					</View>
 				</ScrollView>
 			</View>
-
 		)
 	}
 }
@@ -235,7 +260,7 @@ class SearchPage extends Component {
 						backgroundColor={"#eaeaea"} />
 					<View style={[style.container]}>
 						<SearchTop searchContent="aa"/>
-						<TabScrollView/>
+						<TabScrollView navigator={navigator}/>
 					</View>
 					<SearchScreen isShow={isSearching}/>
 				</View>
@@ -325,13 +350,14 @@ const style = StyleSheet.create({
 		flex:1
 	},
 	title:{
-		height:50
+		height:35,
+		overflow:"hidden"
 	},
 	author:{
-
+		flexDirection:"row"
 	},
 	playTime:{
-
+		flexDirection:"row"
 	}
 });
 

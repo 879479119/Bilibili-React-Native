@@ -85,8 +85,9 @@ export default class App extends Component {
 					return <SearchPage navigator={navigator}/>;
 					break;
 				default:
-					return <View>
-					</View>;
+					return (
+						<View><Text>空路由，如果不想到达此页请勿传name进入</Text></View>
+					)
 			}
 		}
 		if (route.component) {
