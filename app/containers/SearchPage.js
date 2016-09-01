@@ -79,8 +79,6 @@ class VideoCell extends Component {
 	}
 
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired,
-		result: React.PropTypes.object.isRequired,
 		goDetail: React.PropTypes.func.isRequired,
 	}
 
@@ -124,7 +122,6 @@ class TabScrollView extends Component {
 
 	constructor(props,context){
 		super(props)
-		console.info(context,55555555)
 	}
 
 	static contextTypes = {
@@ -132,18 +129,6 @@ class TabScrollView extends Component {
 		result: React.PropTypes.object.isRequired,
 		goDetail: React.PropTypes.func.isRequired,
 	}
-
-	// static childContextTypes = {
-	// 	goDetail: React.PropTypes.func.isRequired
-	// };
-	//
-	// getChildContext = () => {
-	// 	const {result,goDetail} = this.context
-	// 	console.info(goDetail,9999999)
-	// 	return {
-	// 		goDetail: goDetail
-	// 	};
-	// };
 
 	checkRender = (video) => {
 		const {navigator} = this.props
@@ -158,7 +143,6 @@ class TabScrollView extends Component {
 	}
 
 	render = () => {
-		console.info(this.context.result)
 		let video = null
 		if(this.context.result.result == undefined){
 			video = undefined
@@ -253,7 +237,6 @@ class SearchPage extends Component {
 
 	getChildContext = () => {
 		const {result,goDetail} = this.props
-		console.info(goDetail,33333333)
 		return {
 			Theme: setting[this.props.activeTheme],
 			result: result,

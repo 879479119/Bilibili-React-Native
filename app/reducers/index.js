@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import common from './common'
 import search from './search'
+import detail from './detail'
 import paginate from './paginate'
 import * as ActionTypes from '../actions/api'
 import merge from 'lodash/merge'
@@ -30,7 +31,8 @@ function entities(state = { users: {}, bangumi: {}, appindex:{} }, action) {
 const rootReducer = combineReducers ({
   entities,
   common,
-  search
+  search,
+  detail
 })
 
 export default rootReducer
