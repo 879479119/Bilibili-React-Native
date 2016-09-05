@@ -88,7 +88,7 @@ class VideoDetailPage extends Component {
 }
 
 const mapStateToProps = state => ({
-	aid: state.search.aid,
+	// aid: state.search.aid,
 	result:state.detail.result
 })
 

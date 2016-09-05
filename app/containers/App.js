@@ -23,7 +23,7 @@ import { connect } from 'react-redux'
 import {toggleSearch} from '../actions/search'
 
 
-export default class App extends Component {
+class App extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -36,6 +36,9 @@ export default class App extends Component {
 		}
 	}
 
+	/**
+	 * @return {boolean}
+	 */
 	HandleBackPressIfNeed = () => {
 		const {toggleSearch, isSearching} = this.props
 		if(isSearching){
@@ -93,7 +96,7 @@ export default class App extends Component {
 		if (route.component) {
 			let Component = route.component;
 			return(
-				<Component navigator={navigator} {...route.passProps}/>
+				<Component navigator={navigator} {...route.params}/>
 			);
 		}
 	};

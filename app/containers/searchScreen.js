@@ -23,6 +23,7 @@ import {
 import {connect} from 'react-redux'
 import {setSearchHistory,getSearchHistory,cleanSearchHistory,toggleSearch} from '../actions/search';
 
+import SearchPage from './SearchPage'
 
 const {width,height} = Dimensions.get("window");
 
@@ -59,10 +60,33 @@ class SearchScreen extends Component{
 	_setHistory = () => {
 		const {setSearchHistory,searchHistory,toggleSearch} = this.props
 		this.textValue && setSearchHistory(searchHistory,this.textValue)
+		//设置搜索历史后进行页面跳转
+		this.textValue && this._goSearch()
 	}
 
 	_hide = () => {
 		this.props.toggleSearch();
+	}
+
+	_changeContent = arg => {
+		const self = this
+		//通过高阶函数传递参数进行搜索
+		return () => {
+			self.textValue = arg
+			self._goSearch()
+		}
+	}
+
+	_goSearch = () => {
+		// TODO: go to the search page with an argument <content>
+		const {navigator,toggleSearch} = this.props
+		toggleSearch()
+		navigator.push({
+			component: SearchPage,
+			params:{
+				content:this.textValue
+			}
+		})
 	}
 
 	render(){
@@ -76,7 +100,6 @@ class SearchScreen extends Component{
 		for(let i = 0;i < searchHistory.length; i ++){
 			showHistory[i] = searchHistory[searchHistory.length - 1 - i]
 		}
-		console.log(showHistory);
 		return(
 			<TouchableOpacity style={style.mask} onPressIn={() => toggleSearch()}>
 				<View style={style.searchBox}>
@@ -94,8 +117,9 @@ class SearchScreen extends Component{
 				<View style={style.searchHistory}>
 					{showHistory.map((item,index)=> {
 						if (index < SearchScreen.showCountMax) {
+							let self = this
 							return (
-								<TouchableHighlight>
+								<TouchableHighlight onPress={(arg => self._changeContent(arg))(item)}>
 									<View style={style.historyRow}>
 										<Image source={require("../resource/icons/ic_search_history.png")}
 										       style={style.historyIcon}/>

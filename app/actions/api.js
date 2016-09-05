@@ -52,7 +52,6 @@ function fetchUser(name) {
 
 export const loadUser = (name) => {
   return (dispatch, getState) => {
-
     return dispatch(fetchUser(name))
   }
 };

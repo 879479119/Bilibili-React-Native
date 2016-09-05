@@ -16,13 +16,13 @@ function loadData(props){
 
 class BangumiPage extends Component {
 
-
   componentDidMount(){
     loadData(this.props)
   }
 
   render() {
     const {bangumi} = this.props
+    console.info(bangumi)
     return (
       <View style={styles.container}>
         <Text style={styles.test}>
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	const {
-		entities:	{ bangumi },
+		entities: { bangumi },
 	} = state;
 
 	return {
-		Theme:state.common.Theme, 
+		Theme:state.common.Theme,
         bangumi: bangumi.bangumi
 	}
 }

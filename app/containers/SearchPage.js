@@ -36,14 +36,16 @@ class SearchTop extends Component {
 		super(props);
 
 	}
-	_hide = () => {
+	_back = () => {
 		// this.props.toggleSearch();
+		const {navigator} = this.props
+		navigator.pop()
 	}
 	render = () => {
 		return (
 			<View style={style.header}>
 				<View style={style.wrapper}>
-					<TouchableHighlight onPress={this._hide} style={[style.leftArea,{marginLeft:5}]} underlayColor="#000">
+					<TouchableHighlight onPress={this._back} style={[style.leftArea,{marginLeft:5}]} underlayColor="#000">
 						<Image source={require("../resource/icons/ic_arrow_back_black.png")} style={style.headIcon}/>
 					</TouchableHighlight>
 					<TextInput autoFocus={false} onChangeText={value => this.textValue = value} style={style.input} placeholder="搜索视频、番剧、up主或av号"/>
@@ -78,16 +80,19 @@ class VideoCell extends Component {
 		super(props)
 	}
 
-	static contextTypes = {
-		goDetail: React.PropTypes.func.isRequired,
-	}
+	// static contextTypes = {
+	// 	goDetail: React.PropTypes.func.isRequired,
+	// }
 
 	_goDetail = () => {
 		const {navigator} = this.props
-		const {goDetail} = this.context
-		goDetail(this.touch.props.aid)
+		// const {goDetail} = this.context
+		// goDetail(this.touch.props.aid)
 		navigator.push({
-			component:VideoDetailPage
+			component:VideoDetailPage,
+			params:{
+				aid:this.touch.props.aid
+			}
 		})
 	}
 
@@ -127,7 +132,7 @@ class TabScrollView extends Component {
 	static contextTypes = {
 		Theme: React.PropTypes.string.isRequired,
 		result: React.PropTypes.object.isRequired,
-		goDetail: React.PropTypes.func.isRequired,
+		// goDetail: React.PropTypes.func.isRequired,
 	}
 
 	checkRender = (video) => {
@@ -162,7 +167,7 @@ class TabScrollView extends Component {
 					horizontal={true}
 					pagingEnabled={true}
 					showsHorizontalScrollIndicator={false}
-					style={{width:width,flexDirection:"row",flex:1,height:height-55}}
+					style={{width:width,flexDirection:"row",flex:1,height:height-115}}
 				>
 					<View style={style.page}>
 						<ScrollView style={{width:width}}>
@@ -216,14 +221,15 @@ class SearchPage extends Component {
 	}
 
 	componentDidMount(){
-		const {rspSuccess} = this.props
+		const {rspSuccess,content} = this.props
 
+		toggleSearch()
 		fetch("http://bilibili-service.daoapp.io/search",{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			body: "content=re&page=0&count=20"
+			body: `content=${content}&page=0&count=20`
 		}).then(rsp => rsp.json())
 			.then(rsp => rspSuccess(rsp))
 			.catch(err => console.error(err))
@@ -232,7 +238,7 @@ class SearchPage extends Component {
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired,
 		result: React.PropTypes.object.isRequired,
-		goDetail: React.PropTypes.func.isRequired
+		// goDetail: React.PropTypes.func.isRequired
 	};
 
 	getChildContext = () => {
@@ -240,7 +246,7 @@ class SearchPage extends Component {
 		return {
 			Theme: setting[this.props.activeTheme],
 			result: result,
-			goDetail: goDetail
+			// goDetail: goDetail
 		};
 	};
 
@@ -261,7 +267,7 @@ class SearchPage extends Component {
 					<StatusBar
 						backgroundColor={"#eaeaea"} />
 					<View style={[style.container]}>
-						<SearchTop searchContent="aa"/>
+						<SearchTop searchContent="aa" navigator={navigator}/>
 						<TabScrollView navigator={navigator}/>
 					</View>
 					<SearchScreen isShow={isSearching}/>
@@ -373,5 +379,5 @@ export default connect(mapStateToProps, {
 	loadStorageSetting,
 	toggleSearch,
 	rspSuccess,
-	goDetail
+	// goDetail
 })(SearchPage)

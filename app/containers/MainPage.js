@@ -47,6 +47,14 @@ class MainPage extends Component {
 		)
 	}
 
+	componentDidMount(){
+		// http://app.bilibili.com/x/show/old?build=425000&mobi_app=android&platform=android&screen=xxhdpi&ts=1473084707000
+		// fetch(`http://bilibili-service.daoapp.io/view/${aid}`)
+		// 	.then(rsp => rsp.json())
+		// 	.then(rsp => readyRender(rsp))
+		// 	.catch(err => console.error(err))
+	}
+
 	/*
 	 * 定义全局Context， 子组件可通过context调用
 	 clss Child extends Component{
@@ -81,11 +89,8 @@ class MainPage extends Component {
 	};
 
 	goDownload = () => {
-		// this.props.navigator.push({
-		// 	component: DownloadPage
-		// })
 		this.props.navigator.push({
-			name:"SearchPage"
+			component: DownloadPage
 		})
 	};
 
@@ -130,7 +135,7 @@ class MainPage extends Component {
 							<DiscoveryPage navigator={navigator} tabLabel="发现"/>
 						</ScrollableTabView>
 					</View>
-					<SearchScreen isShow={isSearching}/>
+					<SearchScreen isShow={isSearching} navigator={navigator}/>
 				</DrawerLayoutAndroid>
 			)
 		}
