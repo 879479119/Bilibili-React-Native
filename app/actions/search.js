@@ -14,7 +14,7 @@ import { setItem, getRawItem, removeItem } from '../util/Storage'
 
 export const setSearchHistory = (list,value) => {
 	let newList = list.concat([value]);
-	return async (dispatch, getState) => {
+	return async function(dispatch, getState){
 		await setItem("history",newList.join(","));
 		return dispatch(storeHistory({searchHistory:newList}))
 	}
@@ -33,7 +33,7 @@ const storeHistory = (item) => ({
  */
 
 export const getSearchHistory = () => {
-	return async (dispatch) => {
+	return async function(dispatch){
 		let history = await getRawItem("history")
 		let hisArr = null
 		if(history == null){

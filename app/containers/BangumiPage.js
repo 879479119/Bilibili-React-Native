@@ -22,7 +22,7 @@ class BangumiPage extends Component {
 
   render() {
     const {bangumi} = this.props
-    console.info(bangumi)
+    // console.info(bangumi)
     return (
       <View style={styles.container}>
         <Text style={styles.test}>

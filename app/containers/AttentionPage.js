@@ -17,7 +17,7 @@ class AttentionPage extends Component {
 		const Url = "http://bilibili-service.daoapp.io/bangumi"
 		let promise = await fetch(Url)
 		let rsp = await promise.json()
-		console.info(rsp);
+		// console.info(rsp);
 	}
 
 	render = () => {

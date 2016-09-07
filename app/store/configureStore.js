@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import rootReducer from '../reducers'
 import createLogger from 'redux-logger'
 import apiMiddleware from '../middleware/api'
+import networkMiddleware from '../middleware/network'
 
 const loggerMiddleware = createLogger({
 	predicate: (getState, action) => __DEV__
@@ -19,7 +20,8 @@ export default function configureStore(initialState) {
 			applyMiddleware(
 				thunkMiddleware,
 				apiMiddleware,
-				loggerMiddleware
+				loggerMiddleware,
+				networkMiddleware
 			)
 		)
 	)

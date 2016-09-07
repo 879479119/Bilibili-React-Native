@@ -5,6 +5,7 @@ import detail from './detail'
 import paginate from './paginate'
 import * as ActionTypes from '../actions/api'
 import merge from 'lodash/merge'
+import {netReducer} from '../middleware/network'
 
 function entities(state = { users: {}, bangumi: {}, appindex:{} }, action) {
   if (action.response && action.response.entities) {
@@ -32,7 +33,8 @@ const rootReducer = combineReducers ({
   entities,
   common,
   search,
-  detail
+  detail,
+  netReducer
 })
 
 export default rootReducer

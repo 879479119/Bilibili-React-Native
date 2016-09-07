@@ -48,11 +48,7 @@ class MainPage extends Component {
 	}
 
 	componentDidMount(){
-		// http://app.bilibili.com/x/show/old?build=425000&mobi_app=android&platform=android&screen=xxhdpi&ts=1473084707000
-		// fetch(`http://bilibili-service.daoapp.io/view/${aid}`)
-		// 	.then(rsp => rsp.json())
-		// 	.then(rsp => readyRender(rsp))
-		// 	.catch(err => console.error(err))
+
 	}
 
 	/*
@@ -67,7 +63,6 @@ class MainPage extends Component {
 	 }
 	 **/
 
-
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired
 	};
@@ -75,7 +70,7 @@ class MainPage extends Component {
 	getChildContext = () => {
 		return {
 			Theme: setting[this.props.activeTheme]
-		};
+		}
 	};
 
 	renderNavigatorView = () => {
@@ -121,6 +116,7 @@ class MainPage extends Component {
 							openDrawer={this.openDrawer}
 							goSearch={this.openSearch}/>
 						<ScrollableTabView
+							initialPage={1}
 							tabBarActiveTextColor={'#fff'}
 							tabBarInactiveTextColor={'#eee'}
 							tabBarBackgroundColor={setting[activeTheme]}
@@ -153,11 +149,11 @@ let styles = StyleSheet.create({
 			}
 		})
 	}
-});
+})
 
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
-	isSearching:state.search.isSearching
+	isSearching:state.search.isSearching,
 })
 
 export default connect(mapStateToProps, {
