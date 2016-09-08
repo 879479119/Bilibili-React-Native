@@ -27,14 +27,18 @@ export default class VideoCell extends Component {
 		return (
 			<View style={styles.container}>
 				<TouchableHighlight style={{flex:1}} aid={param}>
-					<View>
+					<View style={styles.cell}>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
-						<Text style={{height:50}}>{title}</Text>
+						<View style={{height:38,overflow:"hidden",padding:5}}><Text style={{fontSize:13,color:"#333"}}>{title}</Text></View>
 						<View style={styles.content}>
-							<Image source={require("../resource/icons/ic_info_views.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
-							<Text>{play}</Text>
-							<Image source={require("../resource/icons/ic_info_danmakus.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
-							<Text>{danmaku}</Text>
+							<View style={styles.part}>
+								<Image source={require("../resource/icons/ic_info_views.png")} style={{width:16,tintColor:"#aaa"}} resizeMode="contain"/>
+								<Text style={styles.text}>{play}</Text>
+							</View>
+							<View style={styles.part}>
+								<Image source={require("../resource/icons/ic_info_danmakus.png")} style={{width:16,tintColor:"#aaa"}} resizeMode="contain"/>
+								<Text style={styles.text}>{danmaku}</Text>
+							</View>
 						</View>
 					</View>
 				</TouchableHighlight>
@@ -65,17 +69,31 @@ export class FourCell extends Component {
 const styles = StyleSheet.create({
 	container:{
 		width: 160,
-		height: 180
+		height: 170,
+		backgroundColor: "#fff",
+		marginVertical:5
 	},
 	pic:{
 		width: 160,
 		height: 100
 	},
+	cell:{
+	},
 	content:{
 		flexDirection:"row",
-
+		marginTop: 3,
+		padding:5
 	},
 	row:{
+		flexDirection:"row",
+		justifyContent:"space-between"
+	},
+	part:{
+		flex:1,
 		flexDirection:"row"
+	},
+	text:{
+		fontSize:11,
+		marginLeft:5
 	}
 })

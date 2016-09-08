@@ -29,10 +29,12 @@ export default class BangumiCell extends Component {
 				<TouchableHighlight style={{flex:1}} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
-						<Text style={{height:50}}>{title}</Text>
+						<View style={{height:19,padding:5,overflow:"hidden"}}>
+							<Text style={{fontSize:12,color:"#333"}}>{title}</Text>
+						</View>
 						<View style={styles.content}>
-							<Text>{desc1}</Text>
-							<Text>昨天23:23</Text>
+							<Text style={styles.text}>{desc1}</Text>
+							<Text style={styles.text}>昨天23:23</Text>
 						</View>
 					</View>
 				</TouchableHighlight>
@@ -63,7 +65,9 @@ export class FourBangumiCell extends Component {
 const styles = StyleSheet.create({
 	container:{
 		width: 160,
-		height: 180
+		height: 150,
+		backgroundColor:"#fff",
+		marginTop:10
 	},
 	pic:{
 		width: 160,
@@ -71,9 +75,15 @@ const styles = StyleSheet.create({
 	},
 	content:{
 		flexDirection:"row",
-
+		justifyContent:"space-between",
+		padding:5,
+		marginTop:5
 	},
 	row:{
-		flexDirection:"row"
+		flexDirection:"row",
+		justifyContent:"space-between"
+	},
+	text:{
+		fontSize:11
 	}
 })

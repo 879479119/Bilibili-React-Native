@@ -3,6 +3,7 @@
  */
 
 import React, {Component, PropTypes} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	View,
@@ -11,7 +12,8 @@ import {
 	ScrollView,
 	TouchableHighlight,
 	TouchableWithoutFeedback,
-	TouchableOpacity
+	TouchableOpacity,
+	Dimensions
 } from 'react-native'
 import SwiperView from 'react-native-swiper'
 import setting from '../config/setting';
@@ -25,10 +27,23 @@ import {FourBangumiCell} from '../components/BangumiCell'
  */
 class TopicSection extends Component {
 	render = () => {
-		const {title} = this.props.head
+		const {cover, param} = this.props.items[0]
 		return (
-			<View>
-				<Text>{title}</Text>
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
+					<View style={{flexDirection:"row"}}>
+						<Image source={require('../resource/mipmaps/ic_header_topic.png')} style={styles.fieldIcon}/>
+						<Text style={{marginLeft:5}}>话题</Text>
+					</View>
+					<TouchableHighlight>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
+					</TouchableHighlight>
+				</View>
+				<TouchableHighlight link={param}>
+					<Image source={{uri:cover}} style={styles.videoBanner}/>
+				</TouchableHighlight>
 			</View>
 		)
 	}
@@ -49,17 +64,18 @@ class LiveSection extends Component {
 					</View>
 					<TouchableHighlight>
 						<View style={styles.rank}>
-							<Text>当前<Text>{count}</Text>个直播</Text>
+							<Text>当前<Text style={{color:"#FF69B4"}}>{count}</Text>个直播</Text>
 						</View>
 					</TouchableHighlight>
 				</View>
 				<FourLiveCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={styles.more}>
-						<Text>查看更多</Text>
+						<Text style={{fontSize:11}}>查看更多</Text>
 					</View>
-					<View>
-						<Text>9条新动态，点击刷新</Text>
+					<View style={{flexDirection:"row"}}>
+						<Text style={{color:"#333",fontSize:9}}>9条新动态，点击刷新</Text>
+						<Image source={require('../resource/icons/ic_category_more_refresh.png')} style={{width:16,height:16,tintColor:"#00bfff"}}/>
 					</View>
 				</View>
 			</View>
@@ -73,9 +89,9 @@ class VideoSection extends Component {
 	render = () => {
 		const {cover, param} = this.props.items[0]
 		return (
-			<View>
+			<View style={{marginTop:20}}>
 				<TouchableHighlight aid={param}>
-					<Image source={{uri:cover}} style={styles.videoBanner} resizeMode="contain"/>
+					<Image source={{uri:cover}} style={styles.videoBanner}/>
 				</TouchableHighlight>
 			</View>
 		)
@@ -102,7 +118,7 @@ class BangumiSection extends Component {
 					</TouchableHighlight>
 				</View>
 				<FourBangumiCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<TouchableOpacity activeOpacity={0.9}>
 						<View>
 							<Image source={require('../resource/backgrounds/bangumi_timeline_background.png')} style={styles.back} resizeMode="contain"/>
@@ -165,19 +181,22 @@ class CommonSection extends Component {
 				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={{flexDirection:"row"}}>
 						{icon}
-						<Text>{title}</Text>
+						<Text style={{marginLeft:5}}>{title}</Text>
 					</View>
 					<TouchableHighlight>
-						<Text>进去看看</Text>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
 					</TouchableHighlight>
 				</View>
 				<FourCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={styles.more}>
-						<Text>查看更多</Text>
+						<Text style={{fontSize:11}}>查看更多</Text>
 					</View>
-					<View>
-						<Text>9条新动态，点击刷新</Text>
+					<View style={{flexDirection:"row"}}>
+						<Text style={{color:"#333",fontSize:9}}>9条新动态，点这刷新</Text>
+						<Image source={require('../resource/icons/ic_category_more_refresh.png')} style={{width:16,height:16,tintColor:"#00bfff"}}/>
 					</View>
 				</View>
 			</View>
@@ -230,7 +249,7 @@ class RecommendPage extends Component {
 		}else if(fetchState == 2 && symbol == this.loader){
 			return (
 				<ScrollView style={styles.scroller}>
-					<SwiperView autoplay={true} showButtons={true} height={100}>
+					<SwiperView autoplay={true} showButtons={true} height={100} autoplayTimeout={5}>
 						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
 						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
 						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
@@ -276,6 +295,8 @@ class RecommendPage extends Component {
 	}
 }
 
+const {width, height} = Dimensions.get('window')
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -289,12 +310,13 @@ const styles = StyleSheet.create({
 		margin: 10
 	},
 	wrapper:{
-		flex: 1,
-
+		// flex: 1,
+		marginTop:20
 	},
 	scroller:{
 		flex: 1,
-		backgroundColor: "#00bfff",
+		backgroundColor: "#eaeaea",
+		paddingHorizontal: 10
 		// height: 50
 	},
 	rank:{
@@ -308,27 +330,35 @@ const styles = StyleSheet.create({
 		flexDirection:"row"
 	},
 	more:{
-		width:80,
-		height:30,
-		textAlign:"center",
-		justifyContent:"center"
+		paddingVertical:3,
+		justifyContent:"center",
+		paddingHorizontal:20,
+		backgroundColor:"#fff",
+		borderRadius:4
 	},
 	back:{
 		position:"relative",
-		width:160,
-		height:80
+		width:164,
+		height:60
 	},
 	fore:{
 		position:"absolute",
 		top:10,
-		left:20,
-		width:120,
+		left:30,
+		width:100,
 		height:40
 	},
 	videoBanner:{
-		width:360,
-		height:100
+		width:width - 20,
+		height:104
+	},
+	goin:{
+		paddingHorizontal:6,
+		paddingVertical:3,
+		backgroundColor:"#ccc",
+		borderRadius:4
 	}
+
 });
 
 const mapStateToProps = (state) => ({
