@@ -20,7 +20,9 @@ import {loadWithAPI} from '../actions/network'
 import {VideoCell, FourCell} from '../components/VideoCell'
 import {FourLiveCell} from '../components/LiveCell'
 import {FourBangumiCell} from '../components/BangumiCell'
-
+/**
+ * 话题模块
+ */
 class TopicSection extends Component {
 	render = () => {
 		const {title} = this.props.head
@@ -31,7 +33,9 @@ class TopicSection extends Component {
 		)
 	}
 }
-
+/**
+ * 直播模块
+ */
 class LiveSection extends Component {
 	render = () => {
 		const {count} = this.props.head
@@ -62,19 +66,24 @@ class LiveSection extends Component {
 		)
 	}
 }
-
+/**
+ * 长条视频的模块
+ */
 class VideoSection extends Component {
 	render = () => {
-		const {title} = this.props.head
+		const {cover, param} = this.props.items[0]
 		return (
 			<View>
-				<Text>{title}</Text>
-
+				<TouchableHighlight aid={param}>
+					<Image source={{uri:cover}} style={styles.videoBanner} resizeMode="contain"/>
+				</TouchableHighlight>
 			</View>
 		)
 	}
 }
-
+/**
+ * 番剧
+ */
 class BangumiSection extends Component {
 	render = () => {
 		const items = this.props.items
@@ -95,23 +104,89 @@ class BangumiSection extends Component {
 				<FourBangumiCell items={items}/>
 				<View style={{flexDirection:"row"}}>
 					<TouchableOpacity activeOpacity={0.9}>
-						<Image source={require('../resource/backgrounds/bangumi_timeline_background.png')} style={styles.back} resizeMode="contain"/>
-						<Image source={require('../resource/icons/bangumi_timeline_text.png')} style={styles.fore} resizeMode="contain"/>
+						<View>
+							<Image source={require('../resource/backgrounds/bangumi_timeline_background.png')} style={styles.back} resizeMode="contain"/>
+							<Image source={require('../resource/icons/bangumi_timeline_text.png')} style={styles.fore} resizeMode="contain"/>
+						</View>
+
 					</TouchableOpacity>
 					<TouchableOpacity activeOpacity={0.9}>
-						<Image source={require('../resource/backgrounds/bangumi_index_background.png')} style={styles.back} resizeMode="contain"/>
-						<Image source={require('../resource/icons/bangumi_index_text.png')} style={styles.fore} resizeMode="contain"/>
+						<View>
+							<Image source={require('../resource/backgrounds/bangumi_index_background.png')} style={styles.back} resizeMode="contain"/>
+							<Image source={require('../resource/icons/bangumi_index_text.png')} style={styles.fore} resizeMode="contain"/>
+						</View>
+
 					</TouchableOpacity>
 				</View>
 			</View>
 		)
 	}
 }
-
-class CommonSection extends Component {
-
+/**
+ * 获取模块前面的图标
+ */
+class RegionIcons {
+	static getIcon(param){
+		param = parseInt(param)
+		switch (param){
+			case 3:// music
+				return <Image source={require('../resource/mipmaps/ic_category_t3.png')} style={styles.fieldIcon}/>
+			case 129://dance
+				return <Image source={require('../resource/mipmaps/ic_category_t129.png')} style={styles.fieldIcon}/>
+			case 4://game
+				return <Image source={require('../resource/mipmaps/ic_category_t4.png')} style={styles.fieldIcon}/>
+			case 119://yooooooooooooo
+				return <Image source={require('../resource/mipmaps/ic_category_t119.png')} style={styles.fieldIcon}/>
+			case 36://science
+				return <Image source={require('../resource/mipmaps/ic_category_t36.png')} style={styles.fieldIcon}/>
+			case 160://relax
+				return <Image source={require('../resource/mipmaps/ic_category_t160.png')} style={styles.fieldIcon}/>
+			case 155://fashion
+				return <Image source={require('../resource/mipmaps/ic_category_t155.png')} style={styles.fieldIcon}/>
+			case 5://entertainment
+			    return <Image source={require('../resource/mipmaps/ic_category_t5.png')} style={styles.fieldIcon}/>
+			case 11://TV
+				return <Image source={require('../resource/mipmaps/ic_category_t11.png')} style={styles.fieldIcon}/>
+			case 23://movie
+				return <Image source={require('../resource/mipmaps/ic_category_t23.png')} style={styles.fieldIcon}/>
+		}
+	}
 }
-
+/**
+ * 动画区，舞蹈区等公有模块
+ */
+class CommonSection extends Component {
+	render = () => {
+		const {title, param} = this.props.head
+		const items = this.props.items
+		const icon = RegionIcons.getIcon(param)
+		return (
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
+					<View style={{flexDirection:"row"}}>
+						{icon}
+						<Text>{title}</Text>
+					</View>
+					<TouchableHighlight>
+						<Text>进去看看</Text>
+					</TouchableHighlight>
+				</View>
+				<FourCell items={items}/>
+				<View style={{flexDirection:"row"}}>
+					<View style={styles.more}>
+						<Text>查看更多</Text>
+					</View>
+					<View>
+						<Text>9条新动态，点击刷新</Text>
+					</View>
+				</View>
+			</View>
+		)
+	}
+}
+/**
+ * 推荐模块
+ */
 class RecommendSection extends Component {
 
 	render = () => {
@@ -136,7 +211,9 @@ class RecommendSection extends Component {
 		)
 	}
 }
-
+/**
+ * 推荐页面控制组件
+ */
 class RecommendPage extends Component {
 
 	componentDidMount(){
@@ -247,6 +324,10 @@ const styles = StyleSheet.create({
 		left:20,
 		width:120,
 		height:40
+	},
+	videoBanner:{
+		width:360,
+		height:100
 	}
 });
 
