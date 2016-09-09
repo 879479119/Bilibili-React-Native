@@ -277,51 +277,75 @@ class RecommendPage extends Component {
 	componentDidMount(){
 		const {loadWithAPI} = this.props
 		this.loader = loadWithAPI('http://app.bilibili.com/x/show/old')
+		this.banner = loadWithAPI('http://app.bilibili.com/x/banner?plat=4')
 	}
 
 	render = () => {
-		const {fetchState, symbol, recommend} = this.props
+		const {fetchState, symbol, data} = this.props
 		if(fetchState == 1){
 			return (
 				<View style={{backgroundColor:"#efefef"}}><Text>请求中</Text></View>
 			)
-		}else if(fetchState == 2 && symbol == this.loader){
+		}else if(fetchState == 2){
+			if(symbol == this.loader){
+				this.recommendData = Object.assign({}, data)
+			}else if(symbol == this.banner){
+				this.bannerData = Object.assign({}, data)
+				console.info(this.bannerData)
+			}
+
 			return (
 				<ScrollView style={styles.scroller}>
-					<SwiperView autoplay={true} showButtons={true} height={100} autoplayTimeout={5}>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
+					<SwiperView
+						autoplay={true}
+						showButtons={true}
+						height={120}
+						autoplayTimeout={10}
+						paginationStyle={{bottom:0,marginLeft:300}}
+						dot={<View style={styles.dot}/>}
+						activeDot={<View style={styles.activeDot}/>}>
+						{this.bannerData.data.map(item => {
+							const {type, image, value} = item
+							return (
+								<View style={{flex:1}}>
+									<TouchableHighlight type={type} value={value}>
+										<Image source={{uri:image}} style={{width:360,height:120}}/>
+									</TouchableHighlight>
+								</View>
+							)
+						})}
 					</SwiperView>
-					{
-						recommend.result.map(item => {
-							const items = item.body,
-								head = item.head
-							switch (item.type){
-								case "recommend":
-									return <RecommendSection items={items} head={head}/>
-								case "live":
-									return <LiveSection items={items} head={head}/>
-								case "bangumi_2":
-									return <BangumiSection items={items} head={head}/>
-								case "region":
-									return <CommonSection items={items} head={head}/>
-								case "weblink":
-									return <TopicSection items={items} head={head}/>
-								case "activity":
-									return <ActivitySection items={items} head={head}/>
-								case undefined:
-									return <VideoSection items={items} head={head}/>
-								default:
-									return (
-										<View>
-											<Text>暂时不支持显示</Text>
-										</View>
-									)
-							}
-						})
-					}
+					<View style={{paddingHorizontal:10}}>
+						{
+							this.recommendData.result.map(item => {
+								const items = item.body,
+									head = item.head
+								switch (item.type){
+									case "recommend":
+										return <RecommendSection items={items} head={head}/>
+									case "live":
+										return <LiveSection items={items} head={head}/>
+									case "bangumi_2":
+										return <BangumiSection items={items} head={head}/>
+									case "region":
+										return <CommonSection items={items} head={head}/>
+									case "weblink":
+										return <TopicSection items={items} head={head}/>
+									case "activity":
+										return <ActivitySection items={items} head={head}/>
+									case undefined:
+										return <VideoSection items={items} head={head}/>
+									default:
+										return (
+											<View>
+												<Text>暂时不支持显示</Text>
+											</View>
+										)
+								}
+							})
+						}
+					</View>
+
 				</ScrollView>
 			)
 		}else {
@@ -357,7 +381,7 @@ const styles = StyleSheet.create({
 	scroller:{
 		flex: 1,
 		backgroundColor: "#eaeaea",
-		paddingHorizontal: 10
+		// paddingHorizontal: 10
 		// height: 50
 	},
 	rank:{
@@ -398,6 +422,26 @@ const styles = StyleSheet.create({
 		paddingVertical:3,
 		backgroundColor:"#ccc",
 		borderRadius:4
+	},
+	dot:{
+		backgroundColor:'#fff',
+		width: 6,
+		height: 6,
+		borderRadius: 4,
+		marginLeft: 3,
+		marginRight: 3,
+		marginTop: 3,
+		marginBottom: 3,
+	},
+	activeDot:{
+		backgroundColor: '#007aff',
+		width: 6,
+		height: 6,
+		borderRadius: 4,
+		marginLeft: 3,
+		marginRight: 3,
+		marginTop: 3,
+		marginBottom: 3,
 	}
 
 });
@@ -405,7 +449,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
 	fetchState:state.netReducer.fetchState,
-	recommend:state.netReducer.recommend,
+	data:state.netReducer.data,
 	symbol:state.netReducer.symbol
 })
 
