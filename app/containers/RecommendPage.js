@@ -2,6 +2,7 @@
  * 推荐页
  */
 
+//noinspection JSUnresolvedVariable
 import React, {Component, PropTypes} from 'react'
 //noinspection JSUnresolvedVariable
 import {
@@ -41,7 +42,7 @@ class TopicSection extends Component {
 						</View>
 					</TouchableHighlight>
 				</View>
-				<TouchableHighlight link={param}>
+				<TouchableHighlight link={param} style={{marginTop:10}}>
 					<Image source={{uri:cover}} style={styles.videoBanner}/>
 				</TouchableHighlight>
 			</View>
@@ -93,6 +94,44 @@ class VideoSection extends Component {
 				<TouchableHighlight aid={param}>
 					<Image source={{uri:cover}} style={styles.videoBanner}/>
 				</TouchableHighlight>
+			</View>
+		)
+	}
+}
+/**
+ * 活动中心模块
+ */
+class ActivitySection extends Component {
+	render = () => {
+		const items = this.props.items
+		return (
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
+					<View style={{flexDirection:"row"}}>
+						<Image source={require('../resource/mipmaps/ic_header_activity_center.png')} style={styles.fieldIcon}/>
+						<Text style={{marginLeft:5}}>活动中心</Text>
+					</View>
+					<TouchableHighlight>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
+					</TouchableHighlight>
+				</View>
+				<ScrollView horizontal={true} style={{flex:1,marginTop:10}}>
+					{items.map(item => {
+						const {cover, param, title} = item
+						return (
+							<TouchableHighlight style={{width:170,marginRight:10}} link={param}>
+								<View style={{flex:1,backgroundColor:"#fff"}}>
+									<Image source={{uri: cover}} style={{width:170,height:100}}/>
+									<View style={{padding:5,height:38,overflow:"hidden"}}>
+										<Text style={{fontSize:12,color:"#333"}}>{title}</Text>
+									</View>
+								</View>
+							</TouchableHighlight>
+						)
+					})}
+				</ScrollView>
 			</View>
 		)
 	}
@@ -270,6 +309,8 @@ class RecommendPage extends Component {
 									return <CommonSection items={items} head={head}/>
 								case "weblink":
 									return <TopicSection items={items} head={head}/>
+								case "activity":
+									return <ActivitySection items={items} head={head}/>
 								case undefined:
 									return <VideoSection items={items} head={head}/>
 								default:
