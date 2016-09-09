@@ -16,6 +16,7 @@ import {
 import SplashScreen from './SplashScreen'
 import MainPage from './MainPage'
 import DownloadPage from './DownloadPage'
+import VideoDetailPage from './VideoDetailPage'
 import SettingPage from './SettingPage'
 import ThemePage from './ThemePage'
 import SearchPage from './SearchPage'
@@ -87,6 +88,8 @@ class App extends Component {
 				case 'SearchPage':
 					return <SearchPage navigator={navigator}/>;
 					break;
+				case 'VideoDetail':
+					return <VideoDetailPage navigator={navigator} {...route.params}/>
 				default:
 					return (
 						<View><Text>空路由，如果不想到达此页请勿传name进入</Text></View>

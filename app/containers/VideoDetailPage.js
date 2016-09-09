@@ -51,7 +51,6 @@ class VideoDetailPage extends Component {
 
 	render = () => {
 		const {aid,result} = this.props
-		console.info(result)
 		if(result == undefined){
 			return(
 				<View style={style.container}>

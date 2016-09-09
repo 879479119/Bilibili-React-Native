@@ -19,14 +19,30 @@ export default class VideoCell extends Component {
 
 	}
 
+	_goVideo = () =>{
+		const {navigator} = this.context
+		const param = parseInt(this.touch.props.aid)
+		navigator.push({
+			name: "VideoDetail",
+			params:{
+				aid:param
+			}
+		})
+	}
+
+	static contextTypes = {
+		navigator: PropTypes.object.isRequired
+	}
+
 	render = () => {
 
 		// const {pic, title, view, danmaku, aid} = this.props.item
 		const {title, cover, param, play, danmaku} = this.props.item
+		// this.param = param
 
 		return (
 			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} aid={param}>
+				<TouchableHighlight style={{flex:1}} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
 					<View style={styles.cell}>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
 						<View style={{height:38,overflow:"hidden",padding:5}}><Text style={{fontSize:13,color:"#333"}}>{title}</Text></View>

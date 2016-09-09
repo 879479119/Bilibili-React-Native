@@ -274,6 +274,21 @@ class RecommendSection extends Component {
  */
 class RecommendPage extends Component {
 
+	constructor(props){
+		super(props)
+	}
+
+	static childContextTypes = {
+		navigator:PropTypes.object.isRequired
+	}
+
+	getChildContext = () => {
+		const {navigator} = this.props
+		return {
+			navigator: navigator
+		}
+	}
+
 	componentDidMount(){
 		const {loadWithAPI} = this.props
 		this.loader = loadWithAPI('http://app.bilibili.com/x/show/old')
@@ -291,7 +306,6 @@ class RecommendPage extends Component {
 				this.recommendData = Object.assign({}, data)
 			}else if(symbol == this.banner){
 				this.bannerData = Object.assign({}, data)
-				console.info(this.bannerData)
 			}
 
 			return (
