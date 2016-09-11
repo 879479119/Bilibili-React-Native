@@ -295,6 +295,33 @@ class RecommendPage extends Component {
 		this.banner = loadWithAPI('http://app.bilibili.com/x/banner?plat=4')
 	}
 
+	_goWebView = (item) => {
+		const {navigator} = this.props
+		const {type, value, title} = item
+		console.info(item)
+		if(type == 2){
+			return () => {
+				navigator.push({
+					name: "WebView",
+					params: {
+						url: value,
+						title: title
+					}
+				})
+			}
+		}else if(type == 0){
+			return () => {
+				navigator.push({
+					name: "VideoDetail",
+					params: {
+						aid: value
+					}
+				})
+			}
+
+		}
+	}
+
 	render = () => {
 		const {fetchState, symbol, data} = this.props
 		if(fetchState == 1){
@@ -322,8 +349,8 @@ class RecommendPage extends Component {
 							const {type, image, value} = item
 							return (
 								<View style={{flex:1}}>
-									<TouchableHighlight type={type} value={value}>
-										<Image source={{uri:image}} style={{width:360,height:120}}/>
+									<TouchableHighlight type={type} value={value} ref={o => this.banner.push(o)} onPress={this._goWebView(item)}>
+										<Image source={{uri:image}} style={{width:360,height:120}}><Text>{type}</Text></Image>
 									</TouchableHighlight>
 								</View>
 							)

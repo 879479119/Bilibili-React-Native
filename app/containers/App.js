@@ -2,6 +2,7 @@
  * 路由页
  */
 import React, {Component} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	Navigator,
@@ -20,9 +21,10 @@ import VideoDetailPage from './VideoDetailPage'
 import SettingPage from './SettingPage'
 import ThemePage from './ThemePage'
 import SearchPage from './SearchPage'
+import WebViewPage from './WebViewPage'
 import { connect } from 'react-redux'
 import {toggleSearch} from '../actions/search'
-
+import {HandleBackPressWhenSearch} from './SearchScreen'
 
 class App extends Component {
 	constructor(props) {
@@ -31,22 +33,11 @@ class App extends Component {
 
 	componentWillMount() {
 		//android动画支持
+		//noinspection JSUnresolvedVariable,JSUnresolvedFunction
 		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 		if (Platform.OS === 'android') {
 			BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
 		}
-	}
-
-	/**
-	 * @return {boolean}
-	 */
-	HandleBackPressIfNeed = () => {
-		const {toggleSearch, isSearching} = this.props
-		if(isSearching){
-			toggleSearch()
-			return true
-		}
-		return false
 	}
 
 	onBackAndroid = () => {
@@ -54,7 +45,7 @@ class App extends Component {
 		let routes = navigator.getCurrentRoutes();
 		let lastRoute = routes[routes.length - 1]
 		//处理路由以外的返回按键
-		let flag = this.HandleBackPressIfNeed()
+		let flag = HandleBackPressWhenSearch(this)
 		if(flag === true){
 			return true
 		}
@@ -90,6 +81,8 @@ class App extends Component {
 					break;
 				case 'VideoDetail':
 					return <VideoDetailPage navigator={navigator} {...route.params}/>
+				case 'WebView':
+					return <WebViewPage navigator={navigator} {...route.params}/>
 				default:
 					return (
 						<View><Text>空路由，如果不想到达此页请勿传name进入</Text></View>

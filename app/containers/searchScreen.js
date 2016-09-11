@@ -29,6 +29,18 @@ const {width,height} = Dimensions.get("window");
 
 //TODO:这里有一个BUG，在高分屏中input框不会居中
 
+/**
+ * @return {boolean}
+ */
+export function HandleBackPressWhenSearch(self){
+	const {toggleSearch, isSearching} = self.props
+	if(isSearching){
+		toggleSearch()
+		return true
+	}
+	return false
+}
+
 class SearchScreen extends Component{
 	constructor(props) {
 	  super(props)

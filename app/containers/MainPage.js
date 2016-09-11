@@ -34,6 +34,7 @@ import ToolBar from '../components/ToolBar';
 import setting from '../config/setting';
 import {loadStorageSetting} from '../actions/common';
 import {toggleSearch} from '../actions/search'
+import WebViewPage from './WebViewPage'
 
 class MainPage extends Component {
 	constructor(props) {
@@ -85,7 +86,7 @@ class MainPage extends Component {
 
 	goDownload = () => {
 		this.props.navigator.push({
-			component: DownloadPage
+			component: WebViewPage
 		})
 	};
 
