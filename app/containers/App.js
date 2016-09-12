@@ -19,7 +19,6 @@ import setting from '../config/setting';
 import { SplashScreen,  MainPage,  DownloadPage,  SettingPage, ThemePage, SearchPage, WebViewPage } from '../containers';
 import {toggleSearch, loadStorageSetting } from '../actions';
 import {HandleBackPressWhenSearch} from './SearchScreen';
-
 class App extends Component {
 	constructor(props) {
 		super(props);
