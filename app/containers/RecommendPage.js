@@ -16,6 +16,7 @@ import {
 	TouchableOpacity,
 	Dimensions
 } from 'react-native'
+import {fetchBackSymbol} from 'redux-api-simple-middleware'
 import SwiperView from 'react-native-swiper'
 import setting from '../config/setting';
 import {connect} from 'react-redux'
@@ -290,9 +291,9 @@ class RecommendPage extends Component {
 	}
 
 	componentDidMount(){
-		const {loadWithAPI} = this.props
-		this.loader = loadWithAPI('http://app.bilibili.com/x/show/old')
-		this.banner = loadWithAPI('http://app.bilibili.com/x/banner?plat=4')
+		const {fetchBackSymbol} = this.props
+		this.loader = fetchBackSymbol('http://app.bilibili.com/x/show/old')
+		this.banner = fetchBackSymbol('http://app.bilibili.com/x/banner?plat=4')
 	}
 
 	_goWebView = (item) => {
@@ -323,12 +324,19 @@ class RecommendPage extends Component {
 	}
 
 	render = () => {
-		const {fetchState, symbol, data} = this.props
-		if(fetchState == 1){
+		const {SAMfetchState, symbol, data} = this.props
+		if(SAMfetchState == 1){
 			return (
 				<View style={{backgroundColor:"#efefef"}}><Text>请求中</Text></View>
 			)
-		}else if(fetchState == 2){
+		}else if(SAMfetchState == 2){
+			const recommendVoid = [{
+				type:0,image:1,value:1
+			}]
+			const bannerVoid = [{
+
+			}]
+
 			if(symbol == this.loader){
 				this.recommendData = Object.assign({}, data)
 			}else if(symbol == this.banner){
@@ -345,11 +353,11 @@ class RecommendPage extends Component {
 						paginationStyle={{bottom:0,marginLeft:300}}
 						dot={<View style={styles.dot}/>}
 						activeDot={<View style={styles.activeDot}/>}>
-						{this.bannerData.data.map(item => {
+						{this.bannerData && this.bannerData.data.map(item => {
 							const {type, image, value} = item
 							return (
 								<View style={{flex:1}}>
-									<TouchableHighlight type={type} value={value} ref={o => this.banner.push(o)} onPress={this._goWebView(item)}>
+									<TouchableHighlight type={type} value={value} onPress={this._goWebView(item)}>
 										<Image source={{uri:image}} style={{width:360,height:120}}><Text>{type}</Text></Image>
 									</TouchableHighlight>
 								</View>
@@ -358,7 +366,7 @@ class RecommendPage extends Component {
 					</SwiperView>
 					<View style={{paddingHorizontal:10}}>
 						{
-							this.recommendData.result.map(item => {
+							this.recommendData && this.recommendData.result.map(item => {
 								const items = item.body,
 									head = item.head
 								switch (item.type){
@@ -489,11 +497,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
-	fetchState:state.netReducer.fetchState,
-	data:state.netReducer.data,
-	symbol:state.netReducer.symbol
+	SAMfetchState:state.SimpleAPIReducer.SAMfetchState,
+	data:state.SimpleAPIReducer.data,
+	symbol:state.SimpleAPIReducer.symbol
 })
 
 export default connect(mapStateToProps, {
-	loadWithAPI
+	fetchBackSymbol
 })(RecommendPage)
