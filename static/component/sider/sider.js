@@ -20,7 +20,6 @@ class sider extends Component{
         this.state = {colorSet:"blue",bilibili:true};
     }
     _switchTheme(){
-        console.log(this.state.colorSet);
         if(this.state.colorSet != "dark"){
             this.setState({colorSet:"dark"});
         }else{

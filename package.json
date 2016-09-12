@@ -19,5 +19,8 @@
     "redux-api-simple-middleware": "^1.0.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1"
   }
 }
