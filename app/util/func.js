@@ -1,3 +1,4 @@
+import pull from 'lodash/pull'
 //lodash function
 export const fromPairs = (pairs)  => {
   var index = -1,
@@ -10,3 +11,5 @@ export const fromPairs = (pairs)  => {
   }
   return result
 }
+
+export const obj2query = (obj) => pull(Object.keys(obj).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`), undefined).join('&')

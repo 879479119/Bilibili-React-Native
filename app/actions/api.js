@@ -1,25 +1,25 @@
 import { CALL_API } from '../middleware/api'
-import { Schemas, SCHEMAS } from '../config/Schemas'
 import { API } from '../config/constants'
+import {loadWithAPI} from '../actions'
+import {obj2query} from '../util/func'
 
 
-function getHeader(){
+const getHeader = () => {
   return {
        'Accept': 'application/json',
        'Content-Type': 'application/json'
    }
 }
 
-export const API_PATH_REQUEST = 'API_PATH_REQUEST'
-export const API_PATH_SUCCESS = 'API_PATH_SUCCESS'
-export const API_PATH_FAILURE = 'API_PATH_FAILURE'
+export const GET_LIST_REQUEST = 'GET_LIST_REQUEST'
+export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS'
+export const GET_LIST_FAILURE = 'GET_LIST_FAILURE'
 
-function fetchApiWithPath(path) {
+const getList = (form) => {
   return {
     [CALL_API]: {
-      types: [ API_PATH_REQUEST, API_PATH_SUCCESS, API_PATH_FAILURE ],
-      endpoint: API[path],
-      schema: Schemas[SCHEMAS[path]],
+      types: [ GET_LIST_REQUEST, GET_LIST_SUCCESS, GET_LIST_FAILURE ],
+      endpoint: API[form].path,
       request: {
         method: 'GET',
         headers: getHeader()
@@ -28,30 +28,38 @@ function fetchApiWithPath(path) {
   }
 }
 
-export function loadApiWithPath(path){
-  return (dispatch, getState) => {
+export const POST_LIST_REQUEST = 'POST_LIST_REQUEST'
+export const POST_LIST_SUCCESS = 'POST_LIST_SUCCESS'
+export const POST_LIST_FAILURE = 'POST_LIST_FAILURE'
 
-    return dispatch(fetchApiWithPath(path))
-  }
-}
-
-export const USER_REQUEST = 'USER_REQUEST'
-export const USER_SUCCESS = 'USER_SUCCESS'
-export const USER_FAILURE = 'USER_FAILURE'
-
-function fetchUser(name) {
+const postList = (form, params) => {
   return {
     [CALL_API]: {
-      types: [ USER_REQUEST, USER_SUCCESS, USER_FAILURE ],
-      endpoint: `userinfo?user=${name}`,
-      schema: Schemas.USER
+      types: [ POST_LIST_REQUEST, POST_LIST_SUCCESS, POST_LIST_FAILURE ],
+      endpoint: API[form].path,
+      request: {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: obj2query(params)
+      }
     }
   }
 }
 
-
-export const loadUser = (name) => {
-  return (dispatch, getState) => {
-    return dispatch(fetchUser(name))
+export const loadDataList = ({form, params, mode}) => (dispatch, getState) =>  {
+  let {
+    page = 0
+  } = {}
+  switch(API[form].method){
+    case 'GET':
+      return dispatch(getList(form))
+      break
+    case 'POST':
+      return dispatch(postList(form,params))
+      break
+    default:
+      return null
   }
-};
+}

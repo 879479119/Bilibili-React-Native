@@ -8,27 +8,17 @@ import {
   Text,
 } from 'react-native'
 import {connect} from 'react-redux'
-import { loadApiWithPath } from '../actions/api'
+import {Fetch} from '../components'
 
-function loadData(props){
-  props.loadApiWithPath('bangumi')
-}
-
-class BangumiPage extends Component {
-
-  componentDidMount(){
-    loadData(this.props)
-  }
+export default class BangumiPage extends Component {
 
   render() {
-    const {bangumi} = this.props
-    // console.info(bangumi)
     return (
-      <View style={styles.container}>
+      <Fetch form="search" params={{content:'haha',page: 0}} style={styles.container}>
         <Text style={styles.test}>
           该模块施工中
         </Text>
-      </View>
+      </Fetch>
     )
   }
 }
@@ -45,19 +35,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10
   }
-});
-
-function mapStateToProps(state) {
-	const {
-		entities: { bangumi },
-	} = state;
-
-	return {
-		Theme:state.common.Theme,
-        bangumi: bangumi.bangumi
-	}
-}
-
-export default connect(mapStateToProps,{
-  loadApiWithPath
-})(BangumiPage)
+})

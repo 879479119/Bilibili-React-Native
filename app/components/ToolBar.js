@@ -17,7 +17,7 @@ import {
 
 const {width} = Dimensions.get("window");
 
-class Toolbar extends Component {
+export default class ToolBarAndroid extends Component {
 	static contextTypes = {
 		Theme: React.PropTypes.string.isRequired
 	};
@@ -167,5 +167,3 @@ let styles = StyleSheet.create({
 		marginTop: 10
 	}
 });
-
-export default Toolbar

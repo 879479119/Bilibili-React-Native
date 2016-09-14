@@ -6,3 +6,4 @@
 */
 
 export ToolBarAndroid from './ToolBar'
+export {Fetch} from './Fetch'

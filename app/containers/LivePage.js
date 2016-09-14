@@ -10,19 +10,9 @@ import {
 import {connect} from 'react-redux'
 import { loadApiWithPath } from '../actions/api'
 
-function loadData(props){
-  props.loadApiWithPath('appindex')
-}
-
-class LivePage extends Component {
-
-  componentWillMount(){
-    loadData(this.props)
-  }
+export default class LivePage extends Component {
 
   render() {
-    const { appindex } = this.props
-
     return (
       <View style={styles.container}>
         <Text style={styles.test}>
@@ -46,17 +36,3 @@ const styles = StyleSheet.create({
     margin: 10
   }
 });
-
-function mapStateToProps(state) {
-	const {
-		entities:	{ appindex },
-	} = state;
-
-	return {
-    appindex: appindex.appindex
-	}
-}
-
-export default connect(mapStateToProps,{
-  loadApiWithPath
-})(LivePage)

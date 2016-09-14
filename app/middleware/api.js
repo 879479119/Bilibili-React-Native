@@ -19,22 +19,21 @@ function getNextPageUrl(response) {
 
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
-function callApi(endpoint, schema) {
-  const fullUrl = endpoint
+function callApi(endpoint, request) {
 
-  return fetch(fullUrl)
+  const fullUrl = endpoint
+  return fetch(fullUrl , request)
     .then(response =>
-      response.json().then(json => ({ json, response }))
+      { console.log(response)
+        return response.json().then(json => ({ json, response }))}
     ).then(({ json, response }) => {
       if (!response.ok) {
         return Promise.reject(json)
       }
-
-      const camelizedJson = camelizeKeys(json)
-      const nextPageUrl = getNextPageUrl(response)
+      const nextPageUrl = getNextPageUrl(response) || response.url
 
       return Object.assign({},
-        normalize(camelizedJson, schema),
+        json,
         { nextPageUrl }
       )
     })
@@ -65,8 +64,8 @@ export default store => next => action => {
     return next(action)
   }
 
-  let { endpoint } = callAPI
-  const { schema, types } = callAPI
+  let { endpoint, request } = callAPI
+  const { types } = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -74,9 +73,6 @@ export default store => next => action => {
 
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.')
-  }
-  if (!schema) {
-    throw new Error('Specify one of the exported Schemas.')
   }
   if (!Array.isArray(types) || types.length !== 3) {
     throw new Error('Expected an array of three action types.')
@@ -94,7 +90,7 @@ export default store => next => action => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return callApi(endpoint, schema).then(
+  return callApi(endpoint, request).then(
     response => next(actionWith({
       response,
       type: successType

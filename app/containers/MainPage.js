@@ -18,30 +18,21 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-
-import { LivePage, RecommendPage,  BangumiPage,  SectionPage,  AttentionPage,  DiscoveryPage,  DownloadPage, SliderScreen, SearchScreen } from '../containers'
+import { LivePage, RecommendPage, BangumiPage, SectionPage, AttentionPage, DiscoveryPage, DownloadPage, SliderScreen, SearchScreen } from '../containers'
 
 import { ToolBarAndroid } from '../components';
-
 import setting from '../config/setting';
+<<<<<<< 75eaea1f910912733e4efc5836a571f26896fae7
 import {loadStorageSetting} from '../actions/common';
 import {toggleSearch} from '../actions/search'
 import WebViewPage from './WebViewPage'
+=======
+import {toggleSearch} from '../actions'
+>>>>>>> Some changes and trying
 
 class MainPage extends Component {
 	constructor(props) {
 		super(props);
-	}
-
-	componentWillMount(){
-		this.props.loadStorageSetting(
-			'settingTheme',
-			'activeTheme'
-		)
-	}
-
-	componentDidMount(){
-
 	}
 
 	/*
@@ -88,6 +79,7 @@ class MainPage extends Component {
 
 	render() {
 		let {navigator, activeTheme, isSearching} = this.props;
+		
 		if (Platform.OS === 'ios') {
 			return (
 				<View style={styles.container}>
@@ -150,6 +142,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-	loadStorageSetting,
 	toggleSearch
 })(MainPage)

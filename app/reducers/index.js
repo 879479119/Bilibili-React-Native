@@ -7,7 +7,7 @@ import * as ActionTypes from '../actions/api'
 import merge from 'lodash/merge'
 import {SimpleAPIReducer} from 'redux-api-simple-middleware'
 
-function entities(state = { users: {}, bangumi: {}, appindex:{} }, action) {
+function entities(state = { users: {}, bangumi: {}, }, action) {
   if (action.response && action.response.entities) {
     return merge({}, state, action.response.entities)
   }
