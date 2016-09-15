@@ -14,17 +14,11 @@ import {
 	UIManager
 } from 'react-native'
 
-import SplashScreen from './SplashScreen'
-import MainPage from './MainPage'
-import DownloadPage from './DownloadPage'
-import VideoDetailPage from './VideoDetailPage'
-import SettingPage from './SettingPage'
-import ThemePage from './ThemePage'
-import SearchPage from './SearchPage'
-import WebViewPage from './WebViewPage'
-import { connect } from 'react-redux'
-import {toggleSearch} from '../actions/search'
-import {HandleBackPressWhenSearch} from './SearchScreen'
+import { connect } from 'react-redux';
+import setting from '../config/setting';
+import { SplashScreen,  MainPage,  DownloadPage,  SettingPage, ThemePage, SearchPage, WebViewPage } from '../containers';
+import {toggleSearch, loadStorageSetting } from '../actions';
+import {HandleBackPressWhenSearch} from './SearchScreen';
 
 class App extends Component {
 	constructor(props) {
@@ -32,6 +26,10 @@ class App extends Component {
 	}
 
 	componentWillMount() {
+		this.props.loadStorageSetting(
+			'settingTheme',
+			'activeTheme'
+		)
 		//android动画支持
 		//noinspection JSUnresolvedVariable,JSUnresolvedFunction
 		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -126,13 +124,16 @@ let styles = StyleSheet.create({
 	}
 });
 
-function mapStateToProps(state){
-	const {search:{isSearching}} = state
+const mapStateToProps = (state) => {
+	const {
+		search: {isSearching}
+	} = state
 	return {
-		isSearching
+		isSearching,
 	}
 }
 
 export default connect(mapStateToProps,{
-	toggleSearch
+	toggleSearch,
+	loadStorageSetting
 })(App)

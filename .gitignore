@@ -28,6 +28,7 @@ project.xcworkspace
 .idea
 .gradle
 sign.properties
+local.properties
 release.jks
 
 # node.js
