@@ -74,7 +74,7 @@ class Empty extends Component{
 	}
 }
 
-export default class DownloadPage extends Component{
+class DownloadPage extends Component{
 
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired

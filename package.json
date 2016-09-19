@@ -18,7 +18,8 @@
     "redux": "^3.5.2",
     "redux-api-simple-middleware": "^1.0.2",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "react-native-webview-bridge": "^0.33.0"
   },
   "devDependencies": {
     "babel-preset-react-native-stage-0": "^1.0.1"

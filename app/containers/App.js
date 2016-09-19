@@ -16,7 +16,7 @@ import {
 
 import { connect } from 'react-redux';
 import setting from '../config/setting';
-import { SplashScreen,  MainPage,  DownloadPage,  SettingPage, ThemePage, SearchPage, WebViewPage } from '../containers';
+import { SplashScreen,  MainPage,  DownloadPage,  SettingPage, ThemePage, SearchPage, VideoDetailPage, WebViewPage } from '../containers';
 import {toggleSearch, loadStorageSetting } from '../actions';
 import {HandleBackPressWhenSearch} from './SearchScreen';
 

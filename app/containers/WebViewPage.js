@@ -15,6 +15,7 @@ import{
 } from 'react-native'
 import setting from '../config/setting'
 import { connect } from 'react-redux'
+import WebViewBridge from 'react-native-webview-bridge'
 
 export function HandleBackPressInWebView(self) {
 
@@ -51,11 +52,9 @@ class WebViewPage extends Component {
 				</View>
 				<View style={{flex:1,marginTop:55}}>
 					<WebView
-						source={{uri: url}}
+						source={{uri:url}}
 						style={{flex:1}}
-						injectJavaScript={injectJS}
-					    ref={view => this.browser = view}
-					/>
+						ref={view => this.browser = view}/>
 				</View>
 			</View>
 		);
@@ -89,6 +88,12 @@ const style = StyleSheet.create({
 	},
 	text:{
 		marginHorizontal:10
+	},
+	webview:{
+		flex:1,
+		height:10,
+		width:width,
+		backgroundColor:"#eee"
 	}
 });
 

@@ -15,7 +15,7 @@
 ### 开发环境
 
 + PLATFORM:    Windows
-+ RN:   React-Native 0.29
++ RN:   React-Native 0.33
 + FRAME:   Redux
 + IDE:   Webstorm
 + VM:   Genymotion
