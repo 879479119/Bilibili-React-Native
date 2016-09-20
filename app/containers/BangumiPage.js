@@ -9,12 +9,23 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {Fetch} from '../components'
+import {baseAPI} from '../config'
 
+@connect(
+  state => {
+    const {bangumi} = state
+    return {
+      bangumi
+    }
+  }
+)
 export default class BangumiPage extends Component {
 
   render() {
+    const {bangumi} = this.props
+
     return (
-      <Fetch form="search" params={{content:'haha',page: 0}} style={styles.container}>
+      <Fetch url={`${baseAPI}/bangumi`} request={{method: 'GET'}} reducer={'bangumi'} style={styles.container}>
         <Text style={styles.test}>
           该模块施工中
         </Text>

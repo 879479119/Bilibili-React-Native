@@ -1,7 +1,3 @@
-import environment from './environment'
-import setting from './setting'
-
-export default{
-	environment,
-	setting
-};
+export * from './environment'
+export * from './setting'
+export * from './constants'
