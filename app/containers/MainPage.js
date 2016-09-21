@@ -78,7 +78,7 @@ class MainPage extends Component {
 
 	goDownload = () => {
 		this.props.navigator.push({
-			component: WebViewPage
+			name: 'DownloadPage'
 		})
 	};
 

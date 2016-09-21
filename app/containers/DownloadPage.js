@@ -12,10 +12,10 @@ import {
 	ScrollView,
 	TouchableHighlight,
 	Picker,
-} from 'react-native';
-import Common from '../components/commonPage';
+} from 'react-native'
+import Common from '../components/commonPage'
 import {connect} from 'react-redux'
-
+import Svg,{ Circle,Rect,Defs,Ellipse,LinearGradient,Stop,RadialGradient,Path } from 'react-native-svg'
 class DownPicker extends Component{
 	constructor(props){
 		super(props);
@@ -65,6 +65,46 @@ class Control extends Component{
 
 class Empty extends Component{
 	render(){
+		let lineWidth = 20,
+			radius = 5,
+			rectWidth = 100,
+			rectHeight = 50
+		return (
+			<View style={{backgroundColor:"#eaeaea",flex:1,justifyContent:"center",alignItems:"center"}}>
+				<Svg height="150" width="300">
+					<Defs>
+						<LinearGradient id="top" x1="0" y1={lineWidth} x2="0" y2="0">
+							<Stop offset="0" stopColor="rgba(0,0,0,0.5)" stopOpacity="0.2" />
+							<Stop offset="1" stopColor="rgba(0,0,0,0)" stopOpacity="0" />
+						</LinearGradient>
+						<LinearGradient id="bottom" x1="0" y1={rectHeight+lineWidth+2*radius} x2="0" y2={rectHeight+2*lineWidth+2*radius}>
+							<Stop offset="0" stopColor="rgba(0,0,0,0.5)" stopOpacity="0.2" />
+							<Stop offset="1" stopColor="rgba(0,0,0,0)" stopOpacity="0" />
+						</LinearGradient>
+						<LinearGradient id="left" x1={lineWidth} y1="0" x2="0" y2="0">
+							<Stop offset="0" stopColor="rgba(0,0,0,0.5)" stopOpacity="0.2" />
+							<Stop offset="1" stopColor="rgba(0,0,0,0)" stopOpacity="0" />
+						</LinearGradient>
+						<LinearGradient id="right" x1={rectWidth+lineWidth+2*radius} y1="0" x2={rectWidth+lineWidth*2+2*radius} y2={0}>
+							<Stop offset="0" stopColor="rgba(0,0,0,0.5)" stopOpacity="0.2" />
+							<Stop offset="1" stopColor="rgba(0,0,0,0)" stopOpacity="0" />
+						</LinearGradient>
+						<RadialGradient id="border" r={lineWidth} cx={lineWidth} cy={lineWidth}>
+							<Stop offset="0" stopColor="rgba(0,0,0,0.5)" stopOpacity="0.2" />
+							<Stop offset="1" stopColor="rgba(0,0,0,0)" stopOpacity="0" />
+						</RadialGradient>
+					</Defs>
+					<Path d={`M 0 ${lineWidth+radius},Q 0 0 ${lineWidth+radius} 0,v ${lineWidth},q ${-radius} 0 ${-radius} ${radius},h ${-lineWidth},z`} fill="url(#border)"/>
+					<Path d={`M ${rectWidth+lineWidth+radius} 0,q ${lineWidth+radius} 0 ${lineWidth+radius} ${lineWidth+radius},h ${-lineWidth},q 0 ${-radius} ${-radius} ${-radius},v ${-lineWidth},z`} fill="#fff"/>
+					<Path d={`M ${rectWidth+lineWidth+2*radius} ${rectHeight+lineWidth+radius},h ${lineWidth},q 0 ${lineWidth+radius} -${lineWidth+radius} ${lineWidth+radius},v ${-lineWidth},q ${radius} 0 ${radius} ${-radius},z`} fill="#fff"/>
+					<Path d={`M 0 ${rectHeight+lineWidth+radius},q 0 ${lineWidth+radius} ${lineWidth+radius} ${lineWidth+radius},v ${-lineWidth},q ${-radius} 0 ${-radius} ${-radius},h ${-lineWidth},z`} fill="#fff"/>
+					<Rect x={lineWidth+radius} y="0" width={rectWidth} height={lineWidth} fill="url(#top)" />
+					<Rect x="0" y={lineWidth+radius} width={lineWidth} height={rectHeight} fill="url(#left)" />
+					<Rect x={rectWidth+lineWidth+2*radius} y={lineWidth+radius} width={lineWidth} height={rectHeight} fill="url(#right)" />
+					<Rect x={lineWidth+radius} y={rectHeight+lineWidth+2*radius} width={rectWidth} height={lineWidth} fill="url(#bottom)" />
+				</Svg>
+			</View>
+		)
 		return (
 			<View style={{backgroundColor:"#eaeaea",flex:1,justifyContent:"center",alignItems:"center"}}>
 				<Image source={require('../resource/pages/img_tips_error_no_downloads.png')} style={{height:120}} resizeMode="contain"/>

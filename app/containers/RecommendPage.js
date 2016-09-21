@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
 		marginBottom: 3,
 	}
 
-});
+})
 
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
