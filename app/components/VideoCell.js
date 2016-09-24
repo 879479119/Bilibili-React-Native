@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 
 import {connect} from 'react-redux'
+import Shadow from 'react-native-shadow'
 
 export default class VideoCell extends Component {
 
@@ -36,13 +37,21 @@ export default class VideoCell extends Component {
 
 	render = () => {
 
-		// const {pic, title, view, danmaku, aid} = this.props.item
 		const {title, cover, param, play, danmaku} = this.props.item
-		// this.param = param
+
+		const shadowOpt = {
+			width:160,
+			height:170,
+			border:2,
+			radius:2,
+			color:"#000",
+			opacity:0.1,
+			style:{marginVertical:5}
+		}
 
 		return (
-			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
+			<Shadow setting={shadowOpt}>
+				<TouchableHighlight style={styles.container} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
 					<View style={styles.cell}>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
 						<View style={{height:38,overflow:"hidden",padding:5}}><Text style={{fontSize:13,color:"#333"}}>{title}</Text></View>
@@ -58,7 +67,7 @@ export default class VideoCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</View>
+			</Shadow>
 		)
 	}
 }
@@ -84,14 +93,19 @@ export class FourCell extends Component {
 
 const styles = StyleSheet.create({
 	container:{
+		position:"relative",
 		width: 160,
 		height: 170,
 		backgroundColor: "#fff",
-		marginVertical:5
+		borderRadius:2,
+		// marginVertical:20,
+		overflow:"hidden"
 	},
 	pic:{
 		width: 160,
-		height: 100
+		height: 100,
+		borderTopLeftRadius:2,
+		borderTopRightRadius:2
 	},
 	cell:{
 	},
@@ -101,6 +115,7 @@ const styles = StyleSheet.create({
 		padding:5
 	},
 	row:{
+		position:"relative",
 		flexDirection:"row",
 		justifyContent:"space-between"
 	},

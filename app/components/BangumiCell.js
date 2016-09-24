@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-
+import Shadow from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class BangumiCell extends Component {
@@ -23,10 +23,18 @@ export default class BangumiCell extends Component {
 
 		// const {pic, title, view, danmaku, aid} = this.props.item
 		const {title, cover, param, desc1} = this.props.item
-
+		const shadowOpt = {
+			width:160,
+			height:150,
+			border:2,
+			radius:2,
+			color:"#000",
+			opacity:0.1,
+			style:{marginTop:10}
+		}
 		return (
-			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} aid={param}>
+			<Shadow setting={shadowOpt}>
+				<TouchableHighlight style={styles.container} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
 						<View style={{height:19,padding:5,overflow:"hidden"}}>
@@ -38,7 +46,7 @@ export default class BangumiCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</View>
+			</Shadow>
 		)
 	}
 }
@@ -67,11 +75,13 @@ const styles = StyleSheet.create({
 		width: 160,
 		height: 150,
 		backgroundColor:"#fff",
-		marginTop:10
+		borderRadius:2
 	},
 	pic:{
 		width: 160,
-		height: 100
+		height: 100,
+		borderTopLeftRadius:2,
+		borderTopRightRadius:2
 	},
 	content:{
 		flexDirection:"row",
@@ -80,6 +90,7 @@ const styles = StyleSheet.create({
 		marginTop:5
 	},
 	row:{
+		position:"relative",
 		flexDirection:"row",
 		justifyContent:"space-between"
 	},

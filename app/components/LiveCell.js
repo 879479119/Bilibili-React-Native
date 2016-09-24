@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-
+import Shadow from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class LiveCell extends Component {
@@ -21,10 +21,18 @@ export default class LiveCell extends Component {
 
 	render = () => {
 		const {title, cover, param, area, up, online} = this.props.item
-
+		const shadowOpt = {
+			width:160,
+			height:170,
+			border:2,
+			radius:2,
+			color:"#000",
+			opacity:0.1,
+			style:{marginVertical:5}
+		}
 		return (
-			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} aid={param}>
+			<Shadow setting={shadowOpt}>
+				<TouchableHighlight style={styles.container} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
 						<View style={{padding:5,height:38,overflow:"hidden"}}>
@@ -39,7 +47,7 @@ export default class LiveCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</View>
+			</Shadow>
 		)
 	}
 }
@@ -68,11 +76,14 @@ const styles = StyleSheet.create({
 		width: 160,
 		height: 170,
 		backgroundColor: "#fff",
-		marginVertical:5
+		borderRadius:2
+		// marginVertical:5
 	},
 	pic:{
 		width: 160,
-		height: 100
+		height: 100,
+		borderTopLeftRadius:2,
+		borderTopRightRadius:2
 	},
 	content:{
 		flexDirection:"row",
@@ -84,6 +95,7 @@ const styles = StyleSheet.create({
 		justifyContent:"space-between"
 	},
 	part:{
+		position:"relative",
 		flexDirection:"row",
 		flex:1,
 		overflow:"hidden"
