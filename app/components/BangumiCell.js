@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-
+import Shadow from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class BangumiCell extends Component {
@@ -23,20 +23,30 @@ export default class BangumiCell extends Component {
 
 		// const {pic, title, view, danmaku, aid} = this.props.item
 		const {title, cover, param, desc1} = this.props.item
-
+		const shadowOpt = {
+			width:160,
+			height:150,
+			border:2,
+			radius:2,
+			color:"#000",
+			opacity:0.1,
+			style:{marginTop:10}
+		}
 		return (
-			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} aid={param}>
+			<Shadow setting={shadowOpt}>
+				<TouchableHighlight style={styles.container} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
-						<Text style={{height:50}}>{title}</Text>
+						<View style={{height:19,padding:5,overflow:"hidden"}}>
+							<Text style={{fontSize:12,color:"#333"}}>{title}</Text>
+						</View>
 						<View style={styles.content}>
-							<Text>{desc1}</Text>
-							<Text>昨天23:23</Text>
+							<Text style={styles.text}>{desc1}</Text>
+							<Text style={styles.text}>昨天23:23</Text>
 						</View>
 					</View>
 				</TouchableHighlight>
-			</View>
+			</Shadow>
 		)
 	}
 }
@@ -63,17 +73,28 @@ export class FourBangumiCell extends Component {
 const styles = StyleSheet.create({
 	container:{
 		width: 160,
-		height: 180
+		height: 150,
+		backgroundColor:"#fff",
+		borderRadius:2
 	},
 	pic:{
 		width: 160,
-		height: 100
+		height: 100,
+		borderTopLeftRadius:2,
+		borderTopRightRadius:2
 	},
 	content:{
 		flexDirection:"row",
-
+		justifyContent:"space-between",
+		padding:5,
+		marginTop:5
 	},
 	row:{
-		flexDirection:"row"
+		position:"relative",
+		flexDirection:"row",
+		justifyContent:"space-between"
+	},
+	text:{
+		fontSize:11
 	}
 })

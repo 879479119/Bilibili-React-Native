@@ -2,7 +2,9 @@
  * 推荐页
  */
 
+//noinspection JSUnresolvedVariable
 import React, {Component, PropTypes} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	View,
@@ -11,8 +13,10 @@ import {
 	ScrollView,
 	TouchableHighlight,
 	TouchableWithoutFeedback,
-	TouchableOpacity
+	TouchableOpacity,
+	Dimensions
 } from 'react-native'
+import {fetchBackSymbol} from 'redux-api-simple-middleware'
 import SwiperView from 'react-native-swiper'
 import setting from '../config/setting';
 import {connect} from 'react-redux'
@@ -25,10 +29,23 @@ import {FourBangumiCell} from '../components/BangumiCell'
  */
 class TopicSection extends Component {
 	render = () => {
-		const {title} = this.props.head
+		const {cover, param} = this.props.items[0]
 		return (
-			<View>
-				<Text>{title}</Text>
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
+					<View style={{flexDirection:"row"}}>
+						<Image source={require('../resource/mipmaps/ic_header_topic.png')} style={styles.fieldIcon}/>
+						<Text style={{marginLeft:5}}>话题</Text>
+					</View>
+					<TouchableHighlight>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
+					</TouchableHighlight>
+				</View>
+				<TouchableHighlight link={param} style={{marginTop:10}}>
+					<Image source={{uri:cover}} style={styles.videoBanner}/>
+				</TouchableHighlight>
 			</View>
 		)
 	}
@@ -49,17 +66,18 @@ class LiveSection extends Component {
 					</View>
 					<TouchableHighlight>
 						<View style={styles.rank}>
-							<Text>当前<Text>{count}</Text>个直播</Text>
+							<Text>当前<Text style={{color:"#FF69B4"}}>{count}</Text>个直播</Text>
 						</View>
 					</TouchableHighlight>
 				</View>
 				<FourLiveCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={styles.more}>
-						<Text>查看更多</Text>
+						<Text style={{fontSize:11}}>查看更多</Text>
 					</View>
-					<View>
-						<Text>9条新动态，点击刷新</Text>
+					<View style={{flexDirection:"row"}}>
+						<Text style={{color:"#333",fontSize:9}}>9条新动态，点击刷新</Text>
+						<Image source={require('../resource/icons/ic_category_more_refresh.png')} style={{width:16,height:16,tintColor:"#00bfff"}}/>
 					</View>
 				</View>
 			</View>
@@ -73,10 +91,48 @@ class VideoSection extends Component {
 	render = () => {
 		const {cover, param} = this.props.items[0]
 		return (
-			<View>
+			<View style={{marginTop:20}}>
 				<TouchableHighlight aid={param}>
-					<Image source={{uri:cover}} style={styles.videoBanner} resizeMode="contain"/>
+					<Image source={{uri:cover}} style={styles.videoBanner}/>
 				</TouchableHighlight>
+			</View>
+		)
+	}
+}
+/**
+ * 活动中心模块
+ */
+class ActivitySection extends Component {
+	render = () => {
+		const items = this.props.items
+		return (
+			<View style={styles.wrapper}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
+					<View style={{flexDirection:"row"}}>
+						<Image source={require('../resource/mipmaps/ic_header_activity_center.png')} style={styles.fieldIcon}/>
+						<Text style={{marginLeft:5}}>活动中心</Text>
+					</View>
+					<TouchableHighlight>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
+					</TouchableHighlight>
+				</View>
+				<ScrollView horizontal={true} style={{flex:1,marginTop:10}}>
+					{items.map(item => {
+						const {cover, param, title} = item
+						return (
+							<TouchableHighlight style={{width:170,marginRight:10}} link={param}>
+								<View style={{flex:1,backgroundColor:"#fff"}}>
+									<Image source={{uri: cover}} style={{width:170,height:100}}/>
+									<View style={{padding:5,height:38,overflow:"hidden"}}>
+										<Text style={{fontSize:12,color:"#333"}}>{title}</Text>
+									</View>
+								</View>
+							</TouchableHighlight>
+						)
+					})}
+				</ScrollView>
 			</View>
 		)
 	}
@@ -102,7 +158,7 @@ class BangumiSection extends Component {
 					</TouchableHighlight>
 				</View>
 				<FourBangumiCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<TouchableOpacity activeOpacity={0.9}>
 						<View>
 							<Image source={require('../resource/backgrounds/bangumi_timeline_background.png')} style={styles.back} resizeMode="contain"/>
@@ -165,19 +221,22 @@ class CommonSection extends Component {
 				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={{flexDirection:"row"}}>
 						{icon}
-						<Text>{title}</Text>
+						<Text style={{marginLeft:5}}>{title}</Text>
 					</View>
 					<TouchableHighlight>
-						<Text>进去看看</Text>
+						<View style={styles.goin}>
+							<Text style={{fontSize:10,color:"#fff"}}>进去看看</Text>
+						</View>
 					</TouchableHighlight>
 				</View>
 				<FourCell items={items}/>
-				<View style={{flexDirection:"row"}}>
+				<View style={{flexDirection:"row",justifyContent:"space-between"}}>
 					<View style={styles.more}>
-						<Text>查看更多</Text>
+						<Text style={{fontSize:11}}>查看更多</Text>
 					</View>
-					<View>
-						<Text>9条新动态，点击刷新</Text>
+					<View style={{flexDirection:"row"}}>
+						<Text style={{color:"#333",fontSize:9}}>9条新动态，点这刷新</Text>
+						<Image source={require('../resource/icons/ic_category_more_refresh.png')} style={{width:16,height:16,tintColor:"#00bfff"}}/>
 					</View>
 				</View>
 			</View>
@@ -216,52 +275,126 @@ class RecommendSection extends Component {
  */
 class RecommendPage extends Component {
 
+	constructor(props){
+		super(props)
+	}
+
+	static childContextTypes = {
+		navigator:PropTypes.object.isRequired
+	}
+
+	getChildContext = () => {
+		const {navigator} = this.props
+		return {
+			navigator: navigator
+		}
+	}
+
 	componentDidMount(){
-		const {loadWithAPI} = this.props
-		this.loader = loadWithAPI('http://app.bilibili.com/x/show/old')
+		const {fetchBackSymbol} = this.props
+		this.loader = fetchBackSymbol('http://app.bilibili.com/x/show/old')
+		this.banner = fetchBackSymbol('http://app.bilibili.com/x/banner?plat=4')
+	}
+
+	_goWebView = (item) => {
+		const {navigator} = this.props
+		const {type, value, title} = item
+		console.info(item)
+		if(type == 2){
+			return () => {
+				navigator.push({
+					name: "WebView",
+					params: {
+						url: value,
+						title: title
+					}
+				})
+			}
+		}else if(type == 0){
+			return () => {
+				navigator.push({
+					name: "VideoDetail",
+					params: {
+						aid: value
+					}
+				})
+			}
+
+		}
 	}
 
 	render = () => {
-		const {fetchState, symbol, recommend} = this.props
-		if(fetchState == 1){
+		const {SAMfetchState, symbol, data} = this.props
+		if(SAMfetchState == 1){
 			return (
 				<View style={{backgroundColor:"#efefef"}}><Text>请求中</Text></View>
 			)
-		}else if(fetchState == 2 && symbol == this.loader){
+		}else if(SAMfetchState == 2){
+			const recommendVoid = [{
+				type:0,image:1,value:1
+			}]
+			const bannerVoid = [{
+
+			}]
+
+			if(symbol == this.loader){
+				this.recommendData = Object.assign({}, data)
+			}else if(symbol == this.banner){
+				this.bannerData = Object.assign({}, data)
+			}
+
 			return (
 				<ScrollView style={styles.scroller}>
-					<SwiperView autoplay={true} showButtons={true} height={100}>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
-						<View style={{flex:1,backgroundColor:"#eee"}}><Text>45566</Text></View>
+					<SwiperView
+						autoplay={true}
+						showButtons={true}
+						height={120}
+						autoplayTimeout={10}
+						paginationStyle={{bottom:0,marginLeft:300}}
+						dot={<View style={styles.dot}/>}
+						activeDot={<View style={styles.activeDot}/>}>
+						{this.bannerData && this.bannerData.data.map(item => {
+							const {type, image, value} = item
+							return (
+								<View style={{flex:1}}>
+									<TouchableHighlight type={type} value={value} onPress={this._goWebView(item)}>
+										<Image source={{uri:image}} style={{width:360,height:120}}><Text>{type}</Text></Image>
+									</TouchableHighlight>
+								</View>
+							)
+						})}
 					</SwiperView>
-					{
-						recommend.result.map(item => {
-							const items = item.body,
-								head = item.head
-							switch (item.type){
-								case "recommend":
-									return <RecommendSection items={items} head={head}/>
-								case "live":
-									return <LiveSection items={items} head={head}/>
-								case "bangumi_2":
-									return <BangumiSection items={items} head={head}/>
-								case "region":
-									return <CommonSection items={items} head={head}/>
-								case "weblink":
-									return <TopicSection items={items} head={head}/>
-								case undefined:
-									return <VideoSection items={items} head={head}/>
-								default:
-									return (
-										<View>
-											<Text>暂时不支持显示</Text>
-										</View>
-									)
-							}
-						})
-					}
+					<View style={{paddingHorizontal:10}}>
+						{
+							this.recommendData && this.recommendData.result.map(item => {
+								const items = item.body,
+									head = item.head
+								switch (item.type){
+									case "recommend":
+										return <RecommendSection items={items} head={head}/>
+									case "live":
+										return <LiveSection items={items} head={head}/>
+									case "bangumi_2":
+										return <BangumiSection items={items} head={head}/>
+									case "region":
+										return <CommonSection items={items} head={head}/>
+									case "weblink":
+										return <TopicSection items={items} head={head}/>
+									case "activity":
+										return <ActivitySection items={items} head={head}/>
+									case undefined:
+										return <VideoSection items={items} head={head}/>
+									default:
+										return (
+											<View>
+												<Text>暂时不支持显示</Text>
+											</View>
+										)
+								}
+							})
+						}
+					</View>
+
 				</ScrollView>
 			)
 		}else {
@@ -276,6 +409,8 @@ class RecommendPage extends Component {
 	}
 }
 
+const {width, height} = Dimensions.get('window')
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -289,12 +424,13 @@ const styles = StyleSheet.create({
 		margin: 10
 	},
 	wrapper:{
-		flex: 1,
-
+		// flex: 1,
+		marginTop:20
 	},
 	scroller:{
 		flex: 1,
-		backgroundColor: "#00bfff",
+		backgroundColor: "#eaeaea",
+		// paddingHorizontal: 10
 		// height: 50
 	},
 	rank:{
@@ -308,36 +444,64 @@ const styles = StyleSheet.create({
 		flexDirection:"row"
 	},
 	more:{
-		width:80,
-		height:30,
-		textAlign:"center",
-		justifyContent:"center"
+		paddingVertical:3,
+		justifyContent:"center",
+		paddingHorizontal:20,
+		backgroundColor:"#fff",
+		borderRadius:4
 	},
 	back:{
 		position:"relative",
-		width:160,
-		height:80
+		width:164,
+		height:60
 	},
 	fore:{
 		position:"absolute",
 		top:10,
-		left:20,
-		width:120,
+		left:30,
+		width:100,
 		height:40
 	},
 	videoBanner:{
-		width:360,
-		height:100
+		width:width - 20,
+		height:104
+	},
+	goin:{
+		paddingHorizontal:6,
+		paddingVertical:3,
+		backgroundColor:"#ccc",
+		borderRadius:4
+	},
+	dot:{
+		backgroundColor:'#fff',
+		width: 6,
+		height: 6,
+		borderRadius: 4,
+		marginLeft: 3,
+		marginRight: 3,
+		marginTop: 3,
+		marginBottom: 3,
+	},
+	activeDot:{
+		backgroundColor: '#007aff',
+		width: 6,
+		height: 6,
+		borderRadius: 4,
+		marginLeft: 3,
+		marginRight: 3,
+		marginTop: 3,
+		marginBottom: 3,
 	}
-});
+
+})
 
 const mapStateToProps = (state) => ({
 	activeTheme:state.common.activeTheme,
-	fetchState:state.netReducer.fetchState,
-	recommend:state.netReducer.recommend,
-	symbol:state.netReducer.symbol
+	SAMfetchState:state.SimpleAPIReducer.SAMfetchState,
+	data:state.SimpleAPIReducer.data,
+	symbol:state.SimpleAPIReducer.symbol
 })
 
 export default connect(mapStateToProps, {
-	loadWithAPI
+	fetchBackSymbol
 })(RecommendPage)

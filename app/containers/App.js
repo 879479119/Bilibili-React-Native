@@ -2,6 +2,7 @@
  * 路由页
  */
 import React, {Component} from 'react'
+//noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
 	Navigator,
@@ -13,15 +14,11 @@ import {
 	UIManager
 } from 'react-native'
 
-import SplashScreen from './SplashScreen'
-import MainPage from './MainPage'
-import DownloadPage from './DownloadPage'
-import SettingPage from './SettingPage'
-import ThemePage from './ThemePage'
-import SearchPage from './SearchPage'
-import { connect } from 'react-redux'
-import {toggleSearch} from '../actions/search'
-
+import { connect } from 'react-redux';
+import setting from '../config/setting';
+import { SplashScreen,  MainPage,  DownloadPage,  SettingPage, ThemePage, SearchPage, VideoDetailPage, WebViewPage } from '../containers';
+import {toggleSearch, loadStorageSetting } from '../actions';
+import {HandleBackPressWhenSearch} from './SearchScreen';
 
 class App extends Component {
 	constructor(props) {
@@ -29,23 +26,16 @@ class App extends Component {
 	}
 
 	componentWillMount() {
+		this.props.loadStorageSetting(
+			'settingTheme',
+			'activeTheme'
+		)
 		//android动画支持
+		//noinspection JSUnresolvedVariable,JSUnresolvedFunction
 		UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
 		if (Platform.OS === 'android') {
 			BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
 		}
-	}
-
-	/**
-	 * @return {boolean}
-	 */
-	HandleBackPressIfNeed = () => {
-		const {toggleSearch, isSearching} = this.props
-		if(isSearching){
-			toggleSearch()
-			return true
-		}
-		return false
 	}
 
 	onBackAndroid = () => {
@@ -53,7 +43,7 @@ class App extends Component {
 		let routes = navigator.getCurrentRoutes();
 		let lastRoute = routes[routes.length - 1]
 		//处理路由以外的返回按键
-		let flag = this.HandleBackPressIfNeed()
+		let flag = HandleBackPressWhenSearch(this)
 		if(flag === true){
 			return true
 		}
@@ -87,6 +77,10 @@ class App extends Component {
 				case 'SearchPage':
 					return <SearchPage navigator={navigator}/>;
 					break;
+				case 'VideoDetail':
+					return <VideoDetailPage navigator={navigator} {...route.params}/>
+				case 'WebView':
+					return <WebViewPage navigator={navigator} {...route.params}/>
 				default:
 					return (
 						<View><Text>空路由，如果不想到达此页请勿传name进入</Text></View>
@@ -130,13 +124,16 @@ let styles = StyleSheet.create({
 	}
 });
 
-function mapStateToProps(state){
-	const {search:{isSearching}} = state
+const mapStateToProps = (state) => {
+	const {
+		search: {isSearching}
+	} = state
 	return {
-		isSearching
+		isSearching,
 	}
 }
 
 export default connect(mapStateToProps,{
-	toggleSearch
+	toggleSearch,
+	loadStorageSetting
 })(App)

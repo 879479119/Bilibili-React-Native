@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 
 import {connect} from 'react-redux'
+import Shadow from 'react-native-shadow'
 
 export default class VideoCell extends Component {
 
@@ -19,26 +20,54 @@ export default class VideoCell extends Component {
 
 	}
 
+	_goVideo = () =>{
+		const {navigator} = this.context
+		const param = parseInt(this.touch.props.aid)
+		navigator.push({
+			name: "VideoDetail",
+			params:{
+				aid:param
+			}
+		})
+	}
+
+	static contextTypes = {
+		navigator: PropTypes.object.isRequired
+	}
+
 	render = () => {
 
-		// const {pic, title, view, danmaku, aid} = this.props.item
 		const {title, cover, param, play, danmaku} = this.props.item
 
+		const shadowOpt = {
+			width:160,
+			height:170,
+			border:2,
+			radius:2,
+			color:"#000",
+			opacity:0.1,
+			style:{marginVertical:5}
+		}
+
 		return (
-			<View style={styles.container}>
-				<TouchableHighlight style={{flex:1}} aid={param}>
-					<View>
+			<Shadow setting={shadowOpt}>
+				<TouchableHighlight style={styles.container} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
+					<View style={styles.cell}>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
-						<Text style={{height:50}}>{title}</Text>
+						<View style={{height:38,overflow:"hidden",padding:5}}><Text style={{fontSize:13,color:"#333"}}>{title}</Text></View>
 						<View style={styles.content}>
-							<Image source={require("../resource/icons/ic_info_views.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
-							<Text>{play}</Text>
-							<Image source={require("../resource/icons/ic_info_danmakus.png")} style={{width:16,tintColor:"#ddd"}} resizeMode="contain"/>
-							<Text>{danmaku}</Text>
+							<View style={styles.part}>
+								<Image source={require("../resource/icons/ic_info_views.png")} style={{width:16,tintColor:"#aaa"}} resizeMode="contain"/>
+								<Text style={styles.text}>{play}</Text>
+							</View>
+							<View style={styles.part}>
+								<Image source={require("../resource/icons/ic_info_danmakus.png")} style={{width:16,tintColor:"#aaa"}} resizeMode="contain"/>
+								<Text style={styles.text}>{danmaku}</Text>
+							</View>
 						</View>
 					</View>
 				</TouchableHighlight>
-			</View>
+			</Shadow>
 		)
 	}
 }
@@ -64,18 +93,38 @@ export class FourCell extends Component {
 
 const styles = StyleSheet.create({
 	container:{
+		position:"relative",
 		width: 160,
-		height: 180
+		height: 170,
+		backgroundColor: "#fff",
+		borderRadius:2,
+		// marginVertical:20,
+		overflow:"hidden"
 	},
 	pic:{
 		width: 160,
-		height: 100
+		height: 100,
+		borderTopLeftRadius:2,
+		borderTopRightRadius:2
+	},
+	cell:{
 	},
 	content:{
 		flexDirection:"row",
-
+		marginTop: 3,
+		padding:5
 	},
 	row:{
+		position:"relative",
+		flexDirection:"row",
+		justifyContent:"space-between"
+	},
+	part:{
+		flex:1,
 		flexDirection:"row"
+	},
+	text:{
+		fontSize:11,
+		marginLeft:5
 	}
 })

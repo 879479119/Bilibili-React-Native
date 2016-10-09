@@ -10,10 +10,12 @@
 
 09-01:增加搜索结果页和视频详情页
 
+09-09:首页获取信息并展示
+
 ### 开发环境
 
 + PLATFORM:    Windows
-+ RN:   React-Native 0.29
++ RN:   React-Native 0.33
 + FRAME:   Redux
 + IDE:   Webstorm
 + VM:   Genymotion
@@ -40,7 +42,7 @@
 	+ **将应用移植到ios上**
 
 ### App实况截图
-![主页面](http://7xsm7w.com1.z0.glb.clouddn.com/0728175950.png)
+![主页面](http://7xsm7w.com1.z0.glb.clouddn.com/327.jpg)
 ![侧 面](http://7xsm7w.com1.z0.glb.clouddn.com/8180010.png)
 ![下载页](http://7xsm7w.com1.z0.glb.clouddn.com/28180022.png)
 ![搜索页](http://7xsm7w.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160814173451.png)

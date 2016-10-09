@@ -19,21 +19,14 @@ import {
 import {connect} from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
-import LivePage from './LivePage'
-import RecommendPage from './RecommendPage'
-import BangumiPage from './BangumiPage'
-import SectionPage from './SectionPage'
-import AttentionPage from './AttentionPage'
-import DiscoveryPage from './DiscoveryPage'
-import DownloadPage from './DownloadPage'
-import SliderScreen from './SliderScreen'
-import SearchScreen from './SearchScreen'
+import { LivePage, RecommendPage,  BangumiPage,  SectionPage,  AttentionPage,  DiscoveryPage,  DownloadPage, SliderScreen, SearchScreen } from '../containers'
 
-import ToolBar from '../components/ToolBar';
+import { ToolBarAndroid } from '../components';
 
 import setting from '../config/setting';
 import {loadStorageSetting} from '../actions/common';
 import {toggleSearch} from '../actions/search'
+import WebViewPage from './WebViewPage'
 
 class MainPage extends Component {
 	constructor(props) {
@@ -85,7 +78,7 @@ class MainPage extends Component {
 
 	goDownload = () => {
 		this.props.navigator.push({
-			component: DownloadPage
+			name: 'DownloadPage'
 		})
 	};
 
@@ -111,7 +104,7 @@ class MainPage extends Component {
 					<StatusBar
 						backgroundColor={setting[activeTheme]} />
 					<View style={[styles.container]}>
-						<ToolBar
+						<ToolBarAndroid
 							goDownload={this.goDownload}
 							openDrawer={this.openDrawer}
 							goSearch={this.openSearch}/>
