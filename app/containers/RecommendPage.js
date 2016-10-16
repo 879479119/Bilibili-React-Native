@@ -319,7 +319,6 @@ class RecommendPage extends Component {
 					}
 				})
 			}
-
 		}
 	}
 
@@ -330,12 +329,6 @@ class RecommendPage extends Component {
 				<View style={{backgroundColor:"#efefef"}}><Text>请求中</Text></View>
 			)
 		}else if(SAMfetchState == 2){
-			const recommendVoid = [{
-				type:0,image:1,value:1
-			}]
-			const bannerVoid = [{
-
-			}]
 
 			if(symbol == this.loader){
 				this.recommendData = Object.assign({}, data)
@@ -394,7 +387,6 @@ class RecommendPage extends Component {
 							})
 						}
 					</View>
-
 				</ScrollView>
 			)
 		}else {
