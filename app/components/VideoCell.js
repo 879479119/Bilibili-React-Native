@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 
 import {connect} from 'react-redux'
-import Shadow from 'react-native-shadow'
+import {BoxShadow} from 'react-native-shadow'
 
 export default class VideoCell extends Component {
 
@@ -50,10 +50,10 @@ export default class VideoCell extends Component {
 		}
 
 		return (
-			<Shadow setting={shadowOpt}>
+			<BoxShadow setting={shadowOpt}>
 				<TouchableHighlight style={styles.container} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
 					<View style={styles.cell}>
-						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
+						<Image source={{uri:cover}} style={styles.pic}/>
 						<View style={{height:38,overflow:"hidden",padding:5}}><Text style={{fontSize:13,color:"#333"}}>{title}</Text></View>
 						<View style={styles.content}>
 							<View style={styles.part}>
@@ -67,7 +67,7 @@ export default class VideoCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</Shadow>
+			</BoxShadow>
 		)
 	}
 }
@@ -77,7 +77,7 @@ export class FourCell extends Component {
 		const {items} = this.props
 
 		return (
-			<View>
+			<View style={{position:"relative"}}>
 				<View style={styles.row}>
 					<VideoCell item={items[0]}/>
 					<VideoCell item={items[1]}/>

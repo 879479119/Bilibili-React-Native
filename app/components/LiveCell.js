@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-import Shadow from 'react-native-shadow'
+import {BoxShadow} from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class LiveCell extends Component {
@@ -31,7 +31,7 @@ export default class LiveCell extends Component {
 			style:{marginVertical:5}
 		}
 		return (
-			<Shadow setting={shadowOpt}>
+			<BoxShadow setting={shadowOpt}>
 				<TouchableHighlight style={styles.container} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
@@ -47,7 +47,7 @@ export default class LiveCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</Shadow>
+			</BoxShadow>
 		)
 	}
 }

@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-import Shadow from 'react-native-shadow'
+import {BoxShadow} from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class BangumiCell extends Component {
@@ -33,7 +33,7 @@ export default class BangumiCell extends Component {
 			style:{marginTop:10}
 		}
 		return (
-			<Shadow setting={shadowOpt}>
+			<BoxShadow setting={shadowOpt}>
 				<TouchableHighlight style={styles.container} aid={param}>
 					<View>
 						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
@@ -46,7 +46,7 @@ export default class BangumiCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</Shadow>
+			</BoxShadow>
 		)
 	}
 }
