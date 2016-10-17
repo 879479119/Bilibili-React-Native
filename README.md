@@ -12,10 +12,12 @@
 
 09-09:首页获取信息并展示
 
+10-16:暂停开发
+
 ### 开发环境
 
 + PLATFORM:    Windows
-+ RN:   React-Native 0.29
++ RN:   React-Native 0.33
 + FRAME:   Redux
 + IDE:   Webstorm
 + VM:   Genymotion

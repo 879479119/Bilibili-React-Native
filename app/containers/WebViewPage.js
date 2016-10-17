@@ -15,6 +15,7 @@ import{
 } from 'react-native'
 import setting from '../config/setting'
 import { connect } from 'react-redux'
+import WebViewBridge from 'react-native-webview-bridge'
 
 export function HandleBackPressInWebView(self) {
 
@@ -34,6 +35,32 @@ class WebViewPage extends Component {
 	render(){
 		const {url, title} = this.props
 		const injectJS = ''
+		const HTML = `
+			<!DOCTYPE html>\n
+			<html>
+			  <head>
+			    <title>Hello Static World</title>
+			    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+			    <meta name="viewport" content="width=320, user-scalable=no">
+			    <style type="text/css">
+			      body {
+			        margin: 0;
+			        padding: 0;
+			        font: 62.5% arial, sans-serif;
+			        background: #ccc;
+			      }
+			      h1 {
+			        padding: 45px;
+			        margin: 0;
+			        text-align: center;
+			        color: #33f;
+			      }
+			    </style>
+			  </head>
+			  <body>
+			    <h1>Hello Static World</h1>
+			  </body>
+			</html>`
 		return(
 			<View style={{flex:1}}>
 				<View style={[style.header,{backgroundColor:setting[this.props.activeTheme]}]}>
@@ -50,12 +77,10 @@ class WebViewPage extends Component {
 					</View>
 				</View>
 				<View style={{flex:1,marginTop:55}}>
-					<WebView
-						source={{uri: url}}
-						style={{flex:1}}
-						injectJavaScript={injectJS}
-					    ref={view => this.browser = view}
-					/>
+					<WebViewBridge
+						source={{html:HTML}}
+						style={{flex:1,width:width}}
+						ref={view => this.browser = view}/>
 				</View>
 			</View>
 		);
@@ -89,6 +114,12 @@ const style = StyleSheet.create({
 	},
 	text:{
 		marginHorizontal:10
+	},
+	webview:{
+		flex:1,
+		height:10,
+		width:width,
+		backgroundColor:"#eee"
 	}
 });
 

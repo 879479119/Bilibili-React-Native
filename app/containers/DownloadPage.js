@@ -12,8 +12,8 @@ import {
 	ScrollView,
 	TouchableHighlight,
 	Picker,
-} from 'react-native';
-import Common from '../components/commonPage';
+} from 'react-native'
+import Common from '../components/commonPage'
 import {connect} from 'react-redux'
 
 class DownPicker extends Component{
@@ -64,17 +64,17 @@ class Control extends Component{
 }
 
 class Empty extends Component{
-	render(){
+	render = () => {
 		return (
 			<View style={{backgroundColor:"#eaeaea",flex:1,justifyContent:"center",alignItems:"center"}}>
 				<Image source={require('../resource/pages/img_tips_error_no_downloads.png')} style={{height:120}} resizeMode="contain"/>
 				<Text style={{color:"#9b9b9b"}}>没有找到你的缓存哟</Text>
 			</View>
-		);
+		)
 	}
 }
 
-export default class DownloadPage extends Component{
+class DownloadPage extends Component{
 
 	static childContextTypes = {
 		Theme: React.PropTypes.string.isRequired
