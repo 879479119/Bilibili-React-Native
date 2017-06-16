@@ -4,6 +4,8 @@
 
 import React, {Component} from 'react'
 //noinspection JSUnresolvedVariable
+import PropTypes from "prop-types"
+
 import {
 	View,
 	StyleSheet,
@@ -57,7 +59,7 @@ class MainPage extends Component {
 	 **/
 
 	static childContextTypes = {
-		Theme: React.PropTypes.string.isRequired
+		Theme: PropTypes.string.isRequired
 	};
 
 	getChildContext = () => {

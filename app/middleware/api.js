@@ -23,8 +23,10 @@ function callApi(endpoint, schema) {
   const fullUrl = endpoint
 
   return fetch(fullUrl)
-    .then(response =>
-      response.json().then(json => ({ json, response }))
+    .then(response =>{
+        console.info(response)
+	    return response.json().then(json => ({ json, response }))
+    }
     ).then(({ json, response }) => {
       if (!response.ok) {
         return Promise.reject(json)

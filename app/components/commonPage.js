@@ -2,6 +2,8 @@
  * Created by zi on 2016/8/3.
  */
 import React, { Component } from 'react';
+import PropTypes from "prop-types"
+
 import {
 	StyleSheet,
 	Text,
@@ -19,7 +21,7 @@ export default class common extends Component{
 	}
 
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired
+		Theme: PropTypes.string.isRequired
 	};
 
 	componentDidMount(){

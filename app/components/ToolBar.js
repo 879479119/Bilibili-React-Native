@@ -1,25 +1,24 @@
 //底下这句话是避免webstorm警告的，不要删
 //noinspection JSUnresolvedVariable
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from "react";
+import PropTypes from "prop-types";
 //noinspection JSUnresolvedVariable
 import {
-	TouchableWithoutFeedback,
-	TouchableHighlight,
-	ToolbarAndroid,
 	Dimensions,
-	StyleSheet,
-	TabbarIOS,
-	Platform,
-	View,
 	Image,
+	Platform,
+	StyleSheet,
 	Text,
-} from 'react-native'
+	TouchableHighlight,
+	TouchableWithoutFeedback,
+	View
+} from "react-native";
 
 const {width} = Dimensions.get("window");
 
 class Toolbar extends Component {
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired
+		Theme: PropTypes.string.isRequired
 	};
 
 	static PropTypes = {

@@ -3,6 +3,8 @@
  */
 
 import React, {Component} from 'react'
+import PropTypes from "prop-types"
+
 //noinspection JSUnresolvedVariable
 import {
 	View,
@@ -81,7 +83,7 @@ class VideoCell extends Component {
 	}
 
 	// static contextTypes = {
-	// 	goDetail: React.PropTypes.func.isRequired,
+	// 	goDetail: PropTypes.func.isRequired,
 	// }
 
 	_goDetail = () => {
@@ -130,9 +132,9 @@ class TabScrollView extends Component {
 	}
 
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired,
-		result: React.PropTypes.object.isRequired,
-		// goDetail: React.PropTypes.func.isRequired,
+		Theme: PropTypes.string.isRequired,
+		result: PropTypes.object.isRequired,
+		// goDetail: PropTypes.func.isRequired,
 	}
 
 	checkRender = (video) => {
@@ -149,7 +151,7 @@ class TabScrollView extends Component {
 
 	render = () => {
 		let video = null
-		if(this.context.result.result == undefined){
+		if(this.context.result.result === undefined){
 			video = undefined
 		}else{
 			video = this.context.result.result.video
@@ -236,9 +238,9 @@ class SearchPage extends Component {
 	}
 
 	static childContextTypes = {
-		Theme: React.PropTypes.string.isRequired,
-		result: React.PropTypes.object.isRequired,
-		// goDetail: React.PropTypes.func.isRequired
+		Theme: PropTypes.string.isRequired,
+		result: PropTypes.object.isRequired,
+		// goDetail: PropTypes.func.isRequired
 	};
 
 	getChildContext = () => {

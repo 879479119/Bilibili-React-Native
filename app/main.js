@@ -4,7 +4,7 @@ import configureStore from './store/configureStore'
 
 import App from './containers/App'
 
-let store = configureStore();
+let store = configureStore()
 
 export default class Main extends Component {
 	render = () => {

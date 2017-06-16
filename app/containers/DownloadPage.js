@@ -1,7 +1,9 @@
 /*
  * 下载页
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from "prop-types"
+
 import setting from '../config/setting';
 //noinspection JSUnresolvedVariable
 import {
@@ -77,7 +79,7 @@ class Empty extends Component{
 class DownloadPage extends Component{
 
 	static childContextTypes = {
-		Theme: React.PropTypes.string.isRequired
+		Theme: PropTypes.string.isRequired
 	};
 
 	getChildContext = () => {

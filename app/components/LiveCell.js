@@ -1,7 +1,7 @@
 /**
  * Created by zi on 2016/9/8.
  */
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import {
 	StyleSheet,
 	View,
@@ -10,7 +10,7 @@ import {
 	Image,
 	TouchableHighlight
 } from 'react-native'
-import {BoxShadow} from 'react-native-shadow'
+// import {BoxShadow} from 'react-native-shadow'
 import {connect} from 'react-redux'
 
 export default class LiveCell extends Component {
@@ -31,23 +31,21 @@ export default class LiveCell extends Component {
 			style:{marginVertical:5}
 		}
 		return (
-			<BoxShadow setting={shadowOpt}>
-				<TouchableHighlight style={styles.container} aid={param}>
-					<View>
-						<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
-						<View style={{padding:5,height:38,overflow:"hidden"}}>
-							<Text style={{fontSize:13}}><Text style={{color:"#FF69B4"}}>#{area}#</Text>{title}</Text>
-						</View>
-						<View style={styles.content}>
-							<View style={styles.part}><Text style={{fontSize:11}}>{up}</Text></View>
-							<View style={styles.part}>
-								<Image source={require("../resource/icons/ic_watching.png")} style={{width:12,tintColor:"#aaa"}} resizeMode="contain"/>
-								<Text style={{fontSize:11,marginLeft:5}}>{online}</Text>
-							</View>
+			<TouchableHighlight style={styles.container} aid={param}>
+				<View>
+					<Image source={{uri:cover}} style={styles.pic} resizeMode="contain"/>
+					<View style={{padding:5,height:38,overflow:"hidden"}}>
+						<Text style={{fontSize:13}}><Text style={{color:"#FF69B4"}}>#{area}#</Text>{title}</Text>
+					</View>
+					<View style={styles.content}>
+						<View style={styles.part}><Text style={{fontSize:11}}>{up}</Text></View>
+						<View style={styles.part}>
+							<Image source={require("../resource/icons/ic_watching.png")} style={{width:12,tintColor:"#aaa"}} resizeMode="contain"/>
+							<Text style={{fontSize:11,marginLeft:5}}>{online}</Text>
 						</View>
 					</View>
-				</TouchableHighlight>
-			</BoxShadow>
+				</View>
+			</TouchableHighlight>
 		)
 	}
 }

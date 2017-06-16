@@ -2,7 +2,9 @@
  * 抽屉视图
  */
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from "prop-types"
+
 //noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
@@ -30,7 +32,7 @@ class SliderScreen extends Component {
 	}
 
 	static childContextTypes = {
-		Theme: React.PropTypes.string.isRequired
+		Theme: PropTypes.string.isRequired
 	};
 
 	getChildContext = () => {

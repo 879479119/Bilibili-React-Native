@@ -1,4 +1,4 @@
-## Bilibili客户端的ReactNative版本
+## Bilibili客户端的ReactNative版本(死灰复燃😠)
 ---
 进度记录：
 
@@ -14,10 +14,12 @@
 
 10-16:暂停开发
 
+2017-06-16:更换平台重启项目,RN->0.39.0,React->15.4.0 中途升级，还会继续升到最新
+
 ### 开发环境
 
-+ PLATFORM:    Windows
-+ RN:   React-Native 0.33
++ PLATFORM:    Mac
++ RN:   React-Native 0.39
 + FRAME:   Redux
 + IDE:   Webstorm
 + VM:   Genymotion

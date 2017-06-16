@@ -10,6 +10,7 @@ import {
 	TouchableHighlight,
 } from 'react-native'
 import RCTDeviceEventEmitter from 'RCTDeviceEventEmitter'
+import PropTypes from "prop-types"
 
 const Icon = [
 	require("../resource/icons/ic_home_black_24dp.png"),
@@ -21,91 +22,96 @@ const Icon = [
 	require("../resource/icons/ic_color_lens_black_24dp.png"),
 	require("../resource/icons/ic_shop_black_24dp.png"),
 	require("../resource/icons/ic_settings_black_24dp.png")
-];
+]
 
 class Cell extends Component {
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired
-	};
+		Theme: PropTypes.string.isRequired
+	}
 
 	constructor(props) {
 		super(props)
 	}
 
 	_press = (index) => {
-		const {navi, handleSelected} = this.props;
-		handleSelected(index);
+		const {navi, handleSelected} = this.props
+		handleSelected(index)
 		switch (this.props.index) {
 			case 1:
 				navi.push({
 					name: 'DownloadPage'
-				});
-				break;
+				})
+				break
 			case 6:
 				navi.push({
 					name: 'ThemePage'
-				});
-				break;
+				})
+				break
 			case 8:
 				navi.push({
 					name: 'SettingPage'
-				});
-				break;
+				})
+				break
 		}
-	};
+	}
 
 	render() {
-		const {index, active} = this.props;
-		const isSelect = index === active;
-		const isNightTheme = this.context.Theme === '#3b3b3b' ? true : false
+		const {index, active} = this.props
+		const isSelect = index === active
+		const isNightTheme = this.context.Theme === '#3b3b3b'
 
 		return (
-			<TouchableHighlight
-				underlayColor={"rgba(255,255,255,.4)"}
-				style={
-					isSelect ? [style.activeTouch,{backgroundColor: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.1)'
-				}] : style.touch}
-				onPress={() => this._press(index)}>
 				<View style={style.cell}>
-					<Image
-						source={Icon[index]}
-						style={isSelect ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
-					<Text
-						style={isSelect ? [style.activeText ,{color: this.context.Theme}]: [style.defaultText,{color: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.6)'
-				}]}>
-						{this.props.name}
-					</Text>
+					<TouchableHighlight
+						underlayColor={"rgba(255,255,255,.4)"}
+						style={
+							isSelect ? [style.activeTouch, {backgroundColor: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.1)'
+							}] : style.touch}
+						onPress={() => this._press(index)}>
+						<View>
+							<Image
+								source={Icon[index]}
+								style={isSelect ? [style.actIcon, {tintColor: this.context.Theme} ] :style.icon}/>
+							<Text
+								style={isSelect ? [style.activeText ,{color: this.context.Theme}]: [style.defaultText,{color: isNightTheme ? 'rgba(255,255,255,.4)' : 'rgba(0,0,0,.6)'
+								}]}>
+								{this.props.name}
+							</Text>
+						</View>
+					</TouchableHighlight>
 				</View>
-			</TouchableHighlight>
 		)
 	}
 }
 
 class list extends Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			active: 0
 		}
 	}
 
 	static contextTypes = {
-		Theme: React.PropTypes.string.isRequired
-	};
+		Theme: PropTypes.string.isRequired
+	}
 
 	handleSelected = (index) => {
 		this.setState({
 			active: index
 		})
-	};
+	}
 
 	render() {
-		const {navi} = this.props;
-		const {active} = this.state;
-		const isNightTheme = this.context.Theme === '#3b3b3b' ? true : false
+		const {navi} = this.props
+		const {active} = this.state
+		const isNightTheme = this.context.Theme === '#3b3b3b'
 		//TODO: 以后这里还是改成用Listview吧，现在只是觉得这几个项目没必要费工夫
 		return (
 			<View style={{backgroundColor: isNightTheme? '#3b3b3b' : '#fafafa'}}>
+				<View>
+					<Text>muy name is rocksama</Text>
+				</View>
 				<View style={[style.group,{borderBottomColor: isNightTheme? 'rgba(0,0,0,.4)': '#d9d9d9'}]}>
 					<Cell
 						name={"首页"}
@@ -207,6 +213,6 @@ let style = StyleSheet.create({
 		height: 25
 		// tintColor:"#4197DB"
 	}
-});
+})
 
 export default list

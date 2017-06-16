@@ -3,7 +3,8 @@
  */
 
 //noinspection JSUnresolvedVariable
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
+import PropTypes from "prop-types"
 //noinspection JSUnresolvedVariable
 import {
 	StyleSheet,
@@ -300,7 +301,7 @@ class RecommendPage extends Component {
 		const {navigator} = this.props
 		const {type, value, title} = item
 		console.info(item)
-		if(type == 2){
+		if(type === 2){
 			return () => {
 				navigator.push({
 					name: "WebView",
@@ -310,7 +311,7 @@ class RecommendPage extends Component {
 					}
 				})
 			}
-		}else if(type == 0){
+		}else if(type === 0){
 			return () => {
 				navigator.push({
 					name: "VideoDetail",
@@ -324,15 +325,16 @@ class RecommendPage extends Component {
 
 	render = () => {
 		const {SAMfetchState, symbol, data} = this.props
-		if(SAMfetchState == 1){
+		console.log('received:',data)
+		if(SAMfetchState === 1){
 			return (
 				<View style={{backgroundColor:"#efefef"}}><Text>请求中</Text></View>
 			)
-		}else if(SAMfetchState == 2){
+		}else if(SAMfetchState === 2){
 
-			if(symbol == this.loader){
+			if(symbol === this.loader){
 				this.recommendData = Object.assign({}, data)
-			}else if(symbol == this.banner){
+			}else if(symbol === this.banner){
 				this.bannerData = Object.assign({}, data)
 			}
 

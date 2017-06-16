@@ -1,18 +1,10 @@
 /**
  * Created by zi on 2016/9/7.
  */
-import React, {Component, PropTypes} from 'react'
-import {
-	StyleSheet,
-	View,
-	Text,
-	ScrollView,
-	Image,
-	TouchableHighlight
-} from 'react-native'
-
-import {connect} from 'react-redux'
-import {BoxShadow} from 'react-native-shadow'
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {Image, StyleSheet, Text, TouchableHighlight, View} from "react-native";
+// import {BoxShadow} from 'react-native-shadow'
 
 export default class VideoCell extends Component {
 
@@ -50,7 +42,6 @@ export default class VideoCell extends Component {
 		}
 
 		return (
-			<BoxShadow setting={shadowOpt}>
 				<TouchableHighlight style={styles.container} onPress={this._goVideo} ref={k => this.touch = k} aid={param}>
 					<View style={styles.cell}>
 						<Image source={{uri:cover}} style={styles.pic}/>
@@ -67,7 +58,6 @@ export default class VideoCell extends Component {
 						</View>
 					</View>
 				</TouchableHighlight>
-			</BoxShadow>
 		)
 	}
 }
